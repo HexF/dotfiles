@@ -1,0 +1,143 @@
+# Start Composite Manage
+exec_always --no-startup-id xcompmgr -C
+
+# Set Background - Pick New
+# exec_always --no-startup-id bgset new -c 483447
+
+# Restore Background
+exec_always --no-startup-id bgset restore
+
+# Start Conky
+exec_always --no-startup-id ~/.config/conky/run.sh
+
+# Colors
+set_from_resource $fg i3wm.color7 #f0f0f0
+set_from_resource $bg i3wm.background #ffffff
+set_from_resource $ur i3wm.color2 #ffffff
+
+# Set modifier key to alt
+set $mod Mod1
+
+# Set display resolution
+exec_always --no-startup-id xrandr --output eDP-1 --mode 1920x1080 --rate 60.00
+
+# Font
+font pango:Roboto Mono 8
+
+# Press mod key to be able to resize floating windows
+floating_modifier $mod
+
+# Open new terminal
+bindsym $mod+Return exec st
+
+# Close window
+bindsym $mod+Shift+q kill
+
+# dmenu for launching
+bindsym $mod+d exec dmenu_run -i -fn 'Roboto Mono:pixelsize=15' -l 5 -nf "$fg" -sf "$ur" -nb "$bg" -sb "$bg"
+
+# Change Focus
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# Moving Windows
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+# Window Splitting
+bindsym $mod+h split h
+bindsym $mod+v split v
+
+# Fullscreen Mode
+bindsym $mod+f fullscreen toggle
+
+# Toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# Change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# Switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+# Move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+# Reload the configuration file
+bindsym $mod+Shift+c reload
+
+# Restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart
+
+# Exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exit
+
+# Resize window (you can also use the mouse for that)
+mode "resize" {
+	# Resizing Bindings
+        bindsym Left resize shrink width 5 px or 5 ppt
+        bindsym Down resize grow height 5 px or 5 ppt
+        bindsym Up resize shrink height 5 px or 5 ppt
+        bindsym Right resize grow width 5 px or 5 ppt
+
+        # back to normal: Escape
+        bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Hide Window Names
+new_window pixel 2
+hide_edge_borders vertical
+
+# Colors
+# class                 border  backgr. text    indicator child_border
+client.focused          $ur	$bg	$fg	$bg	  $ur
+client.focused_inactive $ur	$bg	$fg	$bg	  $ur
+client.unfocused        $bg	$bg	$fg	$bg	  $bg
+client.urgent           $ur	$bg	$fg	$bg	  $ur
+client.placeholder      $bg	$bg	$fg	$bg	  $bg
+client.background       $bg
+
+# Launch Polybar
+# exec_always --no-startup-id $HOME/.config/polybar/launch.sh compact
+
+# Polybar switching bindings
+bindsym $mod+Shift+A exec $HOME/.config/polybar/launch.sh full
+bindsym $mod+Shift+S exec $HOME/.config/polybar/launch.sh compact
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play
+bindsym XF86AudioPause exec playerctl pause
+bindsym XF86AudioNext exec xbacklight -inc 10
+bindsym XF86AudioPrev exec xbacklight -dec 10
+
+# Gaps
+gaps outer 10
+gaps inner +25

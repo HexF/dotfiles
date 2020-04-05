@@ -1,0 +1,11 @@
+
+# ZSH
+configs/zsh/.histfile
+configs/zsh/.zcompdum*
+configs/zsh/.zsh_history
+
+
+# Bitwarden CLI
+configs/Bitwarden* 
+
+

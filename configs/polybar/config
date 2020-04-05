@@ -1,0 +1,133 @@
+[bar/compact]
+font-0 = "Overpass Mono:pixelsize=10;2.25"
+font-1 = "Noto Color Emoji:scale=10nan"
+
+fixed-center = true
+
+width = 100%
+height = 30
+
+background = #1d1f21
+foreground = #707880
+
+padding-left = 1
+padding-right = 1
+module-margin = 0
+
+modules-left = i3 title 
+modules-center = date
+modules-right = ssh battery backlight wifi
+
+[bar/full]
+font-0 = "Overpass Mono:pixelsize=10;2.25"
+font-1 = "Noto Color Emoji:scale=10nan"
+
+fixed-center = true
+
+width = 100%
+height = 30
+
+background = #1d1f21
+foreground = #707880
+
+padding-left = 1
+padding-right = 1
+module-margin = 0
+
+modules-left = i3 title
+modules-center = date
+modules-right = ssh batteryfull backlight wifi
+
+[module/ssh]
+type = custom/script
+exec = stepssh -s -e
+interval = 3
+
+click-left = $HOME/.local/bin/stepssh -l
+
+[module/wifi]
+type = internal/network
+interface = wlan0
+
+format-connected = <ramp-signal><label-connected>
+
+label-disconnected = ❌
+label-connected = %essid%
+ramp-signal-0 = 😱
+ramp-signal-1 = 😠
+ramp-signal-2 = 😒
+ramp-signal-3 = 😊
+ramp-signal-4 = 😃
+ramp-signal-5 = 😈
+
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format = <ramp>
+
+ramp-4 = 🌕
+ramp-3 = 🌔
+ramp-2 = 🌓
+ramp-1 = 🌒
+ramp-0 = 🌑
+
+[module/i3]
+strip-wsnumbers = true
+type = internal/i3
+format = <label-state> <label-mode>
+
+label-focused = %index%
+label-focused-foreground = #cc6666
+label-focused-background = #1d1f21
+label-focused-underline = #fba922
+label-focused-padding = 1
+
+label-unfocused = %index%
+label-unfocused-padding = 1
+
+label-visible = %index%
+label-visible-underline = #555555
+label-visible-padding = 1
+
+label-urgent = %index%
+label-urgent-foreground = #000000
+label-urgent-background = #bd2c40
+label-urgent-padding = 1
+
+[module/date]
+type = internal/date
+interval = 1.0
+date = %A, %d %B %I:%M %p
+
+[module/title]
+type = internal/xwindow
+# format-background = #f00
+format-foreground = #f0c674
+format-padding = 1
+label-maxlen = 50
+
+[module/batteryfull]
+type = internal/battery
+
+full-at = 99
+
+battery = axp288_fuel_gauge
+adapter = axp288_charger
+
+poll-interval = 1
+
+label-charging =  ⚡ %percentage_raw%% (%time%)
+label-discharging = 🔋 %percentage_raw%% (%time%)
+
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+battery = axp288_fuel_gauge
+adapter = axp288_charger
+
+poll-interval = 1
+
+label-charging =  %percentage%%⚡
+label-discharging = %percentage%%🔋 
