@@ -4,7 +4,7 @@ This repo contains a collection of all my dotfiles, including my arch linux rice
 
 ## Installation
 
-Base system needs to be Arch Linux
+Base system needs to be Arch Linux with `yay` installed
 
 ```sh
 git clone https://github.com/hexf/dotfiles.git && dotfiles/install
