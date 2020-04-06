@@ -60,7 +60,7 @@ do
 done
 
 
-[[ NEW -eq 1 ]] && new && restore && RESTORE=0
+[[ NEW -eq 1 ]] && new && RESTORE=1
 
 [[ RESTORE -eq 1 ]] && restore
 
