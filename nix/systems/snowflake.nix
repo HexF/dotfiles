@@ -89,7 +89,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.thobson = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "sudoers" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "sudoers" "docker" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
@@ -109,6 +109,8 @@
     enable = true;
     enableSSHSupport = true;
   };
+  virtualisation.docker.enable = true;
+
 
   # List services that you want to enable:
 
