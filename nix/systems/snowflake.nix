@@ -5,12 +5,7 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./snowflake-hardware.nix
-      (import "${builtins.fetchTarball https://github.com/rycee/home-manager/archive/master.tar.gz}/nixos")
-    ];
-
+  
   nix = { 
     package = pkgs.nixFlakes;
     extraOptions = ''
