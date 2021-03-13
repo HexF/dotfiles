@@ -11,7 +11,7 @@
       system = "x86_64-linux";
 
       modules = [ 
-        ./system/snowflake.nix
+        ./systems/snowflake.nix
        ];
     };
 
