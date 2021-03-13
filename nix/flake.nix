@@ -9,7 +9,6 @@
 
     nixosConfigurations.snowflake = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
-      hostname = "snowflake";
 
       modules = [ 
         (_: {
