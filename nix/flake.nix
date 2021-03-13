@@ -11,9 +11,7 @@
       system = "x86_64-linux";
 
       modules = [ 
-        (_: {
-          supportedFilesystems = [ "zfs" ];
-        })
+        ./system/snowflake.nix
        ];
     };
 
