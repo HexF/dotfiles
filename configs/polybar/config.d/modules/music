@@ -1,8 +1,0 @@
-[module/music]
-type = custom/script
-interval = 1
-format = <label>
-
-format-foreground = #1db954
-
-exec = mediactl info

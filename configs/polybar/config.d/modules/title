@@ -1,6 +1,0 @@
-[module/title]
-type = internal/xwindow
-# format-background = #f00
-format-foreground = #f0c674
-format-padding = 1
-label-maxlen = 50
