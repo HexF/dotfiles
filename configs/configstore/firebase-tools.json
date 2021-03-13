@@ -1,0 +1,40 @@
+{
+	"analytics-uuid": "137a3bbf-653e-4b8a-86f2-e38a2a74fbf8",
+	"motd": {
+		"cloudBuildErrorAfter": 1591315200000,
+		"cloudBuildWarnAfter": 1588636800000,
+		"minVersion": "3.0.5",
+		"fetched": 1588052152473
+	},
+	"usage": true,
+	"user": {
+		"iss": "accounts.google.com",
+		"azp": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+		"aud": "563584335869-fgrhgmd47bqnekij5i8b5pr03ho849e6.apps.googleusercontent.com",
+		"sub": "113725808480953438657",
+		"email": "iamthomasnz@gmail.com",
+		"email_verified": true,
+		"at_hash": "yc7PMOKCA0RtiANTPR35bg",
+		"iat": 1588052186,
+		"exp": 1588055786
+	},
+	"tokens": {
+		"expires_at": 1588055786743,
+		"refresh_token": "1//0gi4kd3A_onETCgYIARAAGBASNwF-L9Irq_n81HR2anQLpfeTUzwxEy6Y3b-629K2-g4w6OwP_YF2hX4WAhpi8xYb4tKKS5XIacw",
+		"scopes": [
+			"email",
+			"https://www.googleapis.com/auth/cloud-platform",
+			"https://www.googleapis.com/auth/cloudplatformprojects.readonly",
+			"https://www.googleapis.com/auth/firebase",
+			"openid"
+		],
+		"access_token": "ya29.a0Ae4lvC16Gu9mFaH43P2zNlxfpxRXGMtHUdPJCIZHCsJy6llQJYSvjE6yPVv4aTXPg4-3PyX9e3pk7rtGmww9IFNUP0hLTTLgXZxe1AOUhStrakKbGbwU-pwTZ6ugDIgJCNy7UDl8Y55SoG9p9eniWyKXmQfrXWyHCih9j6uXKqE",
+		"expires_in": 3599,
+		"scope": "https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/cloudplatformprojects.readonly https://www.googleapis.com/auth/firebase https://www.googleapis.com/auth/cloud-platform openid",
+		"token_type": "Bearer",
+		"id_token": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjI4Yjc0MWU4ZGU5ODRhNDcxNTlmMTllNmQ3NzgzZTlkNGZhODEwZGIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJhY2NvdW50cy5nb29nbGUuY29tIiwiYXpwIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwiYXVkIjoiNTYzNTg0MzM1ODY5LWZncmhnbWQ0N2JxbmVraWo1aThiNXByMDNobzg0OWU2LmFwcHMuZ29vZ2xldXNlcmNvbnRlbnQuY29tIiwic3ViIjoiMTEzNzI1ODA4NDgwOTUzNDM4NjU3IiwiZW1haWwiOiJpYW10aG9tYXNuekBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6ImdfVFlxVVgyVDJIWk9GMVNMWnMyd3ciLCJpYXQiOjE1ODgwNTIxOTgsImV4cCI6MTU4ODA1NTc5OH0.TQxT17Yy_LO2LCtkAgTkMHhOz-WVbApZMhpYkIvWy_VsRwSEy3vHCMDzThiv7Cu3SYuLBLlomVwvzEglUhC372bqD5F5tzfC6TP3M9E51Z7tSLkqQ7jDIyUNWkfPRYGIadBxPZgdrENm226K4_XEghk8JG6JzcCvckEviR7RbHhnBgmLgW3oGnaLrKhAL6eVKxUJEw9mZkJCqp_IZawxEgJ9xiaVfJr0YGroSRAQf2dfItMhLBZZVPw9mANpIJkcmy7wQQ7wDqvOGI0mWMOu5E1u3zualjQCJvHm4qD57zNkbKso-yQi4xlrkNbLELcJpcjyyD-0LSln6IO3O9l-vA"
+	},
+	"activeProjects": {
+		"/home/thomas/Projects/contact-tracker": "covid19tracer-ca57c"
+	}
+}

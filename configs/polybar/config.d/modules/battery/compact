@@ -1,0 +1,12 @@
+[module/battery]
+type = internal/battery
+
+full-at = 99
+
+battery = axp288_fuel_gauge
+adapter = axp288_charger
+
+poll-interval = 1
+
+label-charging =  %percentage%%⚡
+label-discharging = %percentage%%🔋 

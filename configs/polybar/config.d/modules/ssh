@@ -1,0 +1,6 @@
+[module/ssh]
+type = custom/script
+exec = stepssh -s -e
+interval = 3
+
+click-left = $HOME/.local/bin/stepssh -l

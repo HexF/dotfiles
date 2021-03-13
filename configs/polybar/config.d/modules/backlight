@@ -1,0 +1,10 @@
+[module/backlight]
+type = internal/backlight
+card = intel_backlight
+format = <ramp>
+
+ramp-4 = 🌕
+ramp-3 = 🌔
+ramp-2 = 🌓
+ramp-1 = 🌒
+ramp-0 = 🌑
