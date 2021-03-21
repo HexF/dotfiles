@@ -14,7 +14,6 @@
   home.packages = [
     pkgs.discord
     pkgs.spotify
-    pkgs.vscode
     pkgs.scrot
     pkgs.thunderbird
     pkgs.playerctl
@@ -26,7 +25,20 @@
     pkgs.dmenu
     pkgs.i3blocks
     pkgs.alacritty
+    pkgs.pavucontrol
+    pkgs.dotnet-sdk
   ];
+
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscode;
+    extensions = with pkgs.vscode-extensions; [
+        ms-python.python
+        ms-vscode.cpptools
+        #ms-vscode-remote.remote-ssh # won't work with vscodium
+      ];
+  };
 
   programs.git = {
     enable = true;

@@ -12,6 +12,8 @@
       system = "x86_64-linux";
 
       modules = [ 
+        ./systems/common/base.nix
+        ./systems/common/desktop.nix
         ./systems/snowflake-hardware.nix
         ./systems/snowflake.nix
 
