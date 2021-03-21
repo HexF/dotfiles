@@ -15,6 +15,7 @@
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.mutableUsers = true;
   users.users.thobson = {
     isNormalUser = true;
     extraGroups = [ "sudoers" "wheel" ]; # Enable ‘sudo’ for the user.
