@@ -14,7 +14,7 @@
         fsType = "ext4";
     };
 
-    boot.loader.grub.device = "/dev/sda"
+    boot.loader.grub.devices = [ "/dev/sda" ];
 
     swapDevices = [
         {
