@@ -42,6 +42,9 @@
     };
 
 
-    hydraJobs = self.nixosConfigurations;
+    hydraJobs = {
+      hydroxide = self.nixosConfigurations.hydroxide.config.system.build.toplevel;
+      snowflake = self.nixosConfigurations.snowflake.config.system.build.toplevel;
+    };
   };
 }
