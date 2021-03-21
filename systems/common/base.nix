@@ -17,7 +17,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.thobson = {
     isNormalUser = true;
-    extraGroups = [ "sudoers" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "sudoers" "wheel" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 

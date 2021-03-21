@@ -27,7 +27,7 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.plugdev = {};
-  users.users.thobson.extraGroups = [ "wheel" "docker" "plugdev" "dialout" ]; 
+  users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" ]; 
   
 
   # List packages installed in system profile. To search, run:
