@@ -3,10 +3,11 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs-nix.url = "github:NixOS/nixpkgs/4586b2f0d0cce2916766dfcd1b717c0940d865ef";
     home-manager.url = "github:nix-community/home-manager";
   };
 
-  outputs = { self, home-manager, nixpkgs }: {
+  outputs = { self, home-manager, nixpkgs, nixpkgs-nix }: {
 
     nixosConfigurations = {
       snowflake = nixpkgs.lib.nixosSystem {
@@ -27,7 +28,7 @@
         ];
       };
 
-      hydroxide = nixpkgs.lib.nixosSystem {
+      hydroxide = nixpkgs-nix.lib.nixosSystem {
         system = "x86_64-linux";
 
         modules = [
