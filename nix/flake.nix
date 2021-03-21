@@ -8,22 +8,39 @@
 
   outputs = { self, home-manager, nixpkgs }: {
 
-    nixosConfigurations.snowflake = nixpkgs.lib.nixosSystem {
-      system = "x86_64-linux";
+    nixosConfigurations = {
+      snowflake = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
 
-      modules = [ 
-        ./systems/common/base.nix
-        ./systems/common/desktop.nix
-        ./systems/snowflake-hardware.nix
-        ./systems/snowflake.nix
+        modules = [ 
+          ./systems/common/base.nix
+          ./systems/common/efi.nix
+          ./systems/common/desktop.nix
+          ./systems/snowflake-hardware.nix
+          ./systems/snowflake.nix
 
-        home-manager.nixosModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.thobson = import ./users/thobson/home.nix;
-        }
-       ];
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.thobson = import ./users/thobson/home.nix;
+          }
+        ];
+      };
+
+      hydroxide = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./systems/common/base.nix
+          ./systems/common/bios.nix
+          ./systems/common/server.nix
+          ./systems/hydroxide-hardware.nix
+          ./systems/hydroxide.nix
+        ];
+      };
     };
+
+
 
   };
 }
