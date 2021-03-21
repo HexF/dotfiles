@@ -8,7 +8,7 @@
   };
 
   outputs = { self, home-manager, nixpkgs, nixpkgs-nix }: {
-
+    
     nixosConfigurations = {
       snowflake = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -42,6 +42,6 @@
     };
 
 
-
+    hydraJobs = self.nixosConfigurations;
   };
 }
