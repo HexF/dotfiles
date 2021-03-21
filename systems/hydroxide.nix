@@ -13,4 +13,6 @@
         # you will probably also want, otherwise *everything* will be built from scratch
         useSubstitutes = true;
     };
+
+    networking.firewall.allowedTCPPorts = [ 3000 ];
 }
