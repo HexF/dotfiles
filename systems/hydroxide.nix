@@ -14,5 +14,14 @@
         useSubstitutes = true;
     };
 
+    nix.buildMachines = [
+        {
+            hostName = "localhost";
+            system = "x86_64-linux";
+            supportedFeatures = ["kvm" "nixos-test" "big-parallel" "benchmark"];
+            maxJobs = 8;
+        }
+    ];
+
     networking.firewall.allowedTCPPorts = [ 3000 ];
 }

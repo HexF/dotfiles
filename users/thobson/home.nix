@@ -9,7 +9,9 @@
   home.username = "thobson";
   home.homeDirectory = "/home/thobson";
 
-  imports = [./i3.nix];
+  imports = [
+    ./i3.nix
+    ];
 
   home.packages = [
     pkgs.discord
@@ -27,6 +29,8 @@
     pkgs.alacritty
     pkgs.pavucontrol
     pkgs.dotnet-sdk
+    pkgs.nmap
+    #custom.audio-reactive-led-strip
   ];
 
 
