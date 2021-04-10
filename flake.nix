@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-20.09";
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager?ref=release-20.09";
       #inputs.nixpkgs.follows = "nixpkgs";
     };
   };
