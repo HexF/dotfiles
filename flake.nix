@@ -2,21 +2,15 @@
   description = "HexF's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-20.09";
+    nixpkgs.url = "github:NixOS/nixpkgs";
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-20.09";
-      #inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
   outputs = { self, home-manager, nixpkgs }@inputs: 
-    let
-      custom = {
-        #audio-reactive-led-strip = ./packages/audio-reactive-led-strip;
-      };
-    in 
-      {
-      
+    {  
       nixosConfigurations = {
         snowflake = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";

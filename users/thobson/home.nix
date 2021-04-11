@@ -13,24 +13,27 @@
     ./i3.nix
     ];
 
-  home.packages = [
-    pkgs.discord
-    pkgs.spotify
-    pkgs.scrot
-    pkgs.thunderbird
-    pkgs.playerctl
-    pkgs.neofetch
-    pkgs.nix-index
-    pkgs.xclip
-    pkgs.texstudio
-    pkgs.multimc
-    pkgs.dmenu
-    pkgs.i3blocks
-    pkgs.alacritty
-    pkgs.pavucontrol
-    pkgs.dotnet-sdk
-    pkgs.nmap
+  home.packages = with pkgs; [
+    discord
+    spotify
+    scrot
+    thunderbird
+    playerctl
+    neofetch
+    nix-index
+    xclip
+    texstudio
+    multimc
+    dmenu
+    i3blocks
+    alacritty
+    pavucontrol
+    dotnet-sdk
+    nmap
+    (callPackage ../../packages/audio-reactive-led-strip {})
+    #callPackage ../../test.nix {}
     #custom.audio-reactive-led-strip
+    
   ];
 
 
