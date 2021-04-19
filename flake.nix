@@ -2,7 +2,7 @@
   description = "HexF's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -11,6 +11,12 @@
 
   outputs = { self, home-manager, nixpkgs }@inputs: 
     {  
+
+      system.configurationRevision =
+        if self ? rev
+        then self.rev
+        else throw "Refusing to build from a dirty Git tree!";
+        
       nixosConfigurations = {
         snowflake = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
