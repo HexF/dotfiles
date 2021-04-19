@@ -39,7 +39,5 @@
   ];
 
   virtualisation.docker.enable = true;
-
-  hardware.nvidia.package = pkgs.linuxPackages.nvidia_x11_vulkan_beta;
 }
 
