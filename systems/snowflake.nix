@@ -15,7 +15,7 @@
 
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nvidiaBeta" ];
 
     xrandrHeads = [
       "HDMI-0"
