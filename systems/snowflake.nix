@@ -15,7 +15,7 @@
 
 
   services.xserver = {
-    videoDrivers = [ "nvidiaBeta" ];
+    videoDrivers = [ "nvidia" ];
 
     xrandrHeads = [
       "HDMI-0"
@@ -39,5 +39,7 @@
   ];
 
   virtualisation.docker.enable = true;
+
+  hardware.nvidia.package = pkgs.linuxPackages.nvidia_x11
 }
 
