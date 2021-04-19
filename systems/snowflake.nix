@@ -40,6 +40,6 @@
 
   virtualisation.docker.enable = true;
 
-  hardware.nvidia.package = pkgs.linuxPackages.nvidia_x11;
+  hardware.nvidia.package = pkgs.linuxPackages.nvidia_x11_beta;
 }
 
