@@ -30,7 +30,10 @@
     pavucontrol
     dotnet-sdk
     nmap
+    logisim
+    obs-studio
     (callPackage ../../packages/audio-reactive-led-strip {})
+    (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}
     #custom.audio-reactive-led-strip
     

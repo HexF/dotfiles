@@ -43,5 +43,7 @@
   ];
 
   virtualisation.docker.enable = true;
+
+  networking.firewall.allowedTCPPorts = [ 3000 ]; # React dev server
 }
 
