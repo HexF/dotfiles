@@ -7,7 +7,10 @@
 {
   services.xserver = {
     enable = true;
-    displayManager.defaultSession = "xsession";
+    displayManager = {
+      defaultSession = "xsession";
+      lightdm.background = ../../wallpaper.jpg;
+    };
     desktopManager = {
       xterm.enable = false;
       session = [

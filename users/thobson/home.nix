@@ -11,6 +11,7 @@
 
   imports = [
     ./i3.nix
+    ./alacritty.nix
     ];
 
   home.packages = with pkgs; [
@@ -26,7 +27,6 @@
     multimc
     dmenu
     i3blocks
-    alacritty
     pavucontrol
     dotnet-sdk
     nmap

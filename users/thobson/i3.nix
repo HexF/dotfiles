@@ -3,6 +3,17 @@
 let
   mod = "Mod1";
 in {
+  services.picom = {
+    enable = true;
+    vSync = false;
+    blur = true;
+    backend = "xrender";
+
+    extraOptions = ''
+    xrender-sync-fence = true
+    '';
+  };
+
   xsession.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
