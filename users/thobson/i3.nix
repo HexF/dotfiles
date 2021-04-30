@@ -46,4 +46,23 @@ in {
     '';
   };
 
+  xdg.configFile."i3blocks/config".text = ''
+  [song]
+  label=Song: 
+  command=echo $(${pkgs.playerctl}/bin/playerctl metadata title) - $(${pkgs.playerctl}/bin/playerctl metadata artist); echo $(${pkgs.playerctl}/bin/playerctl metadata title)
+
+  interval=1
+
+  [volume]
+  label=Volume: 
+  command=amixer get Master | grep -oP 'Right: .* \[\K\d+'
+  interval=once
+  signal=2
+
+  [date]
+  command=date "+%D %T"
+  interval=1
+
+  '';
+
 }
