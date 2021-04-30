@@ -12,6 +12,7 @@
   imports = [
     ./i3.nix
     ./alacritty.nix
+    ./emacs.nix
     ];
 
   home.packages = with pkgs; [

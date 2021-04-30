@@ -9,8 +9,13 @@ in {
     blur = true;
     backend = "xrender";
 
+    blurExclude = [
+      "class_g = 'i3_bar'"
+    ];
+
     extraOptions = ''
     xrender-sync-fence = true
+    blur-radius=32
     '';
   };
 
@@ -41,7 +46,11 @@ in {
       bars = [
         {
           position = "bottom";
+          command = "${pkgs.i3-gaps}/bin/i3bar --transparency";
           statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+          colors = {
+            background = "#00000000";
+          };
         }
       ];
     };
