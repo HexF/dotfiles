@@ -33,6 +33,11 @@
     nmap
     logisim
     obs-studio
+    direnv
+    exa
+    insomnia
+    qpaeq
+    jetbrains.datagrip
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}
@@ -67,6 +72,26 @@
   programs.ssh = {
     enable = true;
     matchBlocks = import ./ssh_hosts.nix {};
+  };
+
+  programs.zsh = {
+    enable = true;
+    autocd = true;
+    dotDir = ".config/zsh";
+    enableAutosuggestions = true;
+    enableCompletion = true;
+
+    shellAliases = {
+      sl = "exa";
+      ls = "exa";
+      l = "exa -l";
+      la = "exa -la";
+      nrb = "sudo nixos-rebuild --flake ~/dotfiles# switch";
+    };
+
+    initExtra = ''
+      eval "$(direnv hook zsh)"
+    '';
   };
 
 

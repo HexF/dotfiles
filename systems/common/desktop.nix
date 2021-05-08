@@ -34,6 +34,11 @@
   sound.enable = true;
   hardware.pulseaudio.enable = true;
 
+    hardware.pulseaudio.extraConfig = ''
+load-module module-equalizer-sink
+load-module module-dbus-protocol
+'';
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
