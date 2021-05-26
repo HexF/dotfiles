@@ -12,4 +12,9 @@
         hostname = "192.168.1.138";
         user = "thomas";
     };
+    axiom = {
+        host = "axiom";
+        hostname = "149.28.175.137";
+        user = "root";
+    };
 }

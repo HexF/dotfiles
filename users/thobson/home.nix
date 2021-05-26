@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
-
+let
+  discord-latest = pkgs.discord.overrideAttrs (old: {
+      version = "0.0.15";
+      src = pkgs.fetchurl {
+        url = "https://dl.discordapp.net/apps/linux/0.0.15/discord-0.0.15.tar.gz";
+        sha256 = "sha256-re3pVOnGltluJUdZtTlSeiSrHULw1UjFxDCdGj/Dwl4=";
+      };
+    });
+in
 {
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
@@ -9,6 +17,7 @@
   home.username = "thobson";
   home.homeDirectory = "/home/thobson";
 
+
   imports = [
     ./i3.nix
     ./alacritty.nix
@@ -16,7 +25,7 @@
     ];
 
   home.packages = with pkgs; [
-    discord
+    discord-latest
     spotify
     scrot
     thunderbird
@@ -38,6 +47,7 @@
     insomnia
     qpaeq
     jetbrains.datagrip
+    jetbrains.idea-ultimate
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}
@@ -52,6 +62,7 @@
     extensions = with pkgs.vscode-extensions; [
         ms-python.python
         ms-vscode.cpptools
+        WakaTime.vscode-wakatime
         #ms-vscode-remote.remote-ssh # won't work with vscodium
       ];
   };
