@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  secrets = (builtins.fromJSON ./secrets.json);
   discord-latest = pkgs.discord.overrideAttrs (old: {
       version = "0.0.15";
       src = pkgs.fetchurl {
@@ -7,6 +8,11 @@ let
         sha256 = "sha256-re3pVOnGltluJUdZtTlSeiSrHULw1UjFxDCdGj/Dwl4=";
       };
     });
+
+  factorio-authed = pkgs.factorio.override {
+    username = secrets.factorio.username;
+    token = secrets.factorio.token;
+  };
 in
 {
   # Let Home Manager install and manage itself.
@@ -48,6 +54,8 @@ in
     qpaeq
     jetbrains.datagrip
     jetbrains.idea-ultimate
+    git-crypt
+    #factorio-authed
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}
