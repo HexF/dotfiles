@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  secrets = (builtins.fromJSON ./secrets.json);
+  secrets = (builtins.fromJSON (builtins.readFile ./secrets.json));
   discord-latest = pkgs.discord.overrideAttrs (old: {
       version = "0.0.15";
       src = pkgs.fetchurl {
@@ -55,7 +55,7 @@ in
     jetbrains.datagrip
     jetbrains.idea-ultimate
     git-crypt
-    #factorio-authed
+    factorio-authed
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}

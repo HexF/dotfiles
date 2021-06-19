@@ -1,0 +1,1 @@
+requires git-crypt when cloning
