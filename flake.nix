@@ -50,6 +50,28 @@
             ./systems/hydroxide.nix
           ];
         };
+
+        frostbite = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+
+          modules = [
+            ./systems/common/base.nix
+            ./systems/common/efi.nix
+            ./systems/common/desktop.nix
+            ./systems/common/wireless.nix
+            ./systems/frostbite-hardware.nix
+            ./systems/frostbite.nix
+
+            home-manager.nixosModules.home-manager rec {
+
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+
+              home-manager.users.thobson = import ./users/thobson/home.nix;
+            }
+          ];
+
+        };
       };
 
 
