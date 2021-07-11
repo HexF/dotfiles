@@ -5,6 +5,10 @@ let
   colors = import ./colors.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
 in {
+
+  imports = [
+    ../../modules/i3blocks.nix
+  ];
   
   programs.rofi = {
     enable = true;
@@ -178,25 +182,33 @@ in {
     };
   };
 
-  xdg.configFile."i3blocks/config".text = ''
-  [song]
-  label=Song: 
-  command=echo $(${pkgs.playerctl}/bin/playerctl metadata title) - $(${pkgs.playerctl}/bin/playerctl metadata artist); echo $(${pkgs.playerctl}/bin/playerctl metadata title)
 
-  interval=1
+  programs.i3blocks = {
+    enable = true;
+    blocksLeft = [
+      ''
+      [song]
+      label=Song: 
+      command=echo $(${pkgs.playerctl}/bin/playerctl metadata title) - $(${pkgs.playerctl}/bin/playerctl metadata artist); echo $(${pkgs.playerctl}/bin/playerctl metadata title)
+      interval=1
+      ''
+      ''
+      [volume]
+      label=Volume: 
+      command=amixer get Master | grep -oP 'Right: .* \[\K\d+'
+      interval=once
+      signal=2
+      ''
+    ];
 
-  [volume]
-  label=Volume: 
-  command=amixer get Master | grep -oP 'Right: .* \[\K\d+'
-  interval=once
-  signal=2
+    blocksRight = [
+      ''
+      [date]
+      command=date "+%D %T"
+      interval=1
+      '' 
+    ];
 
-  ; DEVICE_SPECIFIC
-
-  [date]
-  command=date "+%D %T"
-  interval=1
-
-  '';
+  };
 
 }
