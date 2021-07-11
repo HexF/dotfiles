@@ -52,8 +52,6 @@ in
     direnv
     exa
     qpaeq
-    jetbrains.datagrip
-    jetbrains.idea-ultimate
     git-crypt
     xfce.thunar
   ];

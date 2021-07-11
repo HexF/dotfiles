@@ -14,6 +14,8 @@ in
     dotnet-sdk
     insomnia
     factorio-authed
+    jetbrains.datagrip
+    jetbrains.idea-ultimate
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
 
