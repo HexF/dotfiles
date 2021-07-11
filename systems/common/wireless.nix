@@ -10,7 +10,7 @@ in
     callback =
       secrets:
         builtins.mapAttrs (k: v: {psk = v;})
-        secrets.wireless.connections-
+        secrets.wireless.connections
       ;
   };
 
