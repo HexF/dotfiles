@@ -1,11 +1,7 @@
 {config, lib, pkgs, ...}:
 let
-  secrets = (builtins.fromJSON (builtins.readFile ./secrets.json));
+  useSecret = import ../../useSecret.nix;
 
-  factorio-authed = pkgs.factorio.override {
-    username = secrets.factorio.username;
-    token = secrets.factorio.token;
-  };
 in
 {
 
@@ -13,7 +9,12 @@ in
     multimc
     dotnet-sdk
     insomnia
-    factorio-authed
+    (useSecret {
+      callback = secrets: pkgs.factorio.override {
+        username = secrets.factorio.username;
+        token = secrets.factorio.token;
+      };
+    })
     jetbrains.datagrip
     jetbrains.idea-ultimate
     (callPackage ../../packages/audio-reactive-led-strip {})
