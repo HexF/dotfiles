@@ -7,6 +7,7 @@
     networking.hostName = "frostbite";
 
     networking.wireless.interfaces = ["wlp3s0"];
+    
 
     boot.kernelParams = [ "intel_pstate=active" ];
 
