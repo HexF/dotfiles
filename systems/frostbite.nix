@@ -13,6 +13,7 @@
 
     services.xserver = {
         videoDrivers = [ "nvidia" ];
+        synaptics.enable = true;
     };
 
     users.groups.plugdev = {};
