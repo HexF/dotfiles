@@ -1,3 +1,4 @@
+systemName :
 { config, pkgs, ... }:
 let
   secrets = (builtins.fromJSON (builtins.readFile ./secrets.json));
@@ -28,6 +29,8 @@ in
     ./i3.nix
     ./alacritty.nix
     ./emacs.nix
+
+    "./${systemName}.nix"
     ];
 
   home.packages = with pkgs; [
@@ -40,28 +43,19 @@ in
     nix-index
     xclip
     texstudio
-    multimc
     dmenu
     i3blocks
     pavucontrol
-    dotnet-sdk
     nmap
     logisim
     obs-studio
     direnv
     exa
-    insomnia
     qpaeq
     jetbrains.datagrip
     jetbrains.idea-ultimate
     git-crypt
-    factorio-authed
     xfce.thunar
-    (callPackage ../../packages/audio-reactive-led-strip {})
-    (callPackage ../../packages/digital {})
-    #callPackage ../../test.nix {}
-    #custom.audio-reactive-led-strip
-    
   ];
 
   services.udiskie = {
