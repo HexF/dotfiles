@@ -56,12 +56,18 @@ in
     jetbrains.idea-ultimate
     git-crypt
     factorio-authed
+    xfce.thunar
     (callPackage ../../packages/audio-reactive-led-strip {})
     (callPackage ../../packages/digital {})
     #callPackage ../../test.nix {}
     #custom.audio-reactive-led-strip
     
   ];
+
+  services.udiskie = {
+    enable = true;
+  };
+
 
 
   programs.vscode = {
