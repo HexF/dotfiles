@@ -33,7 +33,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.users.thobson = import ./users/thobson/home.nix;
+              home-manager.users.thobson = import ./users/thobson/home.nix "snowflake";
             }
 
           ];
@@ -67,7 +67,7 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
 
-              home-manager.users.thobson = import ./users/thobson/home.nix;
+              home-manager.users.thobson = import ./users/thobson/home.nix "frostbite";
             }
           ];
 

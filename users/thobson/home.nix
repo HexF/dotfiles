@@ -30,7 +30,7 @@ in
     ./alacritty.nix
     ./emacs.nix
 
-    "./${systemName}.nix"
+    (./. + "/${systemName}.nix")
     ];
 
   home.packages = with pkgs; [
