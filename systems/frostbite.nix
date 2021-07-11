@@ -6,6 +6,8 @@
     networking.interfaces.wlp3s0.useDHCP = true;
     networking.hostName = "frostbite";
 
+    networking.wireless.interface = "wlp3s0";
+
     boot.kernelParams = [ "intel_pstate=active" ];
 
     services.xserver = {
