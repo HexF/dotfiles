@@ -191,6 +191,8 @@ in {
   interval=once
   signal=2
 
+  ; DEVICE_SPECIFIC
+
   [date]
   command=date "+%D %T"
   interval=1
