@@ -9,6 +9,8 @@
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
+  services.ratbagd.enable = true;
+
 
   networking.interfaces.enp3s0.useDHCP = true;
   networking.hostName = "snowflake";
@@ -33,7 +35,7 @@
   users.groups.plugdev = {};
   users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" ]; 
 
-  
+  programs.steam.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -41,6 +43,7 @@
     wget
     texlive.combined.scheme-full
     docker-compose
+    piper
   ];
 
   virtualisation.docker.enable = true;

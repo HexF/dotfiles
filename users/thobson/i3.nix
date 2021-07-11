@@ -83,6 +83,7 @@ in {
       keybindings = lib.mkOptionDefault {
         # bindsym --release Mod4+e exec --no-startup-id "emojify -c > /tmp/out"
         "${mod}+l" = "exec hass_light";
+        "${mod}+Shift+f" = "fullscreen toggle global";
         "${mod}+Shift+e" = "exit";
         "${mod}+j" = "${rofiPackage}/bin/rofi -show emoji";
 
