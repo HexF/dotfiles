@@ -9,6 +9,10 @@ in {
             enable = mkOption {
                 default = false;                
             };
+
+            pkg = mkOption {
+                default = pkgs.i3blocks;
+            };
             
             blocksLeft = mkOption {
                 default = [];
@@ -24,7 +28,9 @@ in {
         };
     };
 
+
     config = mkIf cfg.enable {
+        home.packages = [ cfg.pkg ];
         xdg.configFile."i3blocks/config".text = builtins.concatStringsSep "\n" (cfg.blocksLeft ++ cfg.blocksCenter ++ cfg.blocksRight);
     };
 }

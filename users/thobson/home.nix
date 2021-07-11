@@ -44,7 +44,6 @@ in
     xclip
     texstudio
     dmenu
-    i3blocks
     pavucontrol
     nmap
     logisim
