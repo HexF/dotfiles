@@ -6,7 +6,7 @@
     networking.interfaces.wlp3s0.useDHCP = true;
     networking.hostName = "frostbite";
 
-    networking.wireless.interface = "wlp3s0";
+    networking.wireless.interfaces = ["wlp3s0"];
 
     boot.kernelParams = [ "intel_pstate=active" ];
 
@@ -15,7 +15,8 @@
     };
 
     users.groups.plugdev = {};
-    users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" ]; 
+    users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" "wheel" ]; 
+    # wheel is required for wpa_gui/wpa_cli
 
     environment.systemPackages = with pkgs; [
         wget
