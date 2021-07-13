@@ -7,7 +7,7 @@ in
 
   home.packages = with pkgs; [
     multimc
-    adoptopenjdk-jre-bin
+    adoptopenjdk-jre-openj9-bin-16
     dotnet-sdk
     insomnia
     (useSecret {
