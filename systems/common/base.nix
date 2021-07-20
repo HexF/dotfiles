@@ -12,6 +12,7 @@
   time.timeZone = "Pacific/Auckland";
   networking.useDHCP = false;
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
 
 
   # Define a user account. Don't forget to set a password with ‘passwd’.

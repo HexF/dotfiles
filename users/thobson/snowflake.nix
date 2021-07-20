@@ -10,6 +10,9 @@ in
     adoptopenjdk-jre-openj9-bin-16
     dotnet-sdk
     insomnia
+    (mindustry.override {
+      jdk = adoptopenjdk-hotspot-bin-15;
+    })
     (useSecret {
       callback = secrets: pkgs.factorio.override {
         username = secrets.factorio.username;

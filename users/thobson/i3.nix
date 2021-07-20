@@ -58,6 +58,23 @@ in {
 
   };
 
+  services.dunst = {
+    enable = true;
+    settings = {
+      global = {
+        geometry = "300x5-30+50";
+        transparency = 10;
+        frame_color = "#eceff1";
+        font = "Droid Sans 9";
+      };
+      urgency_normal = {
+        background = "#37474f";
+        foreground = "#eceff1";
+        timeout = 10;
+      };
+    };
+  };
+
 
   services.picom = {
     enable = true;
@@ -89,7 +106,8 @@ in {
         "${mod}+l" = "exec hass_light";
         "${mod}+Shift+f" = "fullscreen toggle global";
         "${mod}+Shift+e" = "exit";
-        "${mod}+j" = "${rofiPackage}/bin/rofi -show emoji";
+        "${mod}+j" = "exec ${rofiPackage}/bin/rofi -show emoji";
+        "${mod}+n" = "exec ${pkgs.dunst}/bin/dunstctl set-paused toggle && pkill -SIGRTMIN+3 i3blocks";
 
         "XF86AudioPlay" = "exec playerctl play-pause";
         "XF86AudioNext" = "exec playerctl next";
@@ -198,6 +216,13 @@ in {
       command=amixer get Master | grep -oP 'Right: .* \[\K\d+'
       interval=once
       signal=2
+      ''
+      ''
+      [notifications]
+      label=Notifications: 
+      interval=once
+      signal=3
+      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo "Disabled" || echo "Enabled"
       ''
     ];
 

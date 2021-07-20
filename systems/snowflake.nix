@@ -22,6 +22,7 @@
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    wacom.enable = true;
 
     xrandrHeads = [
       "HDMI-0"
