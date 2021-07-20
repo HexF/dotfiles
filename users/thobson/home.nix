@@ -54,6 +54,7 @@ in
     git-crypt
     xfce.thunar
     i3lock
+    imagemagick
   ];
 
   services.udiskie = {
