@@ -53,6 +53,7 @@ in
     qpaeq
     git-crypt
     xfce.thunar
+    i3lock
   ];
 
   services.udiskie = {
