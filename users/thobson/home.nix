@@ -25,6 +25,7 @@ in
     ./alacritty.nix
     ./emacs.nix
     ./keepass.nix
+    ./browser.nix
 
     (./. + "/${systemName}.nix")
     ];
