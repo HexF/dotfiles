@@ -1,7 +1,6 @@
 systemName :
 { config, pkgs, ... }:
 let
-  secrets = (builtins.fromJSON (builtins.readFile ./secrets.json));
   discord-latest = pkgs.discord.overrideAttrs (old: {
       version = "0.0.15";
       src = pkgs.fetchurl {
@@ -9,11 +8,7 @@ let
         sha256 = "sha256-re3pVOnGltluJUdZtTlSeiSrHULw1UjFxDCdGj/Dwl4=";
       };
     });
-
-  factorio-authed = pkgs.factorio.override {
-    username = secrets.factorio.username;
-    token = secrets.factorio.token;
-  };
+  useSecret = import ../../useSecret.nix;
 in
 {
   # Let Home Manager install and manage itself.
@@ -29,6 +24,7 @@ in
     ./i3.nix
     ./alacritty.nix
     ./emacs.nix
+    ./keepass.nix
 
     (./. + "/${systemName}.nix")
     ];
@@ -55,6 +51,8 @@ in
     xfce.thunar
     i3lock
     imagemagick
+    xdotool
+    keepassxc
   ];
 
   services.udiskie = {
@@ -89,7 +87,9 @@ in
 
   programs.ssh = {
     enable = true;
-    matchBlocks = import ./ssh_hosts.nix {};
+    matchBlocks = (useSecret {
+      callback = secrets: secrets.ssh_hosts;
+    });
   };
 
   programs.zsh = {
