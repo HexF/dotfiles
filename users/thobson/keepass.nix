@@ -7,17 +7,30 @@ let
             mkValueString = lib.generators.mkValueStringDefault {};
         } "=";
     };
+    rclonesync = pkgs.callPackage ../../packages/rclonesync {};
+    syncDir = "${config.xdg.dataHome}/KeepassSync";
+    workDir = "${syncDir}WD";
+    filterFile = "${workDir}/filter.txt";
+    rclonesyncCommand = ''${rclonesync}/bin/rclonesync nextcloud:Keepass "${syncDir}" --verbose --filters-file "${filterFile}" --workdir "${workDir}"'';
 in
 {
 
     home.packages = with pkgs; [
-    keepassxc
-    rclone
+        keepassxc
+        rclone
+        rclonesync
     ];
 
     xdg.configFile."rclone/rclone.conf".text = (useSecret {
         callback = secrets: toRcloneINI secrets.rclone;
     });
+
+    xdg.configFile."${filterFile}".text = ''
+    + Passwords.kdbx
+    + Passwords.keyx
+    - *
+    - **
+    '';
 
     systemd.user.timers.keepass-sync = {
         Unit = {
@@ -32,12 +45,14 @@ in
 
     };
 
+
     systemd.user.services.keepass-sync = {
         Unit = {
             Description = "Sync Keepass database from Nextcloud";
         };
         Service = {
-            ExecStart = "${pkgs.rclone}/bin/rclone sync nextcloud:Passwords.kdbx ~/.local/share/KeepassSync";
+            ExecStart = rclonesyncCommand;
+            ExecStopPost = ''${pkgs.bash}/bin/bash -c 'if [ "$EXIT_STATUS" = 1 ]; then mkdir -p "${syncDir}"; elif [ "$EXIT_STATUS" = 2 ]; then ${rclonesyncCommand} --first-sync; fi' '';
         };
     };
 
