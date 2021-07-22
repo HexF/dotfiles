@@ -33,33 +33,17 @@ in
   home.packages = with pkgs; [
     discord-latest
     spotify
-    scrot
     thunderbird
-    playerctl
     neofetch
-    nix-index
-    xclip
     texstudio
-    dmenu
     pavucontrol
     nmap
-    logisim
     obs-studio
-    direnv
-    exa
-    qpaeq
-    git-crypt
     xfce.thunar
-    i3lock
-    imagemagick
     xdotool
-    keepassxc
   ];
 
-  services.udiskie = {
-    enable = true;
-  };
-
+  
 
 
   programs.vscode = {
@@ -101,18 +85,24 @@ in
     enableCompletion = true;
 
     shellAliases = {
-      sl = "exa";
-      ls = "exa";
-      l = "exa -l";
-      la = "exa -la";
       nrb = "sudo nixos-rebuild --flake ~/dotfiles# switch";
     };
-
-    initExtra = ''
-      eval "$(direnv hook zsh)"
-    '';
   };
 
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv = {
+      enable = true;
+      enableFlakes = true;
+    };
+    
+  };
+
+  programs.exa = {
+    enable = true;
+    enableAliases = true;
+  };
 
   
 
@@ -124,5 +114,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.09";
+  home.stateVersion = "21.05";
 }

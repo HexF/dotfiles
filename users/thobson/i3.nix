@@ -9,6 +9,10 @@ in {
   imports = [
     ../../modules/i3blocks.nix
   ];
+
+  services.udiskie = {
+    enable = true;
+  };
   
   programs.rofi = {
     enable = true;
@@ -108,15 +112,15 @@ in {
         "${mod}+n" = "exec ${pkgs.dunst}/bin/dunstctl set-paused toggle && pkill -SIGRTMIN+3 i3blocks";
 
 
-        "XF86AudioPlay" = "exec playerctl play-pause";
-        "XF86AudioNext" = "exec playerctl next";
-        "XF86AudioPrev" = "exec playerctl previous";
+        "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
+        "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
+        "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
         "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 +5% && pkill -SIGRTMIN+2 i3blocks";
         "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 -5% && pkill -SIGRTMIN+2 i3blocks";
         "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute 1 toggle && pkill -SIGRTMIN+2 i3blocks";
 
-        "Print" = "--release exec scrot --select -e 'xclip -selection clipboard -t image/png -i $f'";
+        "Print" = "--release exec ${pkgs.scrot}/bin/scrot --select -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f'";
       };
 
       bars = [
@@ -124,6 +128,7 @@ in {
           position = "bottom";
           command = "${pkgs.i3-gaps}/bin/i3bar --transparency";
           statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+          trayOutput = "primary";
           colors = rec {
             background = "#00000000"; # Transparent
 

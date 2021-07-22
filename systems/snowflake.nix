@@ -9,16 +9,13 @@
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
-  services.ratbagd.enable = true;
+  services.ratbagd.enable = true; # Compliments Piper
 
 
   networking.interfaces.enp3s0.useDHCP = true;
   networking.hostName = "snowflake";
 
   boot.kernelParams = [ "intel_pstate=active" ];
-  #boot.kernelPackages = pkgs.linuxPackages_5_4;
-  # 285301cd1f3ec4521be8a9b816a99a095c34715c in nixpkgs seems to hurt performance, wait until patch
-
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];

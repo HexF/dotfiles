@@ -25,6 +25,8 @@
 
   environment.systemPackages = with pkgs; [
     neovim
+    git
+    git-crypt
   ];
 
   programs.zsh.enable = true;
