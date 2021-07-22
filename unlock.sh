@@ -5,4 +5,4 @@ echo "Unlocks secrets"
 echo
 echo
 
-git crypt unlock $1 && echo true > unlocked
+git crypt unlock $1 && echo -e "true\nDo not commmit this file to the repo" > unlocked

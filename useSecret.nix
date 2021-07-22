@@ -6,7 +6,7 @@
 let
     unlocked = builtins.readFile ./unlocked;
 in
-    if unlocked == "true"
+    if unlocked != "false"
     then callback (builtins.fromJSON (builtins.readFile file))
     else default
 
