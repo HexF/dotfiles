@@ -23,6 +23,7 @@ in
 
     xdg.configFile."rclone/rclone.conf".text = (useSecret {
         callback = secrets: toRcloneINI secrets.rclone;
+        default = "; No secrets could be loaded";
     });
 
     xdg.configFile."${filterFile}".text = ''

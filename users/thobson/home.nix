@@ -74,6 +74,7 @@ in
     enable = true;
     matchBlocks = (useSecret {
       callback = secrets: secrets.ssh_hosts;
+      default = {};
     });
   };
 

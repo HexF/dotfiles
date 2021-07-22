@@ -1,12 +1,13 @@
 {
-    default ? builtins.abort "Secrets could not be loaded! (Try setting NIX_SECRETS)",
+    file ? ./secrets.json,
+    default,    # Value if not unlocked
     callback    # Function which will get called with the contents of secrets
 }:
 let
-    secrets = builtins.getEnv "NIX_SECRETS";
+    unlocked = builtins.readFile ./unlocked;
 in
-    if secrets != ""
-    then callback (builtins.fromJSON secrets)
+    if unlocked == "true"
+    then callback (builtins.fromJSON (builtins.readFile file))
     else default
 
 

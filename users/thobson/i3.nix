@@ -4,6 +4,7 @@ let
   mod = "Mod1";
   colors = import ./colors.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
+  useSecret = import ../../useSecret.nix;
 in {
 
   imports = [
@@ -229,6 +230,18 @@ in {
       command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo "Disabled" || echo "Enabled"
       ''
     ];
+
+    blocksCenter = (useSecret {
+      callback = secrets: [];
+      default = [
+        ''
+        [warnsecrets]
+        label=WARNING: 
+        interval=once
+        command=echo "Secrets are not loaded into build - refer to github:hexf/dotfiles README for more info"
+        ''
+      ];
+    });
 
     blocksRight = [
       ''

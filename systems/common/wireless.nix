@@ -12,6 +12,7 @@ in
         builtins.mapAttrs (k: v: {psk = v;})
         secrets.wireless.connections
       ;
+    default = {};
   };
 
   
