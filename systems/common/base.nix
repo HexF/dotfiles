@@ -7,7 +7,7 @@
     binaryCachePublicKeys = [
       "binarycache.hexf.me:q/9RfEEQCO+/cbCNZ47hcAwoHyZ14v0N6FFwN5UZFzk="
     ];
-    binaryCache = [
+    binaryCaches = [
       "https://binarycache.hexf.me/"
     ];
     extraOptions = ''
