@@ -4,6 +4,12 @@
   
   nix = { 
     package = pkgs.nixFlakes;
+    binaryCachePublicKeys = [
+      "binarycache.hexf.me:q/9RfEEQCO+/cbCNZ47hcAwoHyZ14v0N6FFwN5UZFzk="
+    ];
+    binaryCache = [
+      "https://binarycache.hexf.me/"
+    ];
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
