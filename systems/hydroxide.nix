@@ -12,6 +12,9 @@
         buildMachinesFiles = [];
         # you will probably also want, otherwise *everything* will be built from scratch
         useSubstitutes = true;
+        extraConfig = ''
+            binary_cache_public_uri = https://binarycache.hexf.me
+        '';
     };
 
     services.nginx = {
