@@ -34,6 +34,12 @@
 
     services.nix-serve = {
         enable = true;
+        secretKeyFile = "/var/cache-priv-key.pem";
+        # Generate with
+        # $ nix-store --generate-binary-cache-key binarycache.example.com cache-priv-key.pem cache-pub-key.pem
+        # # mv cache-priv-key.pem /var/cache-priv-key.pem
+        # # chown nix-serve /var/cache-priv-key.pem
+        # # chmod 600 /var/cache-priv-key.pem
     };
 
     nix.buildMachines = [
