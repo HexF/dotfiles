@@ -2,7 +2,7 @@
   description = "HexF's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=release-21.05";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-21.05";
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
