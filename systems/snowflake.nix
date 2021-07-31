@@ -16,6 +16,7 @@
   networking.hostName = "snowflake";
 
   boot.kernelParams = [ "intel_pstate=active" ];
+  boot.initrd.compressor = "cat";
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
@@ -46,6 +47,6 @@
 
   virtualisation.docker.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 3000 3001 ]; # React dev server
+  networking.firewall.allowedTCPPorts = [ 3000 3001 2759 ]; # React dev server
 }
 
