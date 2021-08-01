@@ -19,6 +19,7 @@
   
   networking.useDHCP = false;
   networking.useNetworkd = true;
+  services.resolved.dnssec = "false"; # Dont validate DNS
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
