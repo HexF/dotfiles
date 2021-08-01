@@ -16,7 +16,10 @@
   };
 
   time.timeZone = "Pacific/Auckland";
+  
   networking.useDHCP = false;
+  networking.useNetworkd = true;
+
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
