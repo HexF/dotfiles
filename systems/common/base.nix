@@ -18,9 +18,8 @@
   time.timeZone = "Pacific/Auckland";
   
   networking.useDHCP = false;
-  networking.useNetworkd = true;
-  services.resolved.dnssec = "false"; # Dont validate DNS
-
+  networking.dhcpcd.wait = "background";
+  
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowBroken = true;
 
