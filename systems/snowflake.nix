@@ -45,7 +45,14 @@
     piper
   ];
 
-  virtualisation.docker.enable = true;
+  virtualisation.docker = {
+    enable = true;
+    autoPrune = {
+      enable = true;
+      dates = "hourly";
+    };
+    enableOnBoot = false;
+  };
 
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 ]; # React dev server
 }
