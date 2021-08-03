@@ -20,6 +20,7 @@ in
     #  url = "https://github.com/craigmbooth/nix-visualize/archive/ee6ad3cb3ea31bd0e9fa276f8c0840e9025c321a.tar.gz";
     #  sha256 = "sha256:1v0lg6g1cnpb2q5crmv8sv68gc1h497psy6vscv7syqlpm9zkh4y";
     #  }) {inherit pkgs; pythonPackages = python3Packages;})
+    osu-lazer
     (useSecret {
       callback = secrets: pkgs.factorio.override {
         username = secrets.factorio.username;
