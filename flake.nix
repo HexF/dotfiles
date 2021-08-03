@@ -25,6 +25,7 @@
             ./systems/common/base.nix
             ./systems/common/efi.nix
             ./systems/common/desktop.nix
+            ./systems/common/bluetooth.nix
             ./systems/snowflake-hardware.nix
             ./systems/snowflake.nix
 
@@ -59,6 +60,7 @@
             ./systems/common/efi.nix
             ./systems/common/desktop.nix
             ./systems/common/wireless.nix
+            ./systems/common/bluetooth.nix
             ./systems/frostbite-hardware.nix
             ./systems/frostbite.nix
 
