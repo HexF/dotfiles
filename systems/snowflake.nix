@@ -14,9 +14,11 @@
 
   networking.interfaces.enp3s0.useDHCP = true;
   networking.hostName = "snowflake";
-
-  boot.kernelParams = [ "intel_pstate=active" ];
+  
+  boot.kernelParams = [ "intel_pstate=active" "nvidia-drm.modeset=1" ];
   boot.initrd.compressor = "cat";
+  boot.initrd.kernelModules = config.boot.kernelModules;
+  
 
   services.xserver = {
     videoDrivers = [ "nvidia" ];
