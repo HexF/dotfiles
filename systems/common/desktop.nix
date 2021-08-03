@@ -32,12 +32,18 @@
   # services.printing.enable = true;
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  
+  services.pipewire = {
+    enable = true;
 
-    hardware.pulseaudio.extraConfig = ''
-load-module module-equalizer-sink
-load-module module-dbus-protocol
-'';
+    alsa.enable = true;
+    alsa.support32Bit = true;
+
+    pulse.enable = true;
+    jack.enable = true;
+
+  };
+    
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
