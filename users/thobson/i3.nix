@@ -117,9 +117,9 @@ in {
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
         "XF86AudioPrev" = "exec ${pkgs.playerctl}/bin/playerctl previous";
 
-        "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 +5% && pkill -SIGRTMIN+2 i3blocks";
-        "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume 1 -5% && pkill -SIGRTMIN+2 i3blocks";
-        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute 1 toggle && pkill -SIGRTMIN+2 i3blocks";
+        "XF86AudioRaiseVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +5% && pkill -SIGRTMIN+2 i3blocks";
+        "XF86AudioLowerVolume" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -5% && pkill -SIGRTMIN+2 i3blocks";
+        "XF86AudioMute" = "exec ${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle && pkill -SIGRTMIN+2 i3blocks";
 
         "Print" = "--release exec ${pkgs.scrot}/bin/scrot --select -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f'";
       };
