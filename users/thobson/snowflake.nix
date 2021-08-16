@@ -25,6 +25,7 @@ in
       callback = secrets: (pkgs.master.factorio.override {
         username = secrets.factorio.username;
         token = secrets.factorio.token;
+        experimental = true;
       });
       default = null;
     })
