@@ -3,8 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
-{
+let
+  mkBackup = import ./common/backup.nix;
+in {
 
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
@@ -28,6 +29,15 @@
       "HDMI-0"
       { output = "DP-0"; primary = true; }
       { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-0"; }
+    ];
+  };
+
+  services.borgbackup.jobs = {
+    snowflake-home-thobson = mkBackup "snowflake-home-thobson" "/home/thobson" [
+      "/home/thobson/.cache"
+      "/home/thobson/.config"
+      "/home/thobson/Downloads"
+      "/nix"
     ];
   };
 
