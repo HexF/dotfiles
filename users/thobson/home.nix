@@ -1,5 +1,4 @@
-systemName :
-{ config, pkgs, ... }:
+{ systemName, config, pkgs, ... }:
 let
   discord-latest = pkgs.discord.overrideAttrs (old: {
       version = "0.0.15";
@@ -34,7 +33,7 @@ in
     discord-latest
     spotify
     thunderbird
-    neofetch
+    master.neofetch
     texstudio
     pavucontrol
     nmap
@@ -68,6 +67,7 @@ in
     enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
+    pinentryFlavor = "qt";
   };
 
   programs.ssh = {

@@ -1,4 +1,4 @@
-{config, lib, pkgs, ...}:
+{config, lib, pkgs, inputs, ...}:
 let
   useSecret = import ../../useSecret.nix;
 in
@@ -22,10 +22,10 @@ in
     #  }) {inherit pkgs; pythonPackages = python3Packages;})
     osu-lazer
     (useSecret {
-      callback = secrets: pkgs.factorio.override {
+      callback = secrets: (pkgs.master.factorio.override {
         username = secrets.factorio.username;
         token = secrets.factorio.token;
-      };
+      });
       default = null;
     })
 

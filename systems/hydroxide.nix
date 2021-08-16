@@ -1,6 +1,12 @@
 # Server for hydra
 { config, pkgs, ... }: {
 
+    imports = [
+        ./common/base.nix
+        ./common/bios.nix
+        ./common/server.nix
+        ./hydroxide-hardware.nix
+    ];
     networking.interfaces.ens192.useDHCP = true;
     networking.hostName = "hydroxide";
 

@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
 
 {
+    imports = [
+        ./systems/common/base.nix
+        ./systems/common/efi.nix
+        ./systems/common/desktop.nix
+        ./systems/common/wireless.nix
+        ./systems/common/bluetooth.nix
+        ./systems/frostbite-hardware.nix
+    ];
+
     networking.interfaces.enp0s20f0u2c2.useDHCP = true;
     networking.interfaces.enp0s31f6.useDHCP = true;
     networking.interfaces.wlp3s0.useDHCP = true;

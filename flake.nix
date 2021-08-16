@@ -7,71 +7,62 @@
       url = "github:nix-community/home-manager?ref=release-21.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
   };
 
-  outputs = { self, home-manager, nixpkgs }@inputs: 
-    {  
+  outputs = { self, home-manager, nixpkgs, ... }@inputs: 
+    let
+      overlay-master = final: prev: {
+        master = (import inputs.nixpkgs-master {
+          config.allowUnfree = true;
+          system = "${prev.system}";
+        });
+      };
+      overlayModule = {
+        nixpkgs.overlays = [overlay-master];
+      };
+      userModules = systemName: [
+        home-manager.nixosModules.home-manager rec {
 
-      system.configurationRevision =
-        if self ? rev
-        then self.rev
-        else throw "Refusing to build from a dirty Git tree!";
-        
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.extraSpecialArgs = {
+            inherit systemName;
+            inherit inputs;
+          };
+
+          home-manager.users.thobson = ./users/thobson/home.nix;
+      
+        }
+
+      ];
+    in {  
+
       nixosConfigurations = {
         snowflake = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [ 
-            ./systems/common/base.nix
-            ./systems/common/efi.nix
-            ./systems/common/desktop.nix
-            ./systems/common/bluetooth.nix
-            ./systems/snowflake-hardware.nix
             ./systems/snowflake.nix
-
-            home-manager.nixosModules.home-manager rec {
-
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.users.thobson = import ./users/thobson/home.nix "snowflake";
-            }
-
-          ];
+            overlayModule
+          ] ++ (userModules "snowflake");
         };
 
         hydroxide = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
 
           modules = [
-            ./systems/common/base.nix
-            ./systems/common/bios.nix
-            ./systems/common/server.nix
-            ./systems/hydroxide-hardware.nix
             ./systems/hydroxide.nix
+            overlayModule
           ];
         };
 
         frostbite = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-
           modules = [
-            ./systems/common/base.nix
-            ./systems/common/efi.nix
-            ./systems/common/desktop.nix
-            ./systems/common/wireless.nix
-            ./systems/common/bluetooth.nix
-            ./systems/frostbite-hardware.nix
             ./systems/frostbite.nix
-
-            home-manager.nixosModules.home-manager rec {
-
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-
-              home-manager.users.thobson = import ./users/thobson/home.nix "frostbite";
-            }
-          ];
+            overlayModule
+          ] ++ (userModules "frostbite");
 
         };
       };
@@ -80,6 +71,7 @@
       hydraJobs = {
         hydroxide = self.nixosConfigurations.hydroxide.config.system.build.toplevel;
         snowflake = self.nixosConfigurations.snowflake.config.system.build.toplevel;
+        frostbite = self.nixosConfigurations.frostbite.config.system.build.toplevel;
       };
     };
 }

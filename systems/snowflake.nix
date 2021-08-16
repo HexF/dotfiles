@@ -6,7 +6,13 @@
 let
   mkBackup = import ./common/backup.nix;
 in {
-
+  imports = [
+    ./common/base.nix
+    ./common/efi.nix
+    ./common/desktop.nix
+    ./common/bluetooth.nix
+    ./snowflake-hardware.nix
+  ];
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
