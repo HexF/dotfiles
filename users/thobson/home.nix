@@ -38,6 +38,8 @@ in
     pavucontrol
     nmap
     obs-studio
+    obs-v4l2sink
+    zoom-us
     xfce.thunar
     xdotool
   ];

@@ -9,9 +9,11 @@
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+  boot.initrd.supportedFilesystems = [ "zfs" ];
   
-  boot.kernelModules = [ "kvm-intel" ];
-  boot.extraModulePackages = [ ];
+  boot.kernelModules = [ "kvm-intel" "v4l2loopback" ];
+  boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
+  boot.supportedFilesystems = [ "zfs" ];
 
   hardware.cpu.intel.updateMicrocode = true;
 

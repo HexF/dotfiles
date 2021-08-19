@@ -21,6 +21,7 @@ in {
 
   networking.interfaces.enp3s0.useDHCP = true;
   networking.hostName = "snowflake";
+  networking.hostId = "fdab470e";
   
   boot.kernelParams = [ "intel_pstate=active" "nvidia-drm.modeset=1" ];
   boot.initrd.compressor = "cat";
