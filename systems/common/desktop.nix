@@ -42,6 +42,12 @@
     pulse.enable = true;
     jack.enable = true;
 
+    config.pipewire = {
+      "context.properties" = {
+        "log.level" = 3;
+      };
+    };
+
   };
     
 
@@ -65,6 +71,9 @@
     enableSSHSupport = true;
   };
 
+
+  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+  # EasyEffects and other dconf dependencies
 
 
 }

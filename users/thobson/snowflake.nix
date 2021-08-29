@@ -4,6 +4,7 @@ let
 in
 {
 
+
   home.packages = with pkgs; builtins.filter (x: x != null) [
     multimc
     adoptopenjdk-jre-openj9-bin-16
@@ -12,6 +13,7 @@ in
     (mindustry.override {
       jdk = adoptopenjdk-hotspot-bin-15;
     })
+    unstable.easyeffects
     jetbrains.datagrip
     jetbrains.idea-ultimate
     (callPackage ../../packages/audio-reactive-led-strip {})

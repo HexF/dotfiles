@@ -8,6 +8,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
   };
 
   outputs = { self, home-manager, nixpkgs, ... }@inputs: 
@@ -18,8 +19,14 @@
           system = "${prev.system}";
         });
       };
+      overlay-unstable = final: prev: {
+        unstable = (import inputs.nixpkgs-unstable {
+          config.allowUnfree = true;
+          system = "${prev.system}";
+        });
+      };
       overlayModule = {
-        nixpkgs.overlays = [overlay-master];
+        nixpkgs.overlays = [overlay-master overlay-unstable];
       };
       userModules = systemName: [
         home-manager.nixosModules.home-manager rec {
