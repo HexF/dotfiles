@@ -65,6 +65,8 @@ in
     signing.key = "0x107DA02C7AE97B084746564B9F1FD9D87950DB6F";
   };
 
+  programs.gpg.enable = true;
+
   services.gpg-agent = {
     enable = true;
     defaultCacheTtl = 1800;

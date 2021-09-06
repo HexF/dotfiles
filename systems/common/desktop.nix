@@ -66,15 +66,17 @@
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 
 
-  services.dbus.packages = with pkgs; [ gnome3.dconf ];
+  programs.dconf.enable = true;
   # EasyEffects and other dconf dependencies
 
+  services.printing = {
+    enable = true;
+    drivers = with pkgs;[
+      brlaser # Brother Laser printer
+    ];
+  };
 
 }
 
