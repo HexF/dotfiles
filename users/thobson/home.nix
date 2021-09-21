@@ -1,12 +1,5 @@
 { systemName, config, pkgs, ... }:
 let
-  discord-latest = pkgs.discord.overrideAttrs (old: {
-      version = "0.0.15";
-      src = pkgs.fetchurl {
-        url = "https://dl.discordapp.net/apps/linux/0.0.15/discord-0.0.15.tar.gz";
-        sha256 = "sha256-re3pVOnGltluJUdZtTlSeiSrHULw1UjFxDCdGj/Dwl4=";
-      };
-    });
   useSecret = import ../../useSecret.nix;
 in
 {
@@ -25,12 +18,13 @@ in
     ./emacs.nix
     ./keepass.nix
     ./browser.nix
+    ./display.nix
+    ../../modules/discord.nix
 
     (./. + "/${systemName}.nix")
     ];
 
   home.packages = with pkgs; [
-    discord-latest
     spotify
     thunderbird
     master.neofetch
@@ -107,6 +101,11 @@ in
   programs.exa = {
     enable = true;
     enableAliases = true;
+  };
+
+  programs.discord = {
+    enable = true;
+    autostart = true;
   };
 
   

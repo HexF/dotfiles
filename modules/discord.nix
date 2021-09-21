@@ -3,6 +3,10 @@ with lib;
 
 let
     cfg = config.programs.discord;
+    autoStartItem = pkgs.makeAutostartItem {
+        name = "discord";
+        package = cfg.pkg;
+    };
 in {
     options = {
         programs.discord = {
@@ -16,7 +20,7 @@ in {
 
             autostart = mkOption {
                 default = false;
-            }
+            };
             
         };
     };
@@ -27,13 +31,7 @@ in {
             cfg.pkg
             ] ++ (
                 if cfg.autostart 
-                then ([
-                    pkgs.makeDesktopItem {
-                        name = "discord";
-                        desktopName = "Discord";
-                        exec = cfg.pkg + "/bin/Discord";
-                    }
-                ])
+                then [ autoStartItem ]
                 else []
             );
     };
