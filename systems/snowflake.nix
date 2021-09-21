@@ -74,5 +74,9 @@ in {
   };
 
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 ]; # React dev server
+
+  fonts.fonts = with pkgs; [
+    fira
+  ];
 }
 

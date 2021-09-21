@@ -73,9 +73,11 @@
 
   services.printing = {
     enable = true;
-    drivers = with pkgs;[
-      brlaser # Brother Laser printer
-    ];
+  };
+
+  services.avahi = {
+    enable = true;
+    nssmdns = true;
   };
 
 }
