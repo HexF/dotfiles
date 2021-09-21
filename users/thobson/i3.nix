@@ -124,6 +124,27 @@ in {
         "Print" = "--release exec ${pkgs.scrot}/bin/scrot --select -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f'";
       };
 
+      assigns = {
+        "keepass" = [
+          {
+            class = "KeePassXC";
+          }         
+        ];
+        "thunderbird" = [
+          {
+            class = "Thunderbird";
+          }
+        ];
+        "communication" = [
+          {
+            class = "discord";
+          }
+          {
+            class = "Spotify";
+          }
+        ];
+      };
+
       bars = [
         {
           position = "bottom";
