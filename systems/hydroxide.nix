@@ -6,6 +6,7 @@
         ./common/bios.nix
         ./common/server.nix
         ./hydroxide-hardware.nix
+        ../modules/media-server.nix
     ];
     networking.interfaces.ens192.useDHCP = true;
     networking.hostName = "hydroxide";
@@ -59,6 +60,23 @@
             maxJobs = 8;
         }
     ];
+
+
+    services.media-server = {
+        enable = true;
+        jellyfin.enable = true;
+        transmission.enable = true;
+        sonarr.enable = true;
+        radarr.enable = true;
+        jackett.enable = true;
+    };
+
+    fileSystems."/mnt/media" = {
+        device = "192.168.1.101:/volume2/Media";
+        fsType = "nfs";
+    };
+
+    
 
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
 }
