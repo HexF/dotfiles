@@ -81,6 +81,9 @@ in {
             user = cfg.user;
             group = cfg.group;
 
+            settings."rpc-bind-address" = "0.0.0.0";
+            settings."watch-dir-enabled" = true;
+
             openFirewall = true;   
         };
 
