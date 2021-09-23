@@ -5,6 +5,15 @@ with lib;
 
 let
     cfg = config.services.media-server;
+    transmissionActivationScript = ''
+        install -d -m 700 '${config.services.transmission.home}/.config/transmission-daemon'
+        chown -R '${config.services.transmission.user}:${config.services.transmission.group}' ${config.services.transmission.home}/.config/transmission-daemon
+        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.download-dir}'
+        '' + optionalString config.services.transmission.settings.incomplete-dir-enabled ''
+        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.incomplete-dir}'
+        '' + optionalString config.services.transmission.settings.watch-dir-enabled ''
+        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.watch-dir}'
+        '';
 in {
     options = {
         services.media-server = {
@@ -183,15 +192,7 @@ in {
 
 
         # hacky workaround for transmission watch dir
-        system.activationScripts.transmission-daemon = ''
-            install -d -m 700 '${config.services.transmission.home}/.config/transmission-daemon'
-            chown -R '${config.services.transmission.user}:${config.services.transmission.group}' ${config.services.transmission.home}/.config/transmission-daemon
-            install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.download-dir}'
-            '' + optionalString config.services.transmission.settings.incomplete-dir-enabled ''
-            install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.incomplete-dir}'
-            '' + optionalString config.services.transmission.settings.watch-dir-enabled ''
-            install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.watch-dir}'
-            '';
+        system.activationScripts.transmission-daemon = mkForce transmissionActivationScript;
 
         users.users = mkIf (cfg.user == "media") {
             media = {
