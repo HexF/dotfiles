@@ -69,6 +69,8 @@
         sonarr.enable = true;
         radarr.enable = true;
         jackett.enable = true;
+
+        vhostSuffix = ".oh.hexf.me";
     };
 
     fileSystems."/mnt/media" = {
