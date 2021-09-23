@@ -14,6 +14,18 @@ let
         '' + optionalString config.services.transmission.settings.watch-dir-enabled ''
         install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.watch-dir}'
         '';
+    nginxProxyVhostConfig = ''
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+    '';
+    nginxAuthVhostConfig = ''
+        auth_pam "Secure Area";
+        auth_pam_service_name "nginx_media";
+    '';
 in {
     options = {
         services.media-server = {
@@ -126,68 +138,43 @@ in {
                 serverAliases = [ "jellyfin" ];
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:8096;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "Upgrade";
-                '';
+                '' + nginxProxyVhostConfig;
             };
 
             "transmission${cfg.vhostSuffix}" = mkIf cfg.transmission.enable {
                 serverAliases = [ "transmission" ];
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:9091;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "Upgrade";
-                '';
+                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
             };
 
             "sonarr${cfg.vhostSuffix}" = mkIf cfg.sonarr.enable {
                 serverAliases = [ "sonarr" ];
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:8989;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "Upgrade";
-                '';
+                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
             };
 
             "radarr${cfg.vhostSuffix}" = mkIf cfg.radarr.enable {
                 serverAliases = [ "radarr" ];
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:7878;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "Upgrade";
-                '';
+                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
             };
 
             "jackett${cfg.vhostSuffix}" = mkIf cfg.jackett.enable {
                 serverAliases = [ "jackett" ];
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:9117;
-                    proxy_set_header Host $host;
-                    proxy_set_header X-Real-IP $remote_addr;
-                    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                    proxy_http_version 1.1;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "Upgrade";
-                '';
+                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
             };
 
             
+        };
+
+        security.pam.services.nginx_media = {
+            name = "nginx_media";
+            unixAuth = true;
         };
 
 
