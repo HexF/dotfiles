@@ -104,6 +104,7 @@ in {
 
             settings."rpc-bind-address" = "0.0.0.0";
             settings."watch-dir-enabled" = true;
+            settings."rpc-host-whitelist" = "transmission${cfg.vhostSuffix}";
 
             openFirewall = true;   
         };
