@@ -133,6 +133,7 @@ in {
             openFirewall = true;   
         };
 
+        services.nginx.additionalModules = [ pkgs.nginxModules.pam ];
         services.nginx.virtualHosts = {
             "jellyfin${cfg.vhostSuffix}" = mkIf cfg.jellyfin.enable {
                 serverAliases = [ "jellyfin" ];
@@ -171,6 +172,8 @@ in {
 
             
         };
+
+        
 
         security.pam.services.nginx_media = {
             name = "nginx_media";
