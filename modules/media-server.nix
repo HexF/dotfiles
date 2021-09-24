@@ -115,6 +115,19 @@ in {
             openFirewall = true;   
         };
 
+        systemd.services.transmission-trackers = {
+            serviceConfig.Type = "oneshot";
+            script = ''
+            ${pkgs.curl}/bin/curl https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt | ${pkgs.findutils}/bin/xargs -I % ${pkgs.transmission}/bin/transmission-remote -t all -td %
+            '';
+        };
+
+        systemd.timers.transmission-trackers = {
+            wantedBy = [ "timers.target" ];
+            partOf = [ "transmission-trackers.service" ];
+            timerConfig.OnCalendar = [ "*-*-* *:*:00" ];
+        };
+
         services.sonarr = {
             enable = cfg.sonarr.enable;
             user = cfg.user;
