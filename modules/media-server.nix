@@ -109,8 +109,8 @@ in {
             settings."rpc-bind-address" = "0.0.0.0";
             settings."watch-dir-enabled" = true;
             settings."rpc-host-whitelist" = "transmission${cfg.vhostSuffix}";
-            settings."incomplete-dir" = "${dataDir}IncompleteDownloads";
-            settings."download-dir" = "${dataDir}Downloads";
+            settings."incomplete-dir" = "${cfg.transmission.dataDir}IncompleteDownloads";
+            settings."download-dir" = "${cfg.transmission.dataDir}Downloads";
 
             openFirewall = true;   
         };
