@@ -66,6 +66,7 @@
         enable = true;
         jellyfin.enable = true;
         transmission.enable = true;
+        transmission.dataDir = "/mnt/media/";
         sonarr.enable = true;
         radarr.enable = true;
         jackett.enable = true;
