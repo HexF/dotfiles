@@ -183,6 +183,11 @@ in {
                 locations."/".extraConfig = ''
                     proxy_pass http://127.0.0.1:8096;
                 '' + nginxProxyVhostConfig;
+                locations."/socket".extraConfig = ''
+                    proxy_pass http://127.0.0.1:8096;
+                    proxy_set_header Upgrade $http_upgrade;
+                    proxy_set_header Connection "upgrade";
+                '' + nginxProxyVhostConfig;
             };
 
             "transmission${cfg.vhostSuffix}" = mkIf cfg.transmission.enable {
