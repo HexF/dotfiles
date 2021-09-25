@@ -122,11 +122,11 @@ in {
             '';
         };
 
-        systemd.timers.transmission-trackers = {
-            wantedBy = [ "timers.target" ];
-            partOf = [ "transmission-trackers.service" ];
-            timerConfig.OnCalendar = [ "*-*-* *:*:00" ];
-        };
+        #systemd.timers.transmission-trackers = {
+        #    wantedBy = [ "timers.target" ];
+        #    partOf = [ "transmission-trackers.service" ];
+        #    timerConfig.OnCalendar = [ "*-*-* *:*:00" ];
+        #};
 
         services.sonarr = {
             enable = cfg.sonarr.enable;
