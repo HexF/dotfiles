@@ -79,6 +79,13 @@
         fsType = "nfs";
     };
 
+
+    users.users.turbotylar = {
+        isNormalUser = true;
+        extraGroups = [ ];
+        shell = pkgs.zsh;
+    };
+
     
 
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
