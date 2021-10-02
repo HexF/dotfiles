@@ -54,9 +54,27 @@ in
     extensions = with pkgs.vscode-extensions; [
         ms-python.python
         ms-vscode.cpptools
-        WakaTime.vscode-wakatime
-        #ms-vscode-remote.remote-ssh # won't work with vscodium
+        gruntfuggly.todo-tree
+        pkief.material-icon-theme
+        github.vscode-pull-request-github
+        eamodio.gitlens
+        jnoortheen.nix-ide
+        esbenp.prettier-vscode
+        ms-python.vscode-pylance
+        ms-python.python
+        zhuangtongfa.material-theme # One Dark Pro
       ];
+    userSettings = {
+      "workbench.iconTheme" = "material-icon-theme";
+      "workbench.colorTheme" = "One Dark Pro";
+      "editor.fontFamily" = "'JetbrainsMono Nerd Font Mono'";
+      "window.zoomLevel" = -1;
+      "terminal.integrated.defaultProfile.linux" = "zsh";
+      "nix.enableLanguageServer" = true;
+      "git.autofetch" = true;
+      "glassit.alpha" = 250;
+
+    };
   };
 
   programs.git = {
@@ -93,6 +111,14 @@ in
     shellAliases = {
       nrb = "sudo nixos-rebuild --flake ~/dotfiles# switch";
     };
+
+    plugins = [
+      {
+        name = "hexf-zsh-prompt";
+        file = "hexf.zsh-theme";
+        src = ./zsh-hexf;
+      }
+    ];
   };
 
   programs.direnv = {

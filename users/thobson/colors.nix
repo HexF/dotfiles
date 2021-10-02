@@ -1,25 +1,25 @@
 {
     color = [
-        "#2b303b"
-        "#bf616a"
-        "#a3be8c"
-        "#ebcb8b"
-        "#8fa1b3"
-        "#b48ead"
-        "#96b5b4"
-        "#c0c5ce"
-        "#65737e"
-        "#bf616a"
-        "#a3be8c"
-        "#ebcb8b"
-        "#8fa1b3"
-        "#b48ead"
-        "#96b5b4"
-        "#eff1f5"
+        "#2e3436"
+        "#cc0000"
+        "#4e9a06"
+        "#c4a000"
+        "#3465a4"
+        "#75507b"
+        "#06989a"
+        "#d3d7cf"
+        "#555753"
+        "#ef2929"
+        "#8ae234"
+        "#fce94f"
+        "#729fcf"
+        "#ad7fa8"
+        "#34e2e2"
+        "#eeeeec"
     ];
-    foreground = "#c0c5ce";
-    background = "#2b303b";
+    foreground = "#dedede";
+    background = "#2b2b2b";
     accent = "#0091ea"; #material blue
 }
 
-# Base 16: ocean dark
+# xcolors: tartan
