@@ -18,6 +18,7 @@ prompt_hexf_precmd_short(){
     [[ -n ${vcs_info_msg_0_} ]] && add_block "${vcs_info_msg_0_}" "4" "7"
     add_block "%n@%m" "%(!.1.6)" "7"
 
+    ZLE_RPROMPT_INDENT=0
     RPROMPT="%F{11}%f%K{11}%F{8}%~%k%f"
     PROMPT="${PROMPT}%f "
 }
