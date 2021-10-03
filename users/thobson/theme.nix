@@ -24,10 +24,10 @@ rec {
 
     font = {
         general = {
-            family = "JetbrainsMono Nerd Font Mono";
+            family = "JetBrainsMono Nerd Font Mono";
         };
         terminal = {
-            family = "JetbrainsMono Nerd Font Mono";
+            family = "JetBrainsMono Nerd Font Mono";
             size = 11;
         };
     };
