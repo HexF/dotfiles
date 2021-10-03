@@ -1,4 +1,4 @@
-{
+rec {
     color = [
         "#2e3436"
         "#cc0000"
@@ -19,7 +19,17 @@
     ];
     foreground = "#dedede";
     background = "#2b2b2b";
-    accent = "#0091ea"; #material blue
+    accent = builtins.elemAt color 4;
+    # xcolors: tartan
+
+    font = {
+        general = {
+            family = "JetbrainsMono Nerd Font Mono";
+        };
+        terminal = {
+            family = "JetbrainsMono Nerd Font Mono";
+            size = 11;
+        }
+    };
 }
 
-# xcolors: tartan

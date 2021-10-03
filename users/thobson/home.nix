@@ -8,6 +8,7 @@ let
       sha256 = "sha256-UTVKjs/i7C/m8141bXBsakQRFd/c//EmqqhKhkr1OOk=";
     };
   });
+  theme = import ./theme.nix;
 in
 {
   # Let Home Manager install and manage itself.
@@ -21,8 +22,7 @@ in
 
   imports = [
     ./i3.nix
-    ./alacritty.nix
-    ./emacs.nix
+    ./kitty.nix
     ./keepass.nix
     ./browser.nix
     ./display.nix
@@ -31,6 +31,9 @@ in
     (./. + "/${systemName}.nix")
     ];
 
+  fonts.fontconfig.enable = true;
+
+
   home.packages = with pkgs; [
     spotify
     thunderbird
@@ -38,11 +41,9 @@ in
     texstudio
     pavucontrol
     nmap
-    obs-studio
-    obs-v4l2sink
-    zoom-us
     xfce.thunar
     xdotool
+    (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 
   
@@ -67,7 +68,7 @@ in
     userSettings = {
       "workbench.iconTheme" = "material-icon-theme";
       "workbench.colorTheme" = "One Dark Pro";
-      "editor.fontFamily" = "'JetbrainsMono Nerd Font Mono'";
+      "editor.fontFamily" = "'${theme.font.general.family}'";
       "window.zoomLevel" = -1;
       "terminal.integrated.defaultProfile.linux" = "zsh";
       "nix.enableLanguageServer" = true;

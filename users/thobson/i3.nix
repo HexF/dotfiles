@@ -2,9 +2,10 @@
 
 let
   mod = "Mod1";
-  colors = import ./colors.nix;
+  theme = import ./theme.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   useSecret = import ../../useSecret.nix;
+  terminal = "${pkgs.kitty}/bin/kitty";
 in {
 
   imports = [
@@ -18,7 +19,7 @@ in {
   programs.rofi = {
     enable = true;
     package = rofiPackage;
-    terminal = "${pkgs.alacritty}/bin/alacritty";
+    terminal = terminal;
     separator = "none";
 
     lines = 10;
@@ -34,28 +35,28 @@ in {
     colors = {
       rows = rec {
         normal = rec {
-          background = colors.background;
+          background = theme.background;
           backgroundAlt = background;
-          foreground = colors.foreground;
+          foreground = theme.foreground;
           highlight = {
-            background = colors.accent;
+            background = theme.accent;
             foreground = foreground;
           };
         };
         active = normal;
         urgent = rec {
-          background = (builtins.elemAt colors.color 1);
+          background = (builtins.elemAt theme.color 1);
           backgroundAlt = background;
-          foreground = colors.foreground;
+          foreground = theme.foreground;
           highlight = {
-            background = colors.accent;
+            background = theme.accent;
             foreground = foreground;
           };
         };
       };
 
       window = rec {
-        background = colors.background;
+        background = theme.background;
         border = background;
         separator = "#00000000";
       };
@@ -66,16 +67,45 @@ in {
   services.dunst = {
     enable = true;
     settings = {
-      global = {
-        geometry = "300x5-30+50";
-        transparency = 10;
-        frame_color = "#eceff1";
-        font = "Droid Sans 9";
+      generic = {
+        background = theme.background;
+        foreground = theme.foreground;
       };
-      urgency_normal = {
-        background = "#37474f";
-        foreground = "#eceff1";
+      discord = {
+        appname="discord";
+
+        format = "<big>Discord</big>\\n%s\\n<small>%b</small>";
+      };
+      global = {
+        geometry = "300x3-30+50";
+        transparency = 10;
+        font = "${theme.font.general.family} 9";
+        markup = "full";
+        word_wrap = true;
+        shrink = true;
+
+        
+        icon_position = "left";
+        max_icon_size = 100;
+
+        format = "<big>%a</big>\\n%s\\n<small>%b</small>";
+
+        dmenu = "${rofiPackage}/bin/rofi";
+
         timeout = 10;
+
+        frame_width = 1;
+        frame_color = theme.background;
+        #separator_color = theme.foreground;
+
+      };
+
+      urgency_normal = {
+        frame_color = builtins.elemAt theme.color 9;
+      };
+
+      urgency_critical = {
+        frame_color = builtins.elemAt theme.color 1;
       };
     };
   };
@@ -102,16 +132,18 @@ in {
     enable = true;
     package = pkgs.i3-gaps;
     config = {
+      fonts = {
+        names = [theme.font.general.family];
+        size = 11.0;
+      };
       menu = "${rofiPackage}/bin/rofi -show combi";
       modifier = mod;
-      terminal = "${pkgs.alacritty}/bin/alacritty";
+      terminal = terminal;
 
       keybindings = lib.mkOptionDefault {
         "${mod}+Shift+f" = "fullscreen toggle global";
-        "${mod}+Shift+e" = "exit";
         "${mod}+j" = "exec ${rofiPackage}/bin/rofi -show emoji";
         "${mod}+n" = "exec ${pkgs.dunst}/bin/dunstctl set-paused toggle && pkill -SIGRTMIN+3 i3blocks";
-
 
         "XF86AudioPlay" = "exec ${pkgs.playerctl}/bin/playerctl play-pause";
         "XF86AudioNext" = "exec ${pkgs.playerctl}/bin/playerctl next";
@@ -156,29 +188,31 @@ in {
 
             activeWorkspace = {
               border = "#00000000"; # Transparent
-              background = (builtins.elemAt colors.color 0) ;
-              text = colors.foreground;
+              background = (builtins.elemAt theme.color 0) ;
+              text = theme.foreground;
             };
 
             focusedWorkspace = {
               border = "#00000000"; # Transparent
-              background = (builtins.elemAt colors.color 8) ;
-              text = colors.foreground;
+              background = (builtins.elemAt theme.color 8) ;
+              text = theme.foreground;
             };
 
             inactiveWorkspace = activeWorkspace;
 
             urgentWorkspace = {
               border = "#00000000"; # Transparent
-              background = (builtins.elemAt colors.color 1);
-              text = colors.foreground;
+              background = (builtins.elemAt theme.color 1);
+              text = theme.foreground;
             };
 
             bindingMode = urgentWorkspace;
-            
 
-            
+          };
 
+          fonts = {
+            names = [theme.font.general.family];
+            size = 9.0;
           };
         }
       ];
@@ -193,29 +227,29 @@ in {
       };
 
       colors = rec {
-        background = colors.background;
+        background = theme.background;
 
         focused = rec {
-          background = builtins.elemAt colors.color 8;
-          text = colors.foreground;
-          border = builtins.elemAt colors.color 4;
-          indicator = builtins.elemAt colors.color 12;
+          background = builtins.elemAt theme.color 8;
+          text = theme.foreground;
+          border = builtins.elemAt theme.color 4;
+          indicator = builtins.elemAt theme.color 12;
           childBorder = background;
         };
 
         focusedInactive = rec {
-          background = colors.background;
-          text = colors.foreground;
-          border = builtins.elemAt colors.color 0;
-          indicator = builtins.elemAt colors.color 8;
+          background = theme.background;
+          text = theme.foreground;
+          border = builtins.elemAt theme.color 0;
+          indicator = builtins.elemAt theme.color 8;
           childBorder = background;
         };
 
         urgent = rec {
-          background = builtins.elemAt colors.color 1;
-          text = colors.foreground;
-          border = builtins.elemAt colors.color 1;
-          indicator = builtins.elemAt colors.color 9;
+          background = builtins.elemAt theme.color 1;
+          text = theme.foreground;
+          border = builtins.elemAt theme.color 1;
+          indicator = builtins.elemAt theme.color 9;
           childBorder = background;
         };
 
@@ -232,23 +266,21 @@ in {
     blocksLeft = [
       ''
       [song]
-      label=Song: 
-      command=echo $(${pkgs.playerctl}/bin/playerctl metadata title) - $(${pkgs.playerctl}/bin/playerctl metadata artist); echo $(${pkgs.playerctl}/bin/playerctl metadata title)
+      command=[[ $(${pkgs.playerctl}/bin/playerctl status) = "Playing" ]] && ${pkgs.playerctl}/bin/playerctl metadata -f ' {{title}} - {{artist}}' || echo ""
       interval=1
       ''
       ''
       [volume]
-      label=Volume: 
-      command=amixer get Master | grep -oP 'Right: .* \[\K\d+'
+      label=
+      command=${pkgs.pipewire}/bin/pw-dump | ${pkgs.jq}/bin/jq '.[] | select(.type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" and .info.state == "running") | "\(.info.params.Props[0].channelVolumes[0] *100 | round)"' -r
       interval=once
       signal=2
       ''
       ''
       [notifications]
-      label=Notifications: 
       interval=once
       signal=3
-      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo "Disabled" || echo "Enabled"
+      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo "" || echo ""
       ''
     ];
 
@@ -257,9 +289,8 @@ in {
       default = [
         ''
         [warnsecrets]
-        label=WARNING: 
-        interval=once
-        command=echo "Secrets are not loaded into build - refer to github:hexf/dotfiles README for more info"
+        full_text="<span foreground="red" size="x-large">Secrets are not loaded. Check dotfile readme for more info</span>
+        markup=pango
         ''
       ];
     });
@@ -267,6 +298,7 @@ in {
     blocksRight = [
       ''
       [date]
+      label= 
       command=date "+%D %T"
       interval=1
       '' 
