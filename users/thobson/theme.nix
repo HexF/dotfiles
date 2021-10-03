@@ -29,7 +29,7 @@ rec {
         terminal = {
             family = "JetbrainsMono Nerd Font Mono";
             size = 11;
-        }
+        };
     };
 }
 

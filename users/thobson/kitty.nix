@@ -47,7 +47,7 @@ in {
             size = theme.font.terminal.size;
         };
         settings = {
-            background_opacity = 0.5;
+            background_opacity = "0.5";
             foreground = theme.foreground;
             background = theme.background;
 
@@ -67,7 +67,7 @@ in {
             color13 = builtins.elemAt theme.color 13;
             color14 = builtins.elemAt theme.color 14;
             color15 = builtins.elemAt theme.color 15;
-            
+
         };
     };
     
