@@ -1,5 +1,3 @@
-# Simple Jellyfin, Transmission, Jackett, Sonarr and Radarr configuration
-
 {config, lib, pkgs, ...}:
 with lib;
 
@@ -160,14 +158,6 @@ in {
                     };
                 };
 
-                "transmission${cfg.vhostSuffix}" = mkIf cfg.transmission.enable {
-                    serverAliases = [ "transmission" ];
-                    locations."/" = {
-                        proxyPass = "http://127.0.0.1:9091";
-                        extraConfig = nginxAuthVhostConfig;
-                    };
-                };
-
                 "sonarr${cfg.vhostSuffix}" = mkIf cfg.sonarr.enable {
                     serverAliases = [ "sonarr" ];
                     locations."/" = {
@@ -207,10 +197,6 @@ in {
             name = "nginx_media";
             unixAuth = true;
         };
-
-
-        # hacky workaround for transmission watch dir
-        system.activationScripts.transmission-daemon = mkForce transmissionActivationScript;
 
         users.users = mkIf (cfg.user == "media") {
             media = {
