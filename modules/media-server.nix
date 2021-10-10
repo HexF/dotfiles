@@ -118,6 +118,7 @@ in {
                 ${pkgs.navidrome}/bin/navidrome --configfile ${(pkgs.formats.json {}).generate "navidrome.json" {
                     Address = "127.0.0.1";
                     Port = 4533;
+                    MusicFolder = "/mnt/media/music";
                 }}
                 '';
                 DynamicUser = true;
