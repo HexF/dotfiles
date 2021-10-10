@@ -5,26 +5,6 @@ with lib;
 
 let
     cfg = config.services.media-server;
-    transmissionActivationScript = ''
-        install -d -m 700 '${config.services.transmission.home}/.config/transmission-daemon'
-        chown -R '${config.services.transmission.user}:${config.services.transmission.group}' ${config.services.transmission.home}/.config/transmission-daemon
-        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.download-dir}'
-        '' + optionalString config.services.transmission.settings.incomplete-dir-enabled ''
-        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.incomplete-dir}'
-        '' + optionalString config.services.transmission.settings.watch-dir-enabled ''
-        install -d -m '${config.services.transmission.downloadDirPermissions}' -o '${cfg.user}' -g '${cfg.group}' '${config.services.transmission.settings.watch-dir}'
-        '';
-    nginxProxyVhostConfig = ''
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_http_version 1.1;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Protocol $scheme;
-        proxy_set_header X-Forwarded-Host $http_host;
-
-        proxy_buffering off;
-    '';
     nginxAuthVhostConfig = ''
         auth_pam "Secure Area";
         auth_pam_service_name "nginx_media";
@@ -59,16 +39,6 @@ in {
                 };
             };
 
-            transmission = {
-                enable = mkOption {
-                    default = false;
-                };
-
-                dataDir = mkOption {
-                    default = "/var/lib/transmission/";
-                };        
-            };
-
             sonarr = {
                 enable = mkOption {
                     default = false;
@@ -81,11 +51,23 @@ in {
                 };          
             }; 
 
+            lidarr = {
+                enable = mkOption {
+                    default = false;
+                };          
+            }; 
+
             jackett = {
                 enable = mkOption {
                     default = false;
                 };              
             }; 
+
+            airsonic = {
+                enable = mkOption {
+                    default = false;
+                };
+            }
 
 
 
@@ -103,33 +85,6 @@ in {
             # Open the ports, although we will also add virtualhosts to nginx
             openFirewall = true;
         };
-
-        services.transmission = {
-            enable = cfg.transmission.enable;
-            user = cfg.user;
-            group = cfg.group;
-
-            settings."rpc-bind-address" = "0.0.0.0";
-            settings."watch-dir-enabled" = true;
-            settings."rpc-host-whitelist" = "transmission${cfg.vhostSuffix}";
-            settings."incomplete-dir" = "${cfg.transmission.dataDir}IncompleteDownloads";
-            settings."download-dir" = "${cfg.transmission.dataDir}Downloads";
-
-            openFirewall = true;   
-        };
-
-        systemd.services.transmission-trackers = {
-            serviceConfig.Type = "oneshot";
-            script = ''
-            ${pkgs.curl}/bin/curl https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt | ${pkgs.findutils}/bin/xargs -I % ${pkgs.transmission}/bin/transmission-remote -t all -td %
-            '';
-        };
-
-        #systemd.timers.transmission-trackers = {
-        #    wantedBy = [ "timers.target" ];
-        #    partOf = [ "transmission-trackers.service" ];
-        #    timerConfig.OnCalendar = [ "*-*-* *:*:00" ];
-        #};
 
         services.sonarr = {
             enable = cfg.sonarr.enable;
@@ -156,6 +111,22 @@ in {
             openFirewall = true;   
         };
 
+        services.airsonic = {
+            enable = cfg.airsonic.enable;
+            user = cfg.user;
+            group = cfg.group;
+
+            virtualHost = "airsonic${cfg.vhostSuffix}";
+        };
+
+        services.lidarr = {
+            enable = cfg.lidarr.enable;
+            user = cfg.user;
+            group = cfg.group;
+
+            openFirewall = true;
+        }
+
         security.pam.services.nginx.setEnvironment = false;
         systemd.services.nginx.serviceConfig = {
             SupplementaryGroups = [ "shadow" ];
@@ -176,52 +147,61 @@ in {
             SystemCallFilter = lib.mkForce "";
         };
 
-        services.nginx.additionalModules = [ pkgs.nginxModules.pam ];
-        services.nginx.virtualHosts = {
-            "jellyfin${cfg.vhostSuffix}" = mkIf cfg.jellyfin.enable {
-                serverAliases = [ "jellyfin" ];
-                locations."/".extraConfig = ''
-                    proxy_pass http://127.0.0.1:8096;
-                '' + nginxProxyVhostConfig;
-                locations."/socket".extraConfig = ''
-                    proxy_pass http://127.0.0.1:8096;
-                    proxy_set_header Upgrade $http_upgrade;
-                    proxy_set_header Connection "upgrade";
-                '' + nginxProxyVhostConfig;
+        services.nginx = {
+            enable = true;
+            additionalModules = [ pkgs.nginxModules.pam ];
+            virtualHosts = {
+                "jellyfin${cfg.vhostSuffix}" = mkIf cfg.jellyfin.enable {
+                    serverAliases = [ "jellyfin" ];
+                    locations."/".proxyPass = "http://127.0.0.1:8096";
+                    locations."/socket" = {
+                        proxyPass = "http://127.0.0.1:8096";
+                        proxyWebsockets = true;
+                    };
+                };
+
+                "transmission${cfg.vhostSuffix}" = mkIf cfg.transmission.enable {
+                    serverAliases = [ "transmission" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:9091";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
+
+                "sonarr${cfg.vhostSuffix}" = mkIf cfg.sonarr.enable {
+                    serverAliases = [ "sonarr" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:8989";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
+
+                "radarr${cfg.vhostSuffix}" = mkIf cfg.radarr.enable {
+                    serverAliases = [ "radarr" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:7878";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
+
+                "lidarr${cfg.vhostSuffix}" = mkIf cfg.lidarr.enable {
+                    serverAliases = [ "lidarr" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:8686";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
+
+                "jackett${cfg.vhostSuffix}" = mkIf cfg.jackett.enable {
+                    serverAliases = [ "jackett" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:9117";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };  
             };
 
-            "transmission${cfg.vhostSuffix}" = mkIf cfg.transmission.enable {
-                serverAliases = [ "transmission" ];
-                locations."/".extraConfig = ''
-                    proxy_pass http://127.0.0.1:9091;
-                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
-            };
-
-            "sonarr${cfg.vhostSuffix}" = mkIf cfg.sonarr.enable {
-                serverAliases = [ "sonarr" ];
-                locations."/".extraConfig = ''
-                    proxy_pass http://127.0.0.1:8989;
-                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
-            };
-
-            "radarr${cfg.vhostSuffix}" = mkIf cfg.radarr.enable {
-                serverAliases = [ "radarr" ];
-                locations."/".extraConfig = ''
-                    proxy_pass http://127.0.0.1:7878;
-                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
-            };
-
-            "jackett${cfg.vhostSuffix}" = mkIf cfg.jackett.enable {
-                serverAliases = [ "jackett" ];
-                locations."/".extraConfig = ''
-                    proxy_pass http://127.0.0.1:9117;
-                '' + nginxProxyVhostConfig + nginxAuthVhostConfig;
-            };
-
-            
         };
-
-        
 
         security.pam.services.nginx_media = {
             name = "nginx_media";
