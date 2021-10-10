@@ -212,7 +212,7 @@ in {
 
           fonts = {
             names = [theme.font.general.family];
-            size = 9.0;
+            size = 10.0;
           };
         }
       ];
@@ -265,22 +265,28 @@ in {
     enable = true;
     blocksLeft = [
       ''
+      [window_title]
+      interval=-3
+      command=${pkgs.xtitle}/bin/xtitle -s
+      ''
+      ''
       [song]
       command=[[ $(${pkgs.playerctl}/bin/playerctl status) = "Playing" ]] && ${pkgs.playerctl}/bin/playerctl metadata -f ' {{title}} - {{artist}}' || echo ""
       interval=1
       ''
       ''
       [volume]
-      label=
+      label= 
       command=${pkgs.pipewire}/bin/pw-dump | ${pkgs.jq}/bin/jq '.[] | select(.type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" and .info.state == "running") | "\(.info.params.Props[0].channelVolumes[0] *100 | round)"' -r
-      interval=once
+      interval=1
       signal=2
       ''
       ''
       [notifications]
-      interval=once
+      interval=1
       signal=3
-      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo "" || echo ""
+      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo '<span foreground="${builtins.elemAt theme.color 1}"></span>' || echo '<span foreground="${builtins.elemAt theme.color 2}"></span>'
+      markup=pango
       ''
     ];
 
