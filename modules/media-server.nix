@@ -67,7 +67,7 @@ in {
                 enable = mkOption {
                     default = false;
                 };
-            }
+            };
 
 
 
