@@ -111,7 +111,7 @@ in {
 
         services.airsonic = {
             enable = cfg.airsonic.enable;
-            user = cfg.user;
+            #user = cfg.user;
             #group = cfg.group;
 
             virtualHost = "airsonic${cfg.vhostSuffix}";
