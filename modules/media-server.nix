@@ -128,6 +128,7 @@ in {
                 RootDirectory = "/run/navidrome";
                 ReadWritePaths = "";
                 BindReadOnlyPaths = [
+                    builtins.storeDir
                     "/mnt/media/music"
                 ];
                 CapabilityBoundingSet = "";
