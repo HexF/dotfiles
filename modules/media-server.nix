@@ -226,7 +226,7 @@ in {
                 "navidrome${cfg.vhostSuffix}" = mkIf cfg.jackett.enable {
                     serverAliases = [ "navidrome" ];
                     locations."/" = {
-                        proxyPass = "http://127.0.0.1:9117";
+                        proxyPass = "http://127.0.0.1:4533";
                         extraConfig = nginxAuthVhostConfig;
                     };
                 };
