@@ -61,7 +61,7 @@ in {
                 };              
             }; 
 
-            airsonic = {
+            navidrome = {
                 enable = mkOption {
                     default = false;
                 };
@@ -109,12 +109,45 @@ in {
             openFirewall = true;   
         };
 
-        services.airsonic = {
-            enable = cfg.airsonic.enable;
-            #user = cfg.user;
-            #group = cfg.group;
-
-            virtualHost = "airsonic${cfg.vhostSuffix}";
+        systemd.services.navidrome = mkIf cfg.navidrome.enable {
+            description = "Navidrome Media Server";
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+            serviceConfig = {
+                ExecStart = ''
+                ${pkgs.navidrome}/bin/navidrome --configfile ${(pkgs.formats.json {}).generate "navidrome.json" {
+                    Address = "127.0.0.1";
+                    Port = 4533;
+                }}
+                '';
+                DynamicUser = true;
+                StateDirectory = "navidrome";
+                WorkingDirectory = "/var/lib/navidrome";
+                RuntimeDirectory = "navidrome";
+                RootDirectory = "/run/navidrome";
+                ReadWritePaths = "";
+                BindReadOnlyPaths = [
+                    "/mnt/media/music"
+                ];
+                CapabilityBoundingSet = "";
+                RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+                RestrictNamespaces = true;
+                PrivateDevices = true;
+                PrivateUsers = true;
+                ProtectClock = true;
+                ProtectControlGroups = true;
+                ProtectHome = true;
+                ProtectKernelLogs = true;
+                ProtectKernelModules = true;
+                ProtectKernelTunables = true;
+                SystemCallArchitectures = "native";
+                SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+                RestrictRealtime = true;
+                LockPersonality = true;
+                MemoryDenyWriteExecute = true;
+                UMask = "0066";
+                ProtectHostname = true;
+            };
         };
 
         services.lidarr = {
@@ -188,7 +221,15 @@ in {
                         proxyPass = "http://127.0.0.1:9117";
                         extraConfig = nginxAuthVhostConfig;
                     };
-                };  
+                };
+
+                "navidrome${cfg.vhostSuffix}" = mkIf cfg.jackett.enable {
+                    serverAliases = [ "navidrome" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:9117";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
             };
 
         };

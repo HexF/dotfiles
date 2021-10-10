@@ -69,7 +69,7 @@
         radarr.enable = true;
         jackett.enable = true;
         lidarr.enable = true;
-        airsonic.enable = true;
+        navidrome.enable = true;
 
         vhostSuffix = ".oh.hexf.me";
     };
