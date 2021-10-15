@@ -21,6 +21,7 @@ in
 
 
   imports = [
+    ./notes.nix
     ./i3.nix
     ./kitty.nix
     ./keepass.nix
@@ -30,6 +31,33 @@ in
 
     (./. + "/${systemName}.nix")
     ];
+
+  services.mopidy = {
+    enable = true;
+    extensionPackages = with pkgs;[
+      mopidy-mpd
+      mopidy-subidy
+      mopidy-scrobbler
+    ];
+    configuration = ''
+    [file]
+    enabled=false
+    [mpd]
+    hostname=127.0.0.1
+    command_blacklist=
+    '' + (useSecret {
+      callback = secrets: ''
+      [subidy]
+      url=${secrets.airsonic.url}
+      username=${secrets.airsonic.username}
+      password=${secrets.airsonic.password}
+      [scrobbler]
+      username=${secrets.lastfm.username}
+      password=${secrets.lastfm.password}
+      '';
+      default = "";
+    });
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -43,6 +71,7 @@ in
     nmap
     xfce.thunar
     xdotool
+    cantata
     (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 

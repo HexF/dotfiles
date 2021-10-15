@@ -9,6 +9,11 @@
     };
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
+
+    #mopidy-nix-hm = {
+    #  url = "github:lightdiscord/mopidy-nix";
+    #  flake = false;
+    #};
   };
 
   outputs = { self, home-manager, nixpkgs, ... }@inputs: 
@@ -31,14 +36,20 @@
       userModules = systemName: [
         home-manager.nixosModules.home-manager rec {
 
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.extraSpecialArgs = {
-            inherit systemName;
-            inherit inputs;
-          };
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            extraSpecialArgs = {
+              inherit systemName;
+              inherit inputs;
+            };
 
-          home-manager.users.thobson = ./users/thobson/home.nix;
+            users.thobson = ./users/thobson/home.nix;
+            sharedModules = [
+              #(import inputs.mopidy-nix-hm)
+              ./modules/mopidy.nix
+            ];
+          };
       
         }
 
