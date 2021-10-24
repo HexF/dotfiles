@@ -27,7 +27,7 @@ in
     ./keepass.nix
     ./browser.nix
     ./display.nix
-    ../../modules/discord.nix
+    ../../modules/betterdiscord.nix
 
     (./. + "/${systemName}.nix")
     ];
@@ -72,6 +72,8 @@ in
     xfce.thunar
     xdotool
     cantata
+    carla
+    libreoffice
     (nerdfonts.override {fonts = ["JetBrainsMono"];})
   ];
 
@@ -166,10 +168,9 @@ in
     enableAliases = true;
   };
 
-  programs.discord = {
+  programs.betterdiscord = {
     enable = true;
-    autostart = true;
-    pkg = discord-latest;
+    discord-pkg = discord-latest;
   };
 
   
