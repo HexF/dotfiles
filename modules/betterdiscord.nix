@@ -3,7 +3,7 @@ with lib;
 
 let
     cfg = config.programs.betterdiscord;
-
+    betterdiscordctl = "${cfg.pkg}/bin/betterdiscordctl";
 in {
     options = {
         programs.betterdiscord = {
@@ -29,10 +29,10 @@ in {
         ];
 
         home.activation.betterdiscord = config.lib.dag.entryAfter ["writeBoundary"] ''
-            ${betterdiscordctl}/bin/betterdiscordctl status | grep 'injected: yes$'
+            ${betterdiscordctl} status | grep 'injected: yes$'
 
             if [[ $? -eq 1 ]]; then
-                ${betterdiscordctl}/bin/betterdiscordctl install
+                ${betterdiscordctl} install
             fi
         '';
     };
