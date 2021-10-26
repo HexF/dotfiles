@@ -10,6 +10,7 @@ in name: paths: exclude: useSecret {
         compression = "auto,lzma";
         extraCreateArgs = "--verbose --stats --checkpoint-interval 600";
         startAt = "hourly";
+        extraArgs = "--remote-path=/usr/local/bin/borg";
     };
     default = {};
 }
