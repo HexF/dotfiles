@@ -67,6 +67,7 @@ in
     thunderbird
     master.neofetch
     texstudio
+    languagetool
     pavucontrol
     nmap
     xfce.thunar

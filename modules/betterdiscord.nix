@@ -4,6 +4,7 @@ with lib;
 let
     cfg = config.programs.betterdiscord;
     betterdiscordctl = "${cfg.pkg}/bin/betterdiscordctl";
+    plugins = cfg.plugins;
 in {
     options = {
         programs.betterdiscord = {
@@ -18,6 +19,10 @@ in {
             pkg = mkOption {
                 default = pkgs.betterdiscordctl;
             };
+
+            plugins = mkOption {
+                default = [];
+            };
             
         };
     };
@@ -29,11 +34,7 @@ in {
         ];
 
         home.activation.betterdiscord = config.lib.dag.entryAfter ["writeBoundary"] ''
-            ${betterdiscordctl} status | grep 'injected: yes$'
-
-            if [[ $? -eq 1 ]]; then
-                ${betterdiscordctl} install
-            fi
+            ${betterdiscordctl} status | grep 'injected: yes$' || ${betterdiscordctl} install
         '';
     };
 }
