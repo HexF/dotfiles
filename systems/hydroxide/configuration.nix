@@ -2,12 +2,16 @@
 { config, pkgs, ... }: {
 
     imports = [
-        ./common/base.nix
-        ./common/bios.nix
-        ./common/server.nix
-        ./hydroxide-hardware.nix
-        ../modules/media-server.nix
+        ../modules/base.nix
+        ../modules/bios.nix
+        ../modules/server.nix
+
+        ./modules/media-server.nix
+
+        ./hardware-configuration.nix
     ];
+
+    
     networking.interfaces.ens192.useDHCP = true;
     networking.hostName = "hydroxide";
 

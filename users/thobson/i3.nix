@@ -4,7 +4,6 @@ let
   mod = "Mod1";
   theme = import ./theme.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
-  useSecret = import ../../useSecret.nix;
   terminal = "${pkgs.kitty}/bin/kitty";
 in {
 
@@ -289,17 +288,6 @@ in {
       markup=pango
       ''
     ];
-
-    blocksCenter = (useSecret {
-      callback = secrets: [];
-      default = [
-        ''
-        [warnsecrets]
-        full_text="<span foreground="red" size="x-large">Secrets are not loaded. Check dotfile readme for more info</span>
-        markup=pango
-        ''
-      ];
-    });
 
     blocksRight = [
       ''

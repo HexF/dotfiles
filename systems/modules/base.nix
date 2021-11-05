@@ -1,7 +1,16 @@
 { config, pkgs, ... }:
 
 {
-  
+
+  sops = {
+    defaultSopsFile = ../${config.networking.hostName}/secrets/secrets.yaml;
+    
+    age = {
+      keyFile = "/var/lib/sops-nix/key.txt";
+      generateKey = true; # Generate if it doesn't exist
+    };
+  };
+
   nix = { 
     package = pkgs.nixFlakes;
     binaryCachePublicKeys = [

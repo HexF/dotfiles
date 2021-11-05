@@ -2,12 +2,12 @@
 
 {
     imports = [
-        ./systems/common/base.nix
-        ./systems/common/efi.nix
-        ./systems/common/desktop.nix
-        ./systems/common/wireless.nix
-        ./systems/common/bluetooth.nix
-        ./systems/frostbite-hardware.nix
+        ../modules/base.nix
+        ../modules/efi.nix
+        ../modules/desktop.nix
+        ../modules/wireless.nix
+        ../modules/bluetooth.nix
+        ./hardware-configuration.nix
     ];
 
     networking.interfaces.enp0s20f0u2c2.useDHCP = true;

@@ -1,6 +1,5 @@
 { systemName, config, pkgs, ... }:
 let
-  useSecret = import ../../useSecret.nix;
   discord-latest = pkgs.discord.overrideAttrs (old: {
     version = "0.0.16";
     src = pkgs.fetchurl {
@@ -9,6 +8,7 @@ let
     };
   });
   theme = import ./theme.nix;
+  secrets_path = "/run/secrets/";
 in
 {
   # Let Home Manager install and manage itself.
@@ -45,18 +45,10 @@ in
     [mpd]
     hostname=127.0.0.1
     command_blacklist=
-    '' + (useSecret {
-      callback = secrets: ''
-      [subidy]
-      url=${secrets.airsonic.url}
-      username=${secrets.airsonic.username}
-      password=${secrets.airsonic.password}
-      [scrobbler]
-      username=${secrets.lastfm.username}
-      password=${secrets.lastfm.password}
-      '';
-      default = "";
-    });
+    '';
+    extraConfigFiles = [
+      "${secrets_path}/thobson_mopidy_config"
+    ];
   };
 
   fonts.fontconfig.enable = true;
@@ -128,10 +120,10 @@ in
 
   programs.ssh = {
     enable = true;
-    matchBlocks = (useSecret {
-      callback = secrets: secrets.ssh_hosts;
-      default = {};
-    });
+    extraOptionOverrides = {
+      Include = "${secrets_path}/thobson_ssh_hosts";
+    };
+
   };
 
   programs.zsh = {

@@ -4,14 +4,16 @@
 
 { config, pkgs, ... }:
 let
-  mkBackup = import ./common/backup.nix;
+  mkBackup = import ../helpers/backup.nix {inherit config;};
 in {
   imports = [
-    ./common/base.nix
-    ./common/efi.nix
-    ./common/desktop.nix
-    ./common/bluetooth.nix
-    ./snowflake-hardware.nix
+    ../modules/base.nix
+    ../modules/efi.nix
+    ../modules/desktop.nix
+    ../modules/bluetooth.nix
+    ../modules/backup.nix
+
+    ./hardware-configuration.nix
   ];
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
