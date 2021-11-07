@@ -8,8 +8,10 @@ let
 in {
 
   imports = [
-    ../../modules/i3blocks.nix
+    ../modules/i3blocks.nix
   ];
+
+  home.file.".background-image".source = ../../wallpaper.jpg;
 
   services.udiskie = {
     enable = true;
@@ -130,6 +132,11 @@ in {
   xsession.windowManager.i3 = {
     enable = true;
     package = pkgs.i3-gaps;
+
+    extraConfig = ''
+    exec_always ${pkgs.feh}/bin/feh --bg-fill $HOME/.background-image
+    '';
+
     config = {
       fonts = {
         names = [theme.font.general.family];

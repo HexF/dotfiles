@@ -13,6 +13,9 @@ in {
     ../modules/bluetooth.nix
     ../modules/backup.nix
 
+    ../modules/dm-xsession.nix
+    #../modules/dm-kde.nix
+
     ./modules/windows-vm.nix
 
     ./hardware-configuration.nix
@@ -21,6 +24,7 @@ in {
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
   services.ratbagd.enable = true; # Compliments Piper
+
 
 
   networking.interfaces.enp3s0.useDHCP = true;

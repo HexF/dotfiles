@@ -8,21 +8,11 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      defaultSession = "xsession";
-      lightdm.background = ../../wallpaper.jpg;
+      sddm = {
+        enable = true;
+        #background = ../../wallpaper.jpg;
+      };
     };
-    desktopManager = {
-      xterm.enable = false;
-      session = [
-        {
-            manage = "desktop";
-            name = "xsession";
-            start = ''exec $HOME/.xsession'';
-        }
-      ];
-    };
-    
-
   };
 
   services.xserver.layout = "us";
