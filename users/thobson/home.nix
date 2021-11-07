@@ -67,7 +67,9 @@ in
     cantata
     carla
     libreoffice
+    plantuml
     (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    aileron
   ];
 
   
