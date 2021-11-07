@@ -13,6 +13,8 @@ in {
     ../modules/bluetooth.nix
     ../modules/backup.nix
 
+    ./modules/windows-vm.nix
+
     ./hardware-configuration.nix
   ];
 
