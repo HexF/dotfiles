@@ -37,7 +37,7 @@ in {
   
 
   services.xserver = {
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "nouveau" ];
     wacom.enable = true;
 
     xrandrHeads = [
@@ -46,6 +46,16 @@ in {
       { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-0"; }
     ];
   };
+
+  services.logind.extraConfig = ''
+    # don’t shutdown when power button is short-pressed
+    HandlePowerKey=suspend-then-hibernate
+  '';
+
+  systemd.sleep.extraConfig = ''
+    HibernateDelaySec=30m
+  '';
+
 
   services.borgbackup.jobs = {
     snowflake-home-thobson = mkBackup "snowflake-home-thobson" "/home/thobson" [

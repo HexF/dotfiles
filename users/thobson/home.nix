@@ -70,9 +70,20 @@ in
     plantuml
     (nerdfonts.override {fonts = ["JetBrainsMono"];})
     aileron
+    oci-cli
+    lens
+    kubernetes-helm
+    kubectl
   ];
 
-  
+  qt.style.name = "adwaita-dark";
+  gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
 
 
   programs.vscode = {

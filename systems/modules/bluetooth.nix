@@ -11,16 +11,16 @@
 
   # Pin this specific kernel version because it includes support for mSBC via alt1
   # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1366
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_13.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
-            sha256 = "sha256-w5QNCc+2KfjBQLewmM9jVtYM2AQ99rF8HwBAdyacqTc=";
-      };
-      version = "5.13.2";
-      modDirVersion = "5.13.2";
-      };
-  });
+  #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_13.override {
+  #  argsOverride = rec {
+  #    src = pkgs.fetchurl {
+  #          url = "mirror://kernel/linux/kernel/v5.x/linux-${version}.tar.xz";
+  #          sha256 = "sha256-w5QNCc+2KfjBQLewmM9jVtYM2AQ99rF8HwBAdyacqTc=";
+  #    };
+  #    version = "5.13.2";
+  #    modDirVersion = "5.13.2";
+  #    };
+  #});
 
   services.pipewire  = {
     media-session.config.bluez-monitor.properties = {

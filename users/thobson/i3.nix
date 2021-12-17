@@ -5,6 +5,10 @@ let
   theme = import ./theme.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   terminal = "${pkgs.kitty}/bin/kitty";
+  imagemagickCustom = pkgs.imagemagick.overrideAttrs(old: {
+    configureFlags = old.configureFlags ++ ["--enable-opencl"];
+    buildInputs = old.buildInputs ++ [pkgs.opencl-headers];
+  });
 in {
 
   imports = [
@@ -15,6 +19,11 @@ in {
 
   services.udiskie = {
     enable = true;
+  };
+
+  services.screen-locker = {
+    enable = true;
+    lockCmd = "${pkgs.bash}/bin/bash -c \"${imagemagickCustom}/bin/import -window root PNG:- | ${imagemagickCustom}/bin/convert PNG:- -resize 10% -blur 10 -resize 1000% RGB:- | ${pkgs.i3lock-color}/bin/i3lock-color --raw=$(${pkgs.xorg.xdpyinfo}/bin/xdpyinfo | ${pkgs.gnugrep}/bin/grep dimensions | ${pkgs.gnused}/bin/sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\\1/'):rgb --image /dev/stdin -k --insidevercolor=00000000 --insidewrongcolor=00000000 --insidecolor=00000000 --ringvercolor=${builtins.elemAt theme.color 4}80 --ringwrongcolor=${builtins.elemAt theme.color 1}80 --ringcolor=${builtins.elemAt theme.color 2}80 --line-uses-inside --keyhlcolor=${builtins.elemAt theme.color 3}80 --bshlcolor=${builtins.elemAt theme.color 5}80 --timecolor=${theme.foreground}80 --datecolor=${theme.foreground}80 --verifcolor=${theme.foreground}80 --wrongcolor=${theme.foreground}80 --pass-volume-keys --veriftext=Checking... --wrongtext=Wrong --noinputtext=Empty --locktext=Locking... --lockfailedtext=Failed\"";
   };
   
   programs.rofi = {

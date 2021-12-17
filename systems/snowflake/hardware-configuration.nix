@@ -35,4 +35,7 @@
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  
+  # Suspend video corruption
+  #hardware.nvidia.powerManagement.enable = true;
 }

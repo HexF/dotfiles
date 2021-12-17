@@ -8,9 +8,9 @@
   services.xserver = {
     enable = true;
     displayManager = {
-      sddm = {
+      lightdm = {
         enable = true;
-        #background = ../../wallpaper.jpg;
+        background = ../../wallpaper.jpg;
       };
     };
   };
