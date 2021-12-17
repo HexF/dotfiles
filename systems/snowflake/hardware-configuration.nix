@@ -15,22 +15,36 @@
   #boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
   boot.supportedFilesystems = [ "zfs" ];
 
+  # Fix ZFS scheduling
+  services.udev.extraRules = ''
+    ACTION=="add|change", KERNEL=="sd[a-z]*[0-9]*|mmcblk[0-9]*p[0-9]*|nvme[0-9]*n[0-9]*p[0-9]*", ENV{ID_FS_TYPE}=="zfs_member", ATTR{../queue/scheduler}="none"
+  '';
+
+  boot.kernelParams = [ "nohibernate" ]; # ZFS doesn't support hibernation - can lead to FS corruption
+  # https://github.com/openzfs/zfs/issues/260
+
   hardware.cpu.intel.updateMicrocode = true;
 
-  fileSystems."/" =
-    { device = "/dev/disk/by-uuid/a712d007-958f-46a2-bc65-e43ff88a0de5";
-      fsType = "ext4";
-    };
+  fileSystems."/" = {
+    device = "snowflake/system/root";
+    fsType = "zfs";
+  };
 
-  fileSystems."/home" =
-    { device = "/dev/disk/by-uuid/06e09859-4298-43ee-98b8-558ce8c22b92";
-      fsType = "ext4";
-    };
+  fileSystems."/home" = {
+    device = "snowflake/user/home";
+    fsType = "zfs";
+  };
 
-  fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/739B-B991";
-      fsType = "vfat";
-    };
+  fileSystems."/nix" = {
+    device = "snowflakes/system/nix";
+    fsType = "zfs";
+  };
+
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/739B-B991";
+    fsType = "vfat";
+  };
 
   swapDevices = [ ];
 
