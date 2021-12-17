@@ -36,7 +36,7 @@
   };
 
   fileSystems."/nix" = {
-    device = "snowflakes/system/nix";
+    device = "snowflake/system/nix";
     fsType = "zfs";
   };
 
