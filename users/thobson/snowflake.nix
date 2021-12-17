@@ -12,7 +12,7 @@
     jetbrains.idea-ultimate
 
     (callPackage ../../packages/audio-reactive-led-strip {})
-    unstable.factorio
+    #unstable.factorio
 
   ];
 
