@@ -23,6 +23,19 @@ let
 
         ${pkgs.rclone}/bin/rclone copy --config "${rcloneConfPath}" --progress "${syncDir}/Passwords.kdbx" nextcloud:Keepass/
     '';
+    unlockDatabaseScript = pkgs.writeShellScriptBin "keepass-unlock" ''
+
+        if ! pgrep keepassxc-wrap > /dev/null
+        then
+            keepassxc &
+        fi
+        
+        tmp_passwd=$(cat ${keepassSecretPath})
+        dbus-send --print-reply --dest=org.keepassxc.KeePassXC.MainWindow /keepassxc org.keepassxc.MainWindow.openDatabase \
+            string:${syncDir}/Passwords.kdbx string:$tmp_passwd string:${syncDir}/Passwords.keyx
+
+    '';
+
 in
 {
 
