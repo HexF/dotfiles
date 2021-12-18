@@ -21,6 +21,18 @@ in {
     ./hardware-configuration.nix
   ];
 
+  # Don't compress kernel and modules
+  boot.kernelPatches = lib.singleton {
+    name = "disable compression";
+    patch = null;
+    extraConfig = ''
+      KERNEL_XZ n
+      KERNEL_ZSTD n
+      MODULE_COMPRESS n
+      MODULE_COMPRESS_XZ n
+    '';
+  };
+
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
   services.ratbagd.enable = true; # Compliments Piper
@@ -31,7 +43,10 @@ in {
   networking.hostName = "snowflake";
   networking.hostId = "fdab470e";
   
-  boot.kernelParams = [ "intel_pstate=active" "nvidia-drm.modeset=1" ];
+  boot.kernelParams = [
+    "intel_pstate=active"
+  ];
+  
   boot.initrd.compressor = "cat";
   boot.initrd.kernelModules = config.boot.kernelModules;
   
