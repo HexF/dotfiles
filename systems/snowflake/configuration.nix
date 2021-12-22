@@ -77,8 +77,6 @@ in {
   services.borgbackup.jobs = {
     snowflake-home-thobson = mkBackup "snowflake-home-thobson" "/home/thobson" [
       "/home/thobson/.cache"
-      "/home/thobson/.config"
-      "/home/thobson/Downloads"
       "/nix"
     ];
   };
