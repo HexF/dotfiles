@@ -3,7 +3,7 @@ keys:
   # Users
   - &thobson 107DA02C7AE97B084746564B9F1FD9D87950DB6F
   # Hosts
-  - &snowflake 1a8d8e64bbc65ac802e24f5908db9ae5cb4ed1a5
+  - &snowflake age15x0xax3hlekmukvknwn4wksmywvr4ll4k48vrruvvadrx6aaygkqp4vtvg
 
 creation_rules:
   # All systems
@@ -11,6 +11,7 @@ creation_rules:
     key_groups:
       - pgp:
           - *thobson
+        age:
           - *snowflake
   
   # Just snowflake
@@ -18,5 +19,6 @@ creation_rules:
     key_groups:
       - pgp:
           - *thobson
+        age:
           - *snowflake
           
