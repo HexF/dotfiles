@@ -5,10 +5,7 @@ let
   theme = import ./theme.nix;
   rofiPackage = pkgs.rofi.override { plugins = [ pkgs.rofi-emoji ]; };
   terminal = "${pkgs.kitty}/bin/kitty";
-  imagemagickCustom = pkgs.imagemagick.overrideAttrs(old: {
-    configureFlags = old.configureFlags ++ ["--enable-opencl"];
-    buildInputs = old.buildInputs ++ [pkgs.opencl-headers];
-  });
+  imagemagickCustom = pkgs.imagemagick;
 in {
 
   imports = [
@@ -30,9 +27,9 @@ in {
     enable = true;
     package = rofiPackage;
     terminal = terminal;
-    separator = "none";
+    # separator = "none";
 
-    lines = 10;
+    # lines = 10;
     extraConfig = {
       modi = "drun,run,emoji,ssh";
       combi-modi = "run,ssh";
@@ -42,35 +39,35 @@ in {
       display-ssh = "Connect to ";
       display-combi = "";
     };
-    colors = {
-      rows = rec {
-        normal = rec {
-          background = theme.background;
-          backgroundAlt = background;
-          foreground = theme.foreground;
-          highlight = {
-            background = theme.accent;
-            foreground = foreground;
-          };
-        };
-        active = normal;
-        urgent = rec {
-          background = (builtins.elemAt theme.color 1);
-          backgroundAlt = background;
-          foreground = theme.foreground;
-          highlight = {
-            background = theme.accent;
-            foreground = foreground;
-          };
-        };
-      };
+    # colors = {
+    #   rows = rec {
+    #     normal = rec {
+    #       background = theme.background;
+    #       backgroundAlt = background;
+    #       foreground = theme.foreground;
+    #       highlight = {
+    #         background = theme.accent;
+    #         foreground = foreground;
+    #       };
+    #     };
+    #     active = normal;
+    #     urgent = rec {
+    #       background = (builtins.elemAt theme.color 1);
+    #       backgroundAlt = background;
+    #       foreground = theme.foreground;
+    #       highlight = {
+    #         background = theme.accent;
+    #         foreground = foreground;
+    #       };
+    #     };
+    #   };
 
-      window = rec {
-        background = theme.background;
-        border = background;
-        separator = "#00000000";
-      };
-    };
+    #   window = rec {
+    #     background = theme.background;
+    #     border = background;
+    #     separator = "#00000000";
+    #   };
+    # };
 
   };
 

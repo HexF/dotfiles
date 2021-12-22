@@ -21,6 +21,8 @@ in {
     ./hardware-configuration.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   # Don't compress kernel and modules
   boot.kernelPatches = lib.singleton {
     name = "disable compression";
@@ -28,8 +30,8 @@ in {
     extraConfig = ''
       KERNEL_XZ n
       KERNEL_ZSTD n
-      MODULE_COMPRESS n
       MODULE_COMPRESS_XZ n
+      MODULE_COMPRESS_NONE y
     '';
   };
 
@@ -95,6 +97,7 @@ in {
     texlive.combined.scheme-full
     docker-compose
     piper
+    glibc
   ];
 
   virtualisation.docker = {

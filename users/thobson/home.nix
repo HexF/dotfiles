@@ -9,6 +9,36 @@ let
   });
   theme = import ./theme.nix;
   secrets_path = "/run/secrets/";
+
+  tidalapi = pkgs.python3Packages.buildPythonPackage rec {
+    pname = "tidalapi";
+    version = "0.6.8";
+    src = pkgs.python3Packages.fetchPypi {
+      inherit pname version;
+      sha256 = "sha256-/kce4n8uhpm8hncPY3/iodwWShbkcuWODuwgHoTvfz0=";
+    };
+    propagatedBuildInputs = [
+      pkgs.python3Packages.requests
+    ];
+  };
+
+  mopidy-tidal = pkgs.python3Packages.buildPythonApplication rec {
+    pname = "mopidy-tidal";
+    version = "0.2.6";
+    src = pkgs.fetchFromGitHub {
+      owner = "tehkillerbee";
+      repo = "mopidy-tidal";
+      rev = "83ad5c4363c3c578dc7c67a9ff8ac49bec212443";
+      sha256 = "sha256-PFmGdpN7s1d4TpwFxgsZDetFlL09boXA3c/GNiLkDc4=";
+    };
+
+    propagatedBuildInputs = [
+      pkgs.mopidy
+      pkgs.python3Packages.pykka
+      tidalapi
+      pkgs.python3Packages.requests
+    ];
+  };
 in
 {
   # Let Home Manager install and manage itself.
@@ -38,6 +68,7 @@ in
       mopidy-mpd
       mopidy-subidy
       mopidy-scrobbler
+      mopidy-tidal
     ];
     configuration = ''
     [file]

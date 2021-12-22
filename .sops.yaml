@@ -3,7 +3,7 @@ keys:
   # Users
   - &thobson 107DA02C7AE97B084746564B9F1FD9D87950DB6F
   # Hosts
-  - &snowflake age1e6f3afhnfc85r49lucey32j9fdercd0wsnnzave5tk86g9czry9sw25mr6
+  - &snowflake 1a8d8e64bbc65ac802e24f5908db9ae5cb4ed1a5
 
 creation_rules:
   # All systems
@@ -11,10 +11,12 @@ creation_rules:
     key_groups:
       - pgp:
           - *thobson
-        age:
           - *snowflake
   
   # Just snowflake
   - path_regex: systems/snowflake/secrets/[^/]+\.yaml$
-    pgp: *thobson
-    age: *snowflake
+    key_groups:
+      - pgp:
+          - *thobson
+          - *snowflake
+          

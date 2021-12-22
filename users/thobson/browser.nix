@@ -2,7 +2,7 @@
 with pkgs;
 let
     fetchFirefoxAddonNM = callPackage ../../modules/fetchFirefoxAddonNM {};
-    customFirefox = wrapFirefox firefox-unwrapped {
+    customFirefox = wrapFirefox firefox-esr-unwrapped {
         nixExtensions = [
             (fetchFirefoxAddonNM {
                 name="ublock";
