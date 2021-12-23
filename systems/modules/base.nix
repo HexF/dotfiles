@@ -6,7 +6,7 @@
     defaultSopsFile = "../${config.networking.hostName}/secrets/secrets.yaml";
     
     age = {
-      keyFile = "/var/lib/sops-nix/key.txt";
+      keyFile = "/persist/sops-nix/key.txt";
       generateKey = true; # Generate if it doesn't exist
     };
   };
