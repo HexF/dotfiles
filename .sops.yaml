@@ -3,7 +3,7 @@ keys:
   # Users
   - &thobson 107DA02C7AE97B084746564B9F1FD9D87950DB6F
   # Hosts
-  - &snowflake age15x0xax3hlekmukvknwn4wksmywvr4ll4k48vrruvvadrx6aaygkqp4vtvg
+  - &snowflake age1fkfanvqqcss4smhwv848x6rhdee7jjcstqxkzznw4g4l0y7jgyzsy2uv9h
 
 creation_rules:
   # All systems
