@@ -26,23 +26,28 @@
   hardware.cpu.intel.updateMicrocode = true;
 
   fileSystems."/" = {
-    device = "snowflake/system/root";
+    device = "rpool/root/nixos";
     fsType = "zfs";
   };
 
   fileSystems."/home" = {
-    device = "snowflake/user/home";
+    device = "rpool/home";
     fsType = "zfs";
   };
 
   fileSystems."/nix" = {
-    device = "snowflake/system/nix";
+    device = "rpool/nix";
+    fsType = "zfs";
+  };
+
+  fileSystems."/persist" = {
+    device = "rpool/nix-keep";
     fsType = "zfs";
   };
 
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/739B-B991";
+    device = "/dev/disk/by-uuid/E9DC-014A";
     fsType = "vfat";
   };
 
