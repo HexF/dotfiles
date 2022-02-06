@@ -81,7 +81,7 @@
                 "/mnt/src/teamcity/data:/data/teamcity_server/datadir"
             ];
             environment = {
-                TEAMCITY_HTTPS_PROXY_ENABLED = true;
+                TEAMCITY_HTTPS_PROXY_ENABLED = "true";
             };
         };
     };
