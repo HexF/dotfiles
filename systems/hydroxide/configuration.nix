@@ -50,6 +50,7 @@
         rootUrl = "https://git.hexdev.nz";
         httpPort = 8092;
         repositoryRoot = "/mnt/src/repo";
+        stateDir = "/mnt/src/gitea";
         settings = {
             service = {
                 DISABLE_REGISTRATION = true;
