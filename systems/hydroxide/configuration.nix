@@ -71,7 +71,7 @@
     };
 
     fileSystems."/mnt/src" = {
-        device = "192.168.1.101:\"/volume4/Thomas Source Code\"";
+        device = "192.168.1.101:/volume4/Thomas Source Code";
         fsType = "nfs";
     };
 
