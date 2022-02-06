@@ -49,6 +49,14 @@
         domain = "git.hexdev.nz";
         rootUrl = "https://git.hexdev.nz";
         httpPort = 8092;
+        settings = {
+            repository = {
+                ROOT = "/mnt/src/repo";
+            };
+            service = {
+                DISABLE_REGISTRATION = true;
+            };
+        };
     };
 
     services.postgresql = {
