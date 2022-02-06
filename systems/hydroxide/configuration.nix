@@ -24,6 +24,9 @@
             "git.hexdev.nz" = {
                 locations."/".proxyPass = "http://localhost:8092/";   # Proxy Gitea
             };
+            "ci.hexdev.nz" = {
+                locations."/".proxyPass = "http://localhost:8111/";   # Proxy Teamcity
+            };
         };    
     };
 
@@ -63,6 +66,24 @@
         identMap = ''
             gitea-users gitea gitea
         '';
+    };
+
+    virtualisation.docker.enable = true;
+
+    virtualisation.oci-containers.containers = {
+        teamcity-server = {
+            image = "jetbrains/teamcity-server:latest";
+            ports = [
+                "8111:8111"
+            ];
+            volumes = [
+                "/mnt/src/teamcity/logs:/opt/teamcity/logs"
+                "/mnt/src/teamcity/data:/data/teamcity_server/datadir"
+            ];
+            environment = {
+                TEAMCITY_HTTPS_PROXY_ENABLED = true;
+            };
+        };
     };
 
     fileSystems."/mnt/media" = {
