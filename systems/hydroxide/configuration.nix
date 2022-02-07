@@ -50,7 +50,7 @@
         appName = "HexDev: Gitea";
         database = {
             type = "postgres";
-            password = "postgres gitea password";
+            passwordFile = "/etc/passwordfile";
         };
         domain = "git.hexdev.nz";
         rootUrl = "https://git.hexdev.nz";
