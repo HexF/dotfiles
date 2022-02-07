@@ -61,6 +61,12 @@
     
     };
 
+    services.youtrack = {
+        enable = true;
+        port = 8082;
+        virtualHost = "issue.hexdev.nz";
+    };
+
     services.keycloak = {
         enable = true;
         httpPort = "8081";
