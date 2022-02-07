@@ -19,7 +19,6 @@
         enable = true;
         recommendedGzipSettings = true;
         recommendedOptimisation = true;
-        recommendedProxySettings = true;
         virtualHosts = {
             "git.hexdev.nz" = {
                 locations."/".proxyPass = "http://localhost:8092/";   # Proxy Gitea
