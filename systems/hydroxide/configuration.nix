@@ -65,6 +65,7 @@
         enable = true;
         httpPort = "8081";
         frontendUrl = "auth.hexdev.nz/auth";
+        database.passwordFile = "/etc/passwordfile";
     };
 
     services.postgresql = {
