@@ -68,22 +68,11 @@
         '';
     };
 
-    virtualisation.docker.enable = true;
-
-    virtualisation.oci-containers.containers = {
-        teamcity-server = {
-            image = "jetbrains/teamcity-server:latest";
-            ports = [
-                "8111:8111"
-            ];
-            volumes = [
-                "/mnt/src/teamcity/logs:/opt/teamcity/logs"
-                "/mnt/src/teamcity/data:/data/teamcity_server/datadir"
-            ];
-            environment = {
-                TEAMCITY_HTTPS_PROXY_ENABLED = "true";
-            };
-        };
+    services.jenkins = {
+        enable = true;
+        home = "/mnt/src/jenkins";
+        
+        withCLI = true;
     };
 
     fileSystems."/mnt/media" = {
