@@ -25,7 +25,7 @@
                 locations."/".proxyPass = "http://localhost:8092/";   # Proxy Gitea
             };
             "ci.hexdev.nz" = {
-                locations."/".proxyPass = "http://localhost:8111/";   # Proxy Teamcity
+                locations."/".proxyPass = "http://localhost:8080/";   # Proxy Jenkins
             };
         };    
     };
@@ -71,7 +71,7 @@
     services.jenkins = {
         enable = true;
         home = "/mnt/src/jenkins";
-        
+
         withCLI = true;
     };
 
