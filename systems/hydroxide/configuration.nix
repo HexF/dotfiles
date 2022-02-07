@@ -31,6 +31,9 @@
             };
             "issue.hexdev.nz" = {
                 locations."/".proxyPass = "http://localhost:8082/";   # Proxy YouTrack
+                locations."/".extraConfig = ''
+                    proxy_set_header X-Forwarded-Host $http_host;
+                '';
             };
         };    
     };
