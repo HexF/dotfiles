@@ -69,6 +69,28 @@
     services.youtrack = {
         enable = true;
         port = 8082;
+        package = with pkgs; stdenv.mkDerivation rec {
+            pname = "youtrack";
+            version = "2021.4.35970";
+
+            jar = fetchurl {
+                url = "https://download.jetbrains.com/charisma/${pname}-${version}.jar";
+                sha256 = "sha256-HB515TS0XXEAiT463nVHP/naeoF7nmeB+6EK0NJ+5c0=";
+            };
+
+            nativeBuildInputs = [ makeWrapper ];
+
+            dontUnpack = true;
+
+            installPhase = ''
+                runHook preInstall
+                makeWrapper ${jdk11}/bin/java $out/bin/youtrack \
+                --add-flags "\$YOUTRACK_JVM_OPTS -jar $jar" \
+                --prefix PATH : "${lib.makeBinPath [ gawk ]}" \
+                --set JRE_HOME ${jdk11}
+                runHook postInstall
+            '';
+        };
     };
 
     services.keycloak = {
