@@ -29,6 +29,9 @@
             "auth.hexdev.nz" = {
                 locations."/".proxyPass = "http://localhost:8081/";   # Proxy Keycloak
             };
+            "issue.hexdev.nz" = {
+                locations."/".proxyPass = "http://localhost:8082/";   # Proxy YouTrack
+            };
         };    
     };
 
@@ -63,7 +66,6 @@
     services.youtrack = {
         enable = true;
         port = 8082;
-        virtualHost = "issue.hexdev.nz";
     };
 
     services.keycloak = {
