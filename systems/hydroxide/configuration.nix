@@ -27,6 +27,9 @@
             "ci.hexdev.nz" = {
                 locations."/".proxyPass = "http://localhost:8080/";   # Proxy Jenkins
             };
+            "auth.hexdev.nz" = {
+                locations."/".proxyPass = "http://localhost:8081/";   # Proxy Keycloak
+            };
         };    
     };
 
@@ -56,6 +59,12 @@
         stateDir = "/mnt/src/gitea";
         disableRegistration = true;
     
+    };
+
+    services.keycloak = {
+        enable = true;
+        httpPort = "8081";
+        frontendUrl = "auth.hexdev.nz/auth";
     };
 
     services.postgresql = {
