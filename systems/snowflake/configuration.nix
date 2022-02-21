@@ -12,6 +12,7 @@ in {
     ../modules/desktop.nix
     ../modules/bluetooth.nix
     ../modules/backup.nix
+    ../modules/uptime-webhook.nix
 
     ../modules/dm-xsession.nix
     #../modules/dm-kde.nix
@@ -54,13 +55,13 @@ in {
   
 
   services.xserver = {
-    videoDrivers = [ "nouveau" ];
+    videoDrivers = [ "nvidia" ];
     wacom.enable = true;
 
     xrandrHeads = [
-      { output = "DP-1"; primary = true; }
-      "HDMI-1"
-      { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-1"; }
+      { output = "DP-0"; primary = true; }
+      "HDMI-0"
+      { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-0"; }
     ];
   };
 
@@ -107,7 +108,9 @@ in {
     enableOnBoot = false;
   };
 
-  networking.firewall.allowedTCPPorts = [ 3000 3001 2759 ]; # React dev server
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+
+  networking.firewall.allowedTCPPorts = [ 3000 3001 2759 443 80 ]; # React dev server
 
   fonts.fonts = with pkgs; [
     fira

@@ -20,16 +20,95 @@ in {
 
   services.screen-locker = {
     enable = true;
-    lockCmd = "${pkgs.bash}/bin/bash -c \"${imagemagickCustom}/bin/import -window root PNG:- | ${imagemagickCustom}/bin/convert PNG:- -resize 10% -blur 10 -resize 1000% RGB:- | ${pkgs.i3lock-color}/bin/i3lock-color --raw=$(${pkgs.xorg.xdpyinfo}/bin/xdpyinfo | ${pkgs.gnugrep}/bin/grep dimensions | ${pkgs.gnused}/bin/sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\\1/'):rgb --image /dev/stdin -k --insidevercolor=00000000 --insidewrongcolor=00000000 --insidecolor=00000000 --ringvercolor=${builtins.elemAt theme.color 4}80 --ringwrongcolor=${builtins.elemAt theme.color 1}80 --ringcolor=${builtins.elemAt theme.color 2}80 --line-uses-inside --keyhlcolor=${builtins.elemAt theme.color 3}80 --bshlcolor=${builtins.elemAt theme.color 5}80 --timecolor=${theme.foreground}80 --datecolor=${theme.foreground}80 --verifcolor=${theme.foreground}80 --wrongcolor=${theme.foreground}80 --pass-volume-keys --veriftext=Checking... --wrongtext=Wrong --noinputtext=Empty --locktext=Locking... --lockfailedtext=Failed\"";
+    lockCmd = "${pkgs.bash}/bin/bash -c \"${imagemagickCustom}/bin/import -window root PNG:- | ${imagemagickCustom}/bin/convert PNG:- -resize 10% -blur 10 -resize 1000% RGB:- | ${pkgs.i3lock-color}/bin/i3lock-color --raw=$(${pkgs.xorg.xdpyinfo}/bin/xdpyinfo | ${pkgs.gnugrep}/bin/grep dimensions | ${pkgs.gnused}/bin/sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\\1/'):rgb --image /dev/stdin -k --insidever-color=00000000 --insidewrong-color=00000000 --inside-color=00000000 --ringver-color=${builtins.elemAt theme.color 4}80 --ringwrong-color=${builtins.elemAt theme.color 1}80 --ring-color=${builtins.elemAt theme.color 2}80 --line-uses-inside --keyhl-color=${builtins.elemAt theme.color 3}80 --bshl-color=${builtins.elemAt theme.color 5}80 --time-color=${theme.foreground}80 --date-color=${theme.foreground}80 --verif-color=${theme.foreground}80 --wrong-color=${theme.foreground}80 --pass-volume-keys --verif-text=Checking... --wrong-text=Wrong --noinput-text=Empty --lock-text=Locking... --lockfailed-text=Failed\"";
   };
   
   programs.rofi = {
     enable = true;
     package = rofiPackage;
     terminal = terminal;
-    # separator = "none";
+    
+    theme = let
+      inherit (config.lib.formats.rasi) mkLiteral;
+    in {
+      "*" = {
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
 
-    # lines = 10;
+
+      window = rec {
+        enabled = true;
+        background-color = mkLiteral theme.background;
+        border-color = background-color;
+        transparency = "real";
+        anchor = "center";
+        location = "center";
+        width = mkLiteral "60%"; #60% of monito
+      };
+
+      scrollbar = {
+        enabled = false;
+      };
+
+      element = {
+        border = 0;
+        padding = mkLiteral "1px";
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      element-text = {
+        background-color = mkLiteral "inherit";
+        text-color = mkLiteral "inherit";
+      };
+      
+      "element normal.normal" = {
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element selected.normal" = {
+        background-color = mkLiteral theme.accent;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element alternate.normal" = {
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element normal.active" = {
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element selected.active" = {
+        background-color = mkLiteral theme.accent;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element alternate.active" = {
+        background-color = mkLiteral theme.background;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element normal.urgent" = {
+        background-color = mkLiteral (builtins.elemAt theme.color 1);
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element selected.urgent" = {
+        background-color = mkLiteral theme.accent;
+        text-color = mkLiteral theme.foreground;
+      };
+
+      "element alternate.urgent" = {
+        background-color = mkLiteral (builtins.elemAt theme.color 1);
+        text-color = mkLiteral theme.foreground;
+      };
+    };
+
     extraConfig = {
       modi = "drun,run,emoji,ssh";
       combi-modi = "run,ssh";
@@ -39,36 +118,6 @@ in {
       display-ssh = "Connect to ";
       display-combi = "";
     };
-    # colors = {
-    #   rows = rec {
-    #     normal = rec {
-    #       background = theme.background;
-    #       backgroundAlt = background;
-    #       foreground = theme.foreground;
-    #       highlight = {
-    #         background = theme.accent;
-    #         foreground = foreground;
-    #       };
-    #     };
-    #     active = normal;
-    #     urgent = rec {
-    #       background = (builtins.elemAt theme.color 1);
-    #       backgroundAlt = background;
-    #       foreground = theme.foreground;
-    #       highlight = {
-    #         background = theme.accent;
-    #         foreground = foreground;
-    #       };
-    #     };
-    #   };
-
-    #   window = rec {
-    #     background = theme.background;
-    #     border = background;
-    #     separator = "#00000000";
-    #   };
-    # };
-
   };
 
   services.dunst = {
@@ -90,6 +139,7 @@ in {
         markup = "full";
         word_wrap = true;
         shrink = true;
+        follow = "none";
 
         
         icon_position = "left";
@@ -97,7 +147,7 @@ in {
 
         format = "<big>%a</big>\\n%s\\n<small>%b</small>";
 
-        dmenu = "${rofiPackage}/bin/rofi";
+        dmenu = "${rofiPackage}/bin/rofi -dmenu";
 
         timeout = 10;
 

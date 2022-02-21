@@ -40,6 +40,17 @@
             ;
     };
 
+    homeConfigurations = import ./users/configurations.nix {
+        nixosSystem = nixpkgs.lib.nixosSystem;
+        inherit
+            nixpkgs
+            nixpkgs-master
+            nixpkgs-unstable
+            home-manager
+            sops-nix
+            ;
+    };
+
     hydraJobs = {
         hydroxide = self.nixosConfigurations.hydroxide.config.system.build.toplevel;
         snowflake = self.nixosConfigurations.snowflake.config.system.build.toplevel;
