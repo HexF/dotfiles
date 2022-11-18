@@ -14,6 +14,8 @@ in {
     ../modules/backup.nix
     ../modules/uptime-webhook.nix
 
+    ../modules/htb-vpn.nix
+
     ../modules/dm-xsession.nix
     #../modules/dm-kde.nix
 
