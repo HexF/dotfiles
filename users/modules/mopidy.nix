@@ -4,7 +4,7 @@ with lib;
 
 
 let
-	cfg = config.services.mopidy;
+	cfg = config.services.mopidyCustom;
 
 	file = pkgs.writeText "mopidy.conf" cfg.configuration;
 	configs = concatStringsSep ":" ([file] ++ cfg.extraConfigFiles);
@@ -21,7 +21,7 @@ let
 	};
 in {
 	options = {
-		services.mopidy = {
+		services.mopidyCustom = {
 			enable = mkEnableOption "Mopidy, a music player daemon";
 
 			dataDir = mkOption {

@@ -22,7 +22,14 @@ in {
     ./hardware-configuration.nix
   ];
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  
+  # FIXME: Kernel 6.0 does not support Nvidia Drivers - https://github.com/NixOS/nixpkgs/issues/195654
+  boot.kernelPackages = pkgs.linuxPackages_5_15;
+
+  boot.blacklistedKernelModules = [
+    "nvidia_uvm"
+  ];
 
   # Don't compress kernel and modules
   boot.kernelPatches = lib.singleton {
@@ -109,7 +116,7 @@ in {
   };
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
-
+  
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 443 80 ]; # React dev server
 
   fonts.fonts = with pkgs; [
