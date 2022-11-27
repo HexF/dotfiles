@@ -34,16 +34,16 @@ in {
   ];
 
   # Don't compress kernel and modules
-  boot.kernelPatches = lib.singleton {
-    name = "disable compression";
-    patch = null;
-    extraConfig = ''
-      KERNEL_XZ n
-      KERNEL_ZSTD n
-      MODULE_COMPRESS_XZ n
-      MODULE_COMPRESS_NONE y
-    '';
-  };
+  # boot.kernelPatches = lib.singleton {
+  #   name = "disable compression";
+  #   patch = null;
+  #   extraConfig = ''
+  #     KERNEL_XZ n
+  #     KERNEL_ZSTD n
+  #     MODULE_COMPRESS_XZ n
+  #     MODULE_COMPRESS_NONE y
+  #   '';
+  # };
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
