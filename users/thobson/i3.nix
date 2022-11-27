@@ -171,17 +171,16 @@ in {
   services.picom = {
     enable = true;
     vSync = false;
-    blur = true;
+    settings = {
+      blur = true;
+      blur-exclude = [
+        "class_g = 'i3_bar'"
+      ];
+      xrender-sync-fence = true;
+      blue-radius=32;
+    };
+    
     backend = "xrender";
-
-    blurExclude = [
-      "class_g = 'i3_bar'"
-    ];
-
-    extraOptions = ''
-    xrender-sync-fence = true
-    blur-radius=32
-    '';
   };
 
   xsession.enable = true;

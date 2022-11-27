@@ -13,12 +13,14 @@
 
   nix = { 
     package = pkgs.nixFlakes;
-    binaryCachePublicKeys = [
-      "binarycache.hexf.me:q/9RfEEQCO+/cbCNZ47hcAwoHyZ14v0N6FFwN5UZFzk="
-    ];
-    binaryCaches = [
-#      "https://binarycache.hexf.me/"
-    ];
+    settings = {
+      trusted-public-keys = [
+        "binarycache.hexf.me:q/9RfEEQCO+/cbCNZ47hcAwoHyZ14v0N6FFwN5UZFzk="
+      ];
+      substituters = [
+  #      "https://binarycache.hexf.me/"
+      ];
+    };
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
