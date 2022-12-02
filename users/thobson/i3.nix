@@ -327,8 +327,8 @@ in {
     blocksLeft = [
       ''
       [window_title]
-      interval=-3
-      command=${pkgs.xtitle}/bin/xtitle -s
+      interval=persist
+      command=${pkgs.xtitle}/bin/xtitle -s | cat
       ''
       ''
       [song]
@@ -338,9 +338,8 @@ in {
       ''
       [volume]
       label= 
-      command=${pkgs.pipewire}/bin/pw-dump -m | ${pkgs.jq}/bin/jq --unbuffered -r '.[] | if .type == "PipeWire:Interface:Metadata" then (.metadata[] | select(.key == "default.audio.sink") | "source=\( .value.name )") else if .type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" then "vol=\( .info.props["node.name"] )=\(.info.params.Props[0].channelVolumes[0] *100 | round)" else empty end end'  | ${pkgs.gawk}/bin/awk -F= '{ if ($1 == "source") AUDIO_SOURCE=$2; else if ($1 == "vol" && $2 == AUDIO_SOURCE) print $3 }' 
+      command=${pkgs.pipewire}/bin/pw-dump -m | ${pkgs.jq}/bin/jq --unbuffered -r '.[] | if .type == "PipeWire:Interface:Metadata" then (.metadata[] | select(.key == "default.audio.sink") | "source=\( .value.name )") else if .type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" then "vol=\( .info.props["node.name"] )=\(.info.params.Props[0].channelVolumes[0] *100 | round)" else empty end end'  | ${pkgs.gawk}/bin/awk -F= '{ if ($1 == "source") AUDIO_SOURCE=$2; else if ($1 == "vol" && $2 == AUDIO_SOURCE) {print $3; fflush(stdout);} }' 
       interval=persist
-      signal=2
       ''
       ''
       [notifications]
