@@ -338,8 +338,8 @@ in {
       ''
       [volume]
       label= 
-      command=${pkgs.pipewire}/bin/pw-dump | ${pkgs.jq}/bin/jq '.[] | select(.type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" and .info.state == "running") | "\(.info.params.Props[0].channelVolumes[0] *100 | round)"' -r
-      interval=1
+      command=${pkgs.pipewire}/bin/pw-dump -m | ${pkgs.jq}/bin/jq --unbuffered -r '.[] | if .type == "PipeWire:Interface:Metadata" then (.metadata[] | select(.key == "default.audio.sink") | "source=\( .value.name )") else if .type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" then "vol=\( .info.props["node.name"] )=\(.info.params.Props[0].channelVolumes[0] *100 | round)" else empty end end'  | ${pkgs.gawk}/bin/awk -F= '{ if ($1 == "source") AUDIO_SOURCE=$2; else if ($1 == "vol" && $2 == AUDIO_SOURCE) print $3 }' 
+      interval=persist
       signal=2
       ''
       ''
