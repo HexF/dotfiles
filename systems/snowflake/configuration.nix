@@ -13,6 +13,7 @@ in {
     ../modules/bluetooth.nix
     ../modules/backup.nix
     ../modules/uptime-webhook.nix
+    ../modules/thobson-nextcloud.nix
 
     ../modules/htb-vpn.nix
 
@@ -20,6 +21,7 @@ in {
     #../modules/dm-kde.nix
 
     ./modules/windows-vm.nix
+    
 
     ./hardware-configuration.nix
   ];
