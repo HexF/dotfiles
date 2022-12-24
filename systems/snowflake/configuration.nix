@@ -14,6 +14,7 @@ in {
     ../modules/backup.nix
     ../modules/uptime-webhook.nix
     ../modules/thobson-nextcloud.nix
+    ../modules/acr122.nix
 
     ../modules/htb-vpn.nix
 
