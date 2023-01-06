@@ -101,7 +101,7 @@
 
         settings = {
             hostname = "auth.hexdev.nz";
-            http-relative-path = "auth";
+            http-relative-path = "/auth";
         };
     };
 
