@@ -130,7 +130,7 @@ in {
                 DynamicUser = true;
             };
 
-            Environment="HOME_DIR=/var/lib/unmanic"
+            Environment="HOME_DIR=/var/lib/unmanic";
             StateDirectory = "unmanic";
             WorkingDirectory = "/var/lib/unmanic";
             RuntimeDirectory = "unmanic";
