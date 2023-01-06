@@ -97,8 +97,12 @@
     services.keycloak = {
         enable = true;
         httpPort = "8081";
-        frontendUrl = "https://auth.hexdev.nz/auth";
         database.passwordFile = "/etc/passwordfile";
+
+        settings = {
+            hostname = "auth.hexdev.nz";
+            http-relative-path = "auth";
+        };
     };
 
     services.postgresql = {
