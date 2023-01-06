@@ -4,7 +4,8 @@
     sops-nix,
     nixpkgs-master,
     nixpkgs-unstable,
-    home-manager
+    home-manager,
+    napalm
 } @ inputs:
 
 let
@@ -12,18 +13,19 @@ let
         sops-nix.nixosModules.sops
         {
             nixpkgs.overlays = [
-            (final: prev: {
-                master = (import nixpkgs-master {
-                config.allowUnfree = true;
-                system = "${prev.system}";
-                });
-            })
-            (final: prev: {
-                unstable = (import nixpkgs-unstable {
-                config.allowUnfree = true;
-                system = "${prev.system}";
-                });
-            })
+                (final: prev: {
+                    master = (import nixpkgs-master {
+                    config.allowUnfree = true;
+                    system = "${prev.system}";
+                    });
+                })
+                (final: prev: {
+                    unstable = (import nixpkgs-unstable {
+                    config.allowUnfree = true;
+                    system = "${prev.system}";
+                    });
+                })
+                napalm.overlays.default
             ];
         }
     ];

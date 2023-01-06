@@ -66,6 +66,19 @@ in {
                     default = false;
                 };
             };
+
+            unmanic = {
+                enable = mkOption {
+                    default = false;
+                };
+
+                package = mkOption {
+                    default = (callPackage ../../../packages/unmanic {
+                        peewee_migrate = (callPackage ../../../packages/peewee_migrate {});
+                        swagger_ui_py = (callPackage ../../../packages/swagger_ui_py {});
+                    });
+                };
+            }
         };
     };
 
@@ -80,6 +93,8 @@ in {
             # Open the ports, although we will also add virtualhosts to nginx
             openFirewall = true;
         };
+
+        
 
         services.sonarr = {
             enable = cfg.sonarr.enable;
@@ -105,6 +120,46 @@ in {
 
             openFirewall = true;   
         };
+
+        systemd.services.unmanic = mkIf cfg.unmanic.enable {
+            description = "Unmanic Library Organizer";
+            after = [ "network.target" ];
+            wantedBy = [ "multi-user.target" ];
+
+            serviceConfig = {
+                DynamicUser = true;
+            };
+
+            Environment="HOME_DIR=/var/lib/unmanic"
+            StateDirectory = "unmanic";
+            WorkingDirectory = "/var/lib/unmanic";
+            RuntimeDirectory = "unmanic";
+            RootDirectory = "/run/unmanic";
+            ReadWritePaths = "";
+            BindReadOnlyPaths = [
+                builtins.storeDir
+                "/mnt/media/"
+            ];
+
+            CapabilityBoundingSet = "";
+            RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+            RestrictNamespaces = true;
+            PrivateDevices = true;
+            PrivateUsers = true;
+            ProtectClock = true;
+            ProtectControlGroups = true;
+            ProtectHome = true;
+            ProtectKernelLogs = true;
+            ProtectKernelModules = true;
+            ProtectKernelTunables = true;
+            SystemCallArchitectures = "native";
+            SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
+            RestrictRealtime = true;
+            LockPersonality = true;
+            MemoryDenyWriteExecute = true;
+            UMask = "0066";
+            ProtectHostname = true;
+        }
 
         systemd.services.navidrome = mkIf cfg.navidrome.enable {
             description = "Navidrome Media Server";
@@ -194,6 +249,14 @@ in {
                     serverAliases = [ "sonarr" ];
                     locations."/" = {
                         proxyPass = "http://127.0.0.1:8989";
+                        extraConfig = nginxAuthVhostConfig;
+                    };
+                };
+
+                "unmanic${cfg.vhostSuffix}" = mkIf cfg.unmanic.enable {
+                    serverAliases = [ "unmanic" ];
+                    locations."/" = {
+                        proxyPass = "http://127.0.0.1:8888";
                         extraConfig = nginxAuthVhostConfig;
                     };
                 };

@@ -6,6 +6,9 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    napalm.url = "github:nix-community/napalm";
+    napalm.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager?ref=release-22.11";
       inputs.nixpkgs.follows = "nixpkgs";

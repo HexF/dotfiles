@@ -46,6 +46,7 @@
         jackett.enable = true;
         lidarr.enable = true;
         navidrome.enable = true;
+        unmanic.enable = true;
 
         vhostSuffix = ".oh.hexf.me";
     };

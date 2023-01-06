@@ -7,7 +7,9 @@
 
     home-manager,
     sops-nix,
-    flake-utils
+    flake-utils,
+
+    napalm
    
 }: (
     flake-utils.lib.eachDefaultSystem (system: 
@@ -37,6 +39,7 @@
             nixpkgs-unstable
             home-manager
             sops-nix
+            napalm
             ;
     };
 
@@ -48,6 +51,7 @@
             nixpkgs-unstable
             home-manager
             sops-nix
+            napalm
             ;
     };
 

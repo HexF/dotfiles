@@ -1,0 +1,10 @@
+--- a/peewee_migrate/auto.py   2023-01-07 05:19:09.140492184 +1300
++++ b/peewee_migrate/auto.py   2023-01-07 05:19:34.723210834 +1300
+@@ -1,5 +1,6 @@
+ import peewee as pw
+-from collections import Hashable, OrderedDict
++from collections import OrderedDict
++from collections.abc import Hashable
+ from playhouse.reflection import Column as VanilaColumn
+ 
+
