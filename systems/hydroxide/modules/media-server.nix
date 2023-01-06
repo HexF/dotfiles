@@ -159,7 +159,7 @@ in {
             MemoryDenyWriteExecute = true;
             UMask = "0066";
             ProtectHostname = true;
-        }
+        };
 
         systemd.services.navidrome = mkIf cfg.navidrome.enable {
             description = "Navidrome Media Server";
