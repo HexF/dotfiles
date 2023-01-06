@@ -257,6 +257,7 @@ in {
                     serverAliases = [ "unmanic" ];
                     locations."/" = {
                         proxyPass = "http://127.0.0.1:8888";
+                        proxyWebsockets = true;
                         extraConfig = nginxAuthVhostConfig;
                     };
                 };
