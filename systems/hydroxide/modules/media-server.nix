@@ -78,7 +78,7 @@ in {
                         swagger_ui_py = (callPackage ../../../packages/swagger_ui_py {});
                     });
                 };
-            }
+            };
         };
     };
 
