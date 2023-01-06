@@ -63,7 +63,7 @@
         httpPort = 8092;
         repositoryRoot = "/mnt/src/repo";
         stateDir = "/mnt/src/gitea";
-        settings.DISABLE_REGISTRATION = true;
+        disableRegistration = true;
     
     };
 
