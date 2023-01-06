@@ -73,9 +73,9 @@ in {
                 };
 
                 package = mkOption {
-                    default = (callPackage ../../../packages/unmanic {
-                        peewee_migrate = (callPackage ../../../packages/peewee_migrate {});
-                        swagger_ui_py = (callPackage ../../../packages/swagger_ui_py {});
+                    default = (pkgs.callPackage ../../../packages/unmanic {
+                        peewee_migrate = (pkgs.callPackage ../../../packages/peewee_migrate {});
+                        swagger_ui_py = (pkgs.callPackage ../../../packages/swagger_ui_py {});
                     });
                 };
             };
