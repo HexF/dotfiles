@@ -63,7 +63,7 @@
         httpPort = 8092;
         repositoryRoot = "/mnt/src/repo";
         stateDir = "/mnt/src/gitea";
-        disableRegistration = true;
+        settings.DISABLE_REGISTRATION = true;
     
     };
 
@@ -96,12 +96,12 @@
 
     services.keycloak = {
         enable = true;
-        httpPort = "8081";
         database.passwordFile = "/etc/passwordfile";
 
         settings = {
             hostname = "auth.hexdev.nz";
             http-relative-path = "/auth";
+            http-port = 8081;
         };
     };
 
