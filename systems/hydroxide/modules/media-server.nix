@@ -142,6 +142,8 @@ in {
 
                 CapabilityBoundingSet = "";
                 RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
+                IPAddressAllow="any";
+                
                 RestrictNamespaces = true;
                 PrivateDevices = true;
                 PrivateUsers = true;
