@@ -127,6 +127,7 @@ in {
             wantedBy = [ "multi-user.target" ];
 
             serviceConfig = {
+                ExecStart = ''${cfg.unmanic.package}/bin/unmanic'';
                 DynamicUser = true;
                 Environment="HOME_DIR=/var/lib/unmanic";
                 StateDirectory = "unmanic";
