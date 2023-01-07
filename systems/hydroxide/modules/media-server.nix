@@ -127,39 +127,13 @@ in {
             wantedBy = [ "multi-user.target" ];
 
             serviceConfig = {
+                Type = "simple";
                 ExecStart = ''${cfg.unmanic.package}/bin/unmanic'';
-                DynamicUser = true;
                 Environment="HOME_DIR=/var/lib/unmanic";
-                StateDirectory = "unmanic";
                 WorkingDirectory = "/var/lib/unmanic";
-                RuntimeDirectory = "unmanic";
-                RootDirectory = "/run/unmanic";
-                ReadWritePaths = "";
-                BindReadOnlyPaths = [
-                    builtins.storeDir
-                    "/mnt/media/"
-                ];
-
-                CapabilityBoundingSet = "";
-                RestrictAddressFamilies = [ "AF_UNIX" "AF_INET" "AF_INET6" ];
-                IPAddressAllow="any";
-                
-                RestrictNamespaces = true;
-                PrivateDevices = true;
-                PrivateUsers = true;
-                ProtectClock = true;
-                ProtectControlGroups = true;
-                ProtectHome = true;
-                ProtectKernelLogs = true;
-                ProtectKernelModules = true;
-                ProtectKernelTunables = true;
-                SystemCallArchitectures = "native";
-                SystemCallFilter = [ "@system-service" "~@privileged" "~@resources" ];
-                RestrictRealtime = true;
-                LockPersonality = true;
-                MemoryDenyWriteExecute = true;
-                UMask = "0066";
-                ProtectHostname = true;
+                Restart="on-failure";
+                User = cfg.user;
+                Group = cfg.group;
             };
         };
 
