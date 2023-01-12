@@ -71,7 +71,7 @@ in {
     wacom.enable = true;
 
     xrandrHeads = [
-      { output = "DP-0"; primary = true; }
+      { output = "DVI-I-1"; primary = true; }
       "HDMI-0"
       { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-0"; }
     ];
