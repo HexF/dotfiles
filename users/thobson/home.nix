@@ -1,4 +1,4 @@
-{ systemName, config, pkgs, ... }:
+{ systemName, config, pkgs, nixpkgs, ... }:
 let
   discord-latest = pkgs.discord.overrideAttrs (old: {
     version = "0.0.21";
@@ -53,11 +53,12 @@ in
   imports = [
     ./notes.nix
     ./i3.nix
+    #./sway.nix
     ./kitty.nix
     ./keepass.nix
     ./browser.nix
     ./display.nix
-    ../../modules/betterdiscord.nix
+    
 
     (./. + "/${systemName}.nix")
     ];
@@ -89,6 +90,7 @@ in
     remmina
     spotify
     thunderbird
+    discord
     master.neofetch
     texstudio
     languagetool
@@ -116,7 +118,7 @@ in
     };
   };
 
-
+  home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
 
   programs.vscode = {
     enable = true;
@@ -205,9 +207,11 @@ in
     enableAliases = true;
   };
 
-  programs.betterdiscord = {
+
+  home.file.".background-image".source = ../../wallpaper.jpg;
+
+  services.udiskie = {
     enable = true;
-    discord-pkg = discord-latest;
   };
 
   

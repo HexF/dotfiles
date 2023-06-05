@@ -8,10 +8,18 @@
 
             src = fetchFromGitHub {
                 owner = "t-h-e";
+                rev = "7b368dc335f8ecd0fe26577d80cbea7ca07a1750";
+                sha256 = "sha256-cmiHst3q7khlB1+Au0inH4VjbDCIO1APy8rUxuDezXU=";
+
+                # owner = "hexf";
+                # rev= "0f60506352d1b38d5ab45eb8218c66c68fe79ea5";
+                # sha256 = "sha256-4BBjVsaF3l6ZtEpgIMkmjw8nCWlXfUwH4nGhJvfdVbA=";
+
                 repo = "keepassxc";
-                rev = "f53ba47a66ca7d78264c0a2e29c6d7bdaa9ef0e6";
-                sha256 = "sha256-SptS8AIOPe7/3XMnzsdzgF/HdfPF6ViZOrtte4i9YTA=";
+                
             };
+
+            buildInputs = old.buildInputs ++ [keyutils];
         })) # Remote sync to upload/download files to nextcloud
     ];
 

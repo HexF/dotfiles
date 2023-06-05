@@ -4,6 +4,7 @@ keys:
   - &thobson 107DA02C7AE97B084746564B9F1FD9D87950DB6F
   # Hosts
   - &snowflake age1fkfanvqqcss4smhwv848x6rhdee7jjcstqxkzznw4g4l0y7jgyzsy2uv9h
+  - &slushy agenone
 
 creation_rules:
   # All systems
@@ -13,6 +14,7 @@ creation_rules:
           - *thobson
         age:
           - *snowflake
+          - *slushy
   
   # Just snowflake
   - path_regex: systems/snowflake/secrets/[^/]+\.yaml$
@@ -22,3 +24,10 @@ creation_rules:
         age:
           - *snowflake
           
+  # Just slushy
+  - path_regex: systems/slushy/secrets/[^/]+\.yaml$
+    key_groups:
+      - pgp:
+        - *thobson
+        age:
+        - *slushy

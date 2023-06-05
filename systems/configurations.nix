@@ -37,7 +37,7 @@ let
                     useGlobalPkgs = true;
                     useUserPackages = true;
                     extraSpecialArgs = {
-                        inherit systemName;
+                        inherit systemName nixpkgs;
                     };
 
                     users.thobson = ../users/thobson/home.nix;

@@ -9,14 +9,11 @@ let
 in {
 
   imports = [
+    ./statusline.nix
     ../modules/i3blocks.nix
   ];
 
-  home.file.".background-image".source = ../../wallpaper.jpg;
-
-  services.udiskie = {
-    enable = true;
-  };
+  
 
   services.screen-locker = {
     enable = true;
@@ -322,43 +319,6 @@ in {
   };
 
 
-  programs.i3blocks = {
-    enable = true;
-    blocksLeft = [
-      ''
-      [window_title]
-      interval=persist
-      command=${pkgs.xtitle}/bin/xtitle -s | cat
-      ''
-      ''
-      [song]
-      command=[[ $(${pkgs.playerctl}/bin/playerctl status) = "Playing" ]] && ${pkgs.playerctl}/bin/playerctl metadata -f ' {{title}} - {{artist}}' || echo ""
-      interval=1
-      ''
-      ''
-      [volume]
-      label= 
-      command=${pkgs.pipewire}/bin/pw-dump -m | ${pkgs.jq}/bin/jq --unbuffered -r '.[] | if .type == "PipeWire:Interface:Metadata" then (.metadata[] | select(.key == "default.audio.sink") | "source=\( .value.name )") else if .type == "PipeWire:Interface:Node" and .info.props["media.class"] == "Audio/Sink" then "vol=\( .info.props["node.name"] )=\(.info.params.Props[0].channelVolumes[0] *100 | round)" else empty end end'  | ${pkgs.gawk}/bin/awk -F= '{ if ($1 == "source") AUDIO_SOURCE=$2; else if ($1 == "vol" && $2 == AUDIO_SOURCE) {print $3; fflush(stdout);} }' 
-      interval=persist
-      ''
-      ''
-      [notifications]
-      interval=1
-      signal=3
-      command=[[ $(${pkgs.dunst}/bin/dunstctl is-paused) == "true" ]] && echo '<span foreground="${builtins.elemAt theme.color 1}"></span>' || echo '<span foreground="${builtins.elemAt theme.color 2}"></span>'
-      markup=pango
-      ''
-    ];
-
-    blocksRight = [
-      ''
-      [date]
-      label= 
-      command=date "+%D %T"
-      interval=1
-      '' 
-    ];
-
-  };
+  
 
 }

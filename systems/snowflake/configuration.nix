@@ -15,8 +15,9 @@ in {
     ../modules/uptime-webhook.nix
     ../modules/thobson-nextcloud.nix
     ../modules/acr122.nix
+    ../modules/waydroid.nix
 
-    ../modules/htb-vpn.nix
+    # ../modules/htb-vpn.nix
 
     ../modules/dm-xsession.nix
     #../modules/dm-kde.nix
@@ -64,6 +65,13 @@ in {
   
   boot.initrd.compressor = "cat";
   boot.initrd.kernelModules = config.boot.kernelModules;
+
+  security.pam.services = {
+    login.u2fAuth = true;
+    sudo.u2fAuth = true;
+    i3lock-color.u2fAuth = true;
+    i3lock.u2fAuth = true;
+  };
   
 
   services.xserver = {
@@ -71,9 +79,9 @@ in {
     wacom.enable = true;
 
     xrandrHeads = [
-      { output = "DVI-I-1"; primary = true; }
       "HDMI-0"
-      { monitorConfig = ''Option "Rotate" "inverted"''; output = "DVI-D-0"; }
+      "DP-0"
+      "DVI-I-1"
     ];
   };
 
@@ -97,7 +105,9 @@ in {
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.plugdev = {};
-  users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" ]; 
+  users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" "adbusers" ]; 
+
+  programs.adb.enable = true;
 
   programs.steam.enable = true;
 
@@ -109,6 +119,7 @@ in {
     docker-compose
     piper
     glibc
+    bpftrace
   ];
 
   virtualisation.docker = {
@@ -127,5 +138,28 @@ in {
   fonts.fonts = with pkgs; [
     fira
   ];
+
+
+
+  hardware.logitech.wireless.enable = true;
+  hardware.logitech.wireless.enableGraphical = true; # for solaar to be included
+
+
+
+  # networking.wireguard.interfaces = {
+  #   wg0 = {
+  #     ips = [ "172.17.1.26/32" ];
+  #     privateKey = "IDQVPrUYJex24WaTWvn8QOEcwXFzsb2id+B3BX3p224=";
+
+  #     peers = [
+  #       {
+  #         publicKey = "IwEogecDJ2dJwkVDGQXw6di3/4YmcJ4YRcnNGT5aYAU=";
+  #         allowedIPs = [ "172.16.0.0/15" ];
+  #         endpoint = "oiccquals2.cyber.uq.edu.au:51820";
+  #       }
+  #     ];
+  #   };
+  # };
+
 }
 
