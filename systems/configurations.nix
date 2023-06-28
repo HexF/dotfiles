@@ -57,6 +57,14 @@ in {
         ] ++ (userModules "snowflake");
     };
 
+    slushy = nixosSystem {
+        system = "x86_64-linux";
+        modules = defaultModules ++ [
+            ./slushy/configuration.nix
+            ./modules/thobson-secrets.nix
+        ] ++ (userModules "slushy");
+    };
+
     hydroxide = nixosSystem {
         system = "x86_64-linux";
         modules = defaultModules ++ [

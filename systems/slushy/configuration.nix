@@ -11,9 +11,6 @@
     ./hardware-configuration.nix
   ];
 
-    
-  networking.interfaces.ens192.useDHCP = true;
-  networking.hostName = "hydroxide";
-
-  networking.firewall.allowedTCPPorts = [ 3000 80 ];
+  networking.hostName = "slushy";
+  networking.hostId = "FFFFABCD";
 }
