@@ -32,6 +32,9 @@
   networking.dhcpcd.wait = "background";
   
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1v"
+  ];
   nixpkgs.config.allowBroken = true;
 
   # TAILSCALE EVERYWHERE!
