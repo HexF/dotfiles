@@ -5,7 +5,7 @@
         ../modules/bios.nix
         ../modules/server.nix
 
-        ./modules/media-server.nix
+        ../modules/media-server.nix
 
         ./hardware-configuration.nix
     ];

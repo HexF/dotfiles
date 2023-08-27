@@ -44,27 +44,6 @@ in {
   };
 
   # powerManagement.powertop.enable = true;
-  services.fwupd.enable = true;
-
-  boot = {
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/persist/secureboot";
-    };
-    bootspec.enable = true;
-    initrd.systemd.enable = true;
-    plymouth = {
-      enable = true;
-    };
-    loader = {
-      systemd-boot = {
-        enable = lib.mkForce false;
-        configurationLimit = 30;    
-        editor = false;
-      };
-      timeout = 0;
-    };
-  };
 
   programs.light.enable = true; # needed for udev rules
   users.users.thobson.extraGroups = [ "docker" "video" ]; 

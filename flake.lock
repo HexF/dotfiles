@@ -256,14 +256,18 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1689583143,
-        "narHash": "sha256-dtzZqrp4vdOVAqPE853lWRLAsQLBIIHpIhiWuufXYC4=",
-        "type": "git",
-        "url": "file:/home/thobson/Projects.local/nixpkgs"
+        "lastModified": 1693115327,
+        "narHash": "sha256-YTzxIdGr9pSxh2v4XDkl6J0/7+Jg/9fsXkQD8GX3ieI=",
+        "owner": "HexF",
+        "repo": "nixpkgs",
+        "rev": "f6a367481712dc75ba7fb49577e3f495fd4259ca",
+        "type": "github"
       },
       "original": {
-        "type": "git",
-        "url": "file:/home/thobson/Projects.local/nixpkgs"
+        "owner": "HexF",
+        "ref": "nixos-23.05",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "pre-commit-hooks-nix": {

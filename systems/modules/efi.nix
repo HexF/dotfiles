@@ -1,10 +1,27 @@
 { config, pkgs, ... }:
 
 {
-  
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.systemd-boot.consoleMode = "max";
-  boot.loader.efi.canTouchEfiVariables = true;
-  
+  services.fwupd.enable = true;
+
+  boot = {
+    lanzaboote = {
+      enable = true;
+      pkiBundle = "/persist/secureboot";
+    };
+    bootspec.enable = true;
+    initrd.systemd.enable = true;
+    plymouth = {
+      enable = true;
+    };
+    efi.canTouchEfiVariables = true;
+    loader = {
+      systemd-boot = {
+        enable = false;
+        configurationLimit = 30;    
+        editor = false;
+        consoleMode = "max"
+      };
+      timeout = 0;
+    };
+  };
 }

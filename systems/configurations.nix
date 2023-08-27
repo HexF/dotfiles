@@ -67,6 +67,14 @@ in {
         ] ++ (userModules "slushy");
     };
 
+    permafrost = nixosSystem {
+        system = "x86_64-linux";
+        modules = defaultModules ++ [
+            ./permafrost/configuration.nix
+            ./modules/thobson-secrets.nix
+        ] ++ (userModules "permafrost");
+    };
+
     hydroxide = nixosSystem {
         system = "x86_64-linux";
         modules = defaultModules ++ [
