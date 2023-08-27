@@ -34,6 +34,7 @@ in {
         enable = true;
         package = pkgs.nextcloud27;
         hostName = "localhost";
+        https = true;
         config = {
             adminpassFile = "${pkgs.writeText "adminpass" "test123"}"; #immediately change this lol
             dbtype = "pgsql";
