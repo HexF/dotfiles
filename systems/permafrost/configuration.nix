@@ -45,6 +45,7 @@
         configureRedis = true;
         database.createLocally = true;
         notify_push.enable = true;
+        enableBrokenCiphersForSSE = false;
     };
 
 
