@@ -33,12 +33,12 @@ in {
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
-        hostName = "nextcloud.${tailnet}";
+        hostName = "localhost";
         config = {
             adminpassFile = "${pkgs.writeText "adminpass" "test123"}"; #immediately change this lol
             dbtype = "pgsql";
             extraTrustedDomains = [
-                
+                "nextcloud.${tailnet}"
             ];
         };
 
