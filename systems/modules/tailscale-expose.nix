@@ -37,7 +37,7 @@ in {
             type = types.attrs;
             default = null;
             example = {
-              "/" = "http://localhost:3000"
+              "/" = "http://localhost:3000";
             };
             description = mdDoc ''
               Paths and destinations. Tailscale will automatically add TLS
