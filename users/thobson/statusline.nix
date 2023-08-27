@@ -2,6 +2,10 @@
 let
   theme = import ./theme.nix;
 in {
+  imports = [
+    ../modules/i3blocks.nix
+  ];
+
   programs.i3blocks = {
     enable = true;
     blocksLeft = [
@@ -9,6 +13,12 @@ in {
       [window_title]
       interval=persist
       command=${pkgs.xtitle}/bin/xtitle -s | cat
+      ''
+      ''
+      [ipaddr]
+      label=🛜 
+      command=ip addr show $(ip route | awk '/default/ { print $5 }') | grep "inet" | head -n 1 | awk '/inet/ {print $2}' | cut -d'/' -f1 
+      interval=5
       ''
       ''
       [tailscale]

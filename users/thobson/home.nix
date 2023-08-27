@@ -52,7 +52,7 @@ in
 
   imports = [
     ./notes.nix
-    ./i3.nix
+    # ./i3.nix
     #./sway.nix
     ./kitty.nix
     ./keepass.nix
@@ -108,6 +108,7 @@ in
     lens
     kubernetes-helm
     kubectl
+    unstable.rnote #TODO: pin rnote version
   ];
 
   qt.style.name = "adwaita-dark";
@@ -145,7 +146,7 @@ in
       "nix.enableLanguageServer" = true;
       "git.autofetch" = true;
       "glassit.alpha" = 250;
-
+      "sops.binPath" = "${pkgs.sops}/bin/sops";
     };
   };
 
@@ -214,7 +215,19 @@ in
     enable = true;
   };
 
-  
+  services.nextcloud-client  = {
+    enable = true;
+    startInBackground = true;
+  };
+
+
+  programs.texlive = {
+    enable = true;
+    extraPackages = tpkgs: {
+      inherit (tpkgs)
+      scheme-full;
+    };
+  }; 
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

@@ -1,6 +1,8 @@
 {config, lib, pkgs, ...}:
 let
-  ghidra = pkgs.unstable.ghidra;
+  ghidra = pkgs.ghidra.overrideAttrs(old: {
+    _JAVA_AWT_WM_NONREPARENTING = 1;
+  });
   mkGhidraExtension = {src, version, extname}: pkgs.stdenv.mkDerivation {
     inherit src version;
 
@@ -84,7 +86,7 @@ let
   ghidraExtensions = [
     # gotools
     # ghostrings
-#    wasm
+    # wasm
     # ghihorn
   ];
 in
@@ -97,7 +99,9 @@ in
     yara
     z3
 
-    (unstable.ghidra-bin.overrideAttrs(old: {
+    pulseview
+
+    (ghidra.overrideAttrs(old: {
       nativeBuildInputs = old.nativeBuildInputs ++ [unzip];
 
       installPhase = old.installPhase + ''

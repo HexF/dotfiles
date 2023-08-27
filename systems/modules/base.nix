@@ -28,7 +28,7 @@
 
   time.timeZone = "Pacific/Auckland";
   
-  networking.useDHCP = false;
+  networking.useDHCP = true;
   networking.dhcpcd.wait = "background";
   
   nixpkgs.config.allowUnfree = true;

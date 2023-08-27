@@ -5,11 +5,13 @@
     nixpkgs-master,
     nixpkgs-unstable,
     home-manager,
-    napalm
+    napalm,
+    lanzaboote
 } @ inputs:
 
 let
     defaultModules = [
+        lanzaboote.nixosModules.lanzaboote
         sops-nix.nixosModules.sops
         {
             nixpkgs.overlays = [

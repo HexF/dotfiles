@@ -13,7 +13,23 @@ in {
     ../modules/i3blocks.nix
   ];
 
-  
+  systemd.user.services.i3-polkit-authentication-agent = {
+    Unit = {
+      Description = "i3 Polkit authentication agent";
+      Documentation = "https://gitlab.freedesktop.org/polkit/polkit/";
+      After = [ "graphical-session-pre.target" ];
+      PartOf = [ "graphical-session.target" ];
+    };
+
+    Service = {
+      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "always";
+      #BusName = "org.freedesktop.PolicyKit1.Authority";
+      
+    };
+
+    Install.WantedBy = [ "graphical-session.target" ];
+  };
 
   services.screen-locker = {
     enable = true;

@@ -71,6 +71,7 @@ in {
     sudo.u2fAuth = true;
     i3lock-color.u2fAuth = true;
     i3lock.u2fAuth = true;
+    swaylock = {};
   };
   
 

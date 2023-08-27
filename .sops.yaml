@@ -4,7 +4,7 @@ keys:
   - &thobson 107DA02C7AE97B084746564B9F1FD9D87950DB6F
   # Hosts
   - &snowflake age1fkfanvqqcss4smhwv848x6rhdee7jjcstqxkzznw4g4l0y7jgyzsy2uv9h
-  - &slushy age1fkfanvqqcss4smhwv848x6rhdee7jjcstqxkzznw4g4l0y7jgyzsy2uv9h
+  - &slushy age1h3pk7z9602cgmw82fasumft2vt2pfxw8yn245r3ax627ug528vrs2llzac
 
 creation_rules:
   # All systems
@@ -31,3 +31,4 @@ creation_rules:
         - *thobson
         age:
         - *slushy
+        

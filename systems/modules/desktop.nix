@@ -32,11 +32,11 @@
     pulse.enable = true;
     jack.enable = true;
 
-    config.pipewire = {
-      "context.properties" = {
-        "log.level" = 3;
-      };
-    };
+    # config.pipewire = {
+    #   "context.properties" = {
+    #     "log.level" = 3;
+    #   };
+    # };
 
   };
     

@@ -5,6 +5,12 @@ let
     customFirefox = wrapFirefox firefox-esr-unwrapped {
         nixExtensions = [
             (fetchFirefoxAddonNM {
+                name = "learn-pdf-auto-opener";
+                url = "https://tfinlay.github.io/WebExtensions/learn_pdf_helper/latest.xpi";
+                sha256 = "sha256-B2BJlzB+rmTCdCFMtq7ZqbVktLH/JqCiI69SGvKBQgc=";
+                addonId = "@learn_pdf_helper";
+            })
+            (fetchFirefoxAddonNM {
                 name="ublock";
                 url = "https://addons.mozilla.org/firefox/downloads/file/3806442/ublock_origin-1.36.2-an+fx.xpi";
                 sha256 = "sha256-MfjCEmo/Tjz+PvY1ULhCpdTwcewcblqjd8LymxH/FBU=";

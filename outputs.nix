@@ -9,7 +9,8 @@
     sops-nix,
     flake-utils,
 
-    napalm
+    napalm,
+    lanzaboote
    
 }: (
     flake-utils.lib.eachDefaultSystem (system: 
@@ -40,6 +41,7 @@
             home-manager
             sops-nix
             napalm
+            lanzaboote
             ;
     };
 
