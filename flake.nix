@@ -2,8 +2,9 @@
   description = "HexF's dotfiles";
 
   inputs = {
-    #nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
-    nixpkgs.url = "git+file:/home/thobson/Projects.local/nixpkgs";
+    # nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.05";
+    nixpkgs.url = "github:HexF/nixpkgs?ref=nixos-23.05";
+    #nixpkgs.url = "git+file:/home/thobson/Projects.local/nixpkgs";
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
