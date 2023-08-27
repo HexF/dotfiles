@@ -13,8 +13,8 @@
     plymouth = {
       enable = true;
     };
-    efi.canTouchEfiVariables = true;
     loader = {
+      efi.canTouchEfiVariables = true;
       systemd-boot = {
         enable = false;
         configurationLimit = 30;    
