@@ -1,4 +1,6 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }: let
+    tailnet = "fluffy-mercat.ts.net";
+in {
 
     imports = [
         ../modules/base.nix
@@ -6,6 +8,7 @@
         ../modules/server.nix
 
         ../modules/media-server.nix
+        ../modules/tailscale-expose.nix
 
         ./hardware-configuration.nix
     ];
@@ -30,10 +33,13 @@
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
-        hostName = "192.168.2.198";
+        hostName = "localhost";
         config = {
-            adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+            adminpassFile = "${pkgs.writeText "adminpass" "test123"}"; #immediately change this lol
             dbtype = "pgsql";
+            extraTrustedDomains = [
+                "nextcloud.${tailnet}"
+            ];
         };
 
         extraApps = with config.services.nextcloud.package.packages.apps; {
@@ -46,6 +52,21 @@
         database.createLocally = true;
         notify_push.enable = true;
         enableBrokenCiphersForSSE = false;
+    };
+
+    services.tailscale.expose = {
+        enable = true;
+        authKey = "file:/persist/tailscale-authkey"; #TODO - put in secrets
+        dataDir = "/persist/tailscale-expose";
+        services = {
+            nextcloud = {
+                httpsRoutes = {
+                    "/" = "http://localhost:80";
+                };
+
+                funnel = true;
+            };
+        };
     };
 
 
