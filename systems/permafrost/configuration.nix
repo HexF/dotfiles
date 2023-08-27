@@ -33,7 +33,7 @@ in {
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
-        hostName = "localhost";
+        hostName = "nextcloud.localhost";
         config = {
             adminpassFile = "${pkgs.writeText "adminpass" "test123"}"; #immediately change this lol
             dbtype = "pgsql";
@@ -61,7 +61,7 @@ in {
         services = {
             nextcloud = {
                 httpsRoutes = {
-                    "/" = "http://localhost:80";
+                    "/" = "http://nextcloud.localhost:80";
                 };
 
                 funnel = true;
