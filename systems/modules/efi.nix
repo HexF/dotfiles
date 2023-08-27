@@ -19,7 +19,7 @@
         enable = false;
         configurationLimit = 30;    
         editor = false;
-        consoleMode = "max"
+        consoleMode = "max";
       };
       timeout = 0;
     };
