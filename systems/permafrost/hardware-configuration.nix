@@ -48,6 +48,18 @@
     neededForBoot = true;
   };
 
+  fileSystems."/var/lib/nextcloud" = {
+    device = "spool/nextcloud";
+    fsType = "zfs";
+  };
+
+  fileSystems."/var/lib/postgresql" = {
+    device = "spool/postgres";
+    fsType = "zfs";
+  };
+
+  
+
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/F43C-5B13";

@@ -27,6 +27,26 @@
         ];
     };
 
+    services.nextcloud = {
+        enable = true;
+        package = pkgs.nextcloud27;
+        hostName = "192.168.2.198";
+        config = {
+            adminpassFile = "${pkgs.writeText "adminpass" "test123"}";
+            dbtype = "pgsql";
+        };
+
+        extraApps = with config.services.nextcloud.package.packages.apps; {
+            inherit news contacts calendar tasks;
+        };
+        extraAppsEnable = true;
+
+
+        configureRedis = true;
+        database.createLocally = true;
+        notify_push.enable = true;
+    };
+
 
     services.media-server = {
         enable = true;
