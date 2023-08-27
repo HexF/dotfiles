@@ -76,6 +76,7 @@ in {
       serviceConfig.Type = "oneshot";
       script = ''
         ${tailscale} up --hostname "${name}" 
+        ${tailscale} serve reset
       '' + ((foldr (a: b: ''
       ${a}
       ${b}
