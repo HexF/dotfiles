@@ -53,6 +53,8 @@ in {
         notify_push.enable = true;
         enableBrokenCiphersForSSE = false;
     };
+    # accept to nextcloud on 8001
+    services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
     services.tailscale.expose = {
         enable = true;
@@ -61,7 +63,7 @@ in {
         services = {
             nextcloud = {
                 httpsRoutes = {
-                    "/" = "http://nextcloud.localhost:80";
+                    "/" = "http://localhost:8001";
                 };
 
                 funnel = true;
