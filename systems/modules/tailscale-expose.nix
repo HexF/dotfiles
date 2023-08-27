@@ -5,7 +5,7 @@ with lib;
 
 let
   cfg = config.services.tailscale.expose;
-  pcfg = config.service.tailscale;
+  pcfg = config.services.tailscale;
 in {
   options.services.tailscale.expose = {
 
@@ -58,7 +58,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.services = (mapAttrs' (name: cfg': nameValuePair ("tailscale_expose_tailscaled@" + name) ({
+    systemd.services = (mapAttrs' (name: cfg': nameValuePair ("tailscale_expose_tailscaled@${name}") ({
       wantedBy = [ "multi-user.target" ];
       path = [
         config.networking.resolvconf.package # for configuring DNS in some configs
@@ -67,11 +67,11 @@ in {
       ];
 
       serviceConfig.ExecStart = "${pcfg.package}/bin/tailscaled --tun userspace-networking --statedir '${cfg.dataDir}/${name}' --socket '${cfg.dataDir}/${name}/tailscale.sock'";
-    }))) // (mapAttrs' (name: cfg': nameValuePair ("tailscale_expose_setup@" + name) (let
+    })) cfg.services) // (mapAttrs' (name: cfg': nameValuePair ("tailscale_expose_setup@${name}") (let
       tailscale = "${pcfg.package}/bin/tailscale --socket '${cfg.dataDir}/${name}/tailscale.sock'";
     in {
       wantedBy = [ "multi-user.target" ];
-      after = ["tailscale_expose_tailscaled@" + name];
+      after = ["tailscale_expose_tailscaled@${name}.service"];
 
       serviceConfig.Type = "oneshot";
       script = ''
@@ -84,7 +84,7 @@ in {
       '') cfg'.httpsRoutes)) + optionalString cfg'.funnel ''
         ${tailscale} funnel 443 on
       '';
-    })));
+    })) cfg.services);
   
   };
 }
