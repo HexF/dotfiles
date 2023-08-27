@@ -36,7 +36,7 @@
         jackett.enable = true;
         lidarr.enable = true;
         navidrome.enable = true;
-        unmanic.enable = true;
+        # unmanic.enable = true;
 
         vhostSuffix = ".pf.hexf.me";
     };    
