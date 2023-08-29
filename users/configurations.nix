@@ -4,7 +4,8 @@
     sops-nix,
     nixpkgs-master,
     nixpkgs-unstable,
-    home-manager
+    home-manager,
+    devenv
 } @ inputs: {
     thobson =  home-manager.lib.homeManagerConfiguration {
         system = nixosSystem;

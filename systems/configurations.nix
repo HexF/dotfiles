@@ -6,7 +6,8 @@
     nixpkgs-unstable,
     home-manager,
     napalm,
-    lanzaboote
+    lanzaboote,
+    devenv
 } @ inputs:
 
 let
@@ -17,15 +18,18 @@ let
             nixpkgs.overlays = [
                 (final: prev: {
                     master = (import nixpkgs-master {
-                    config.allowUnfree = true;
-                    system = "${prev.system}";
+                        config.allowUnfree = true;
+                        system = "${prev.system}";
                     });
                 })
                 (final: prev: {
                     unstable = (import nixpkgs-unstable {
-                    config.allowUnfree = true;
-                    system = "${prev.system}";
+                        config.allowUnfree = true;
+                        system = "${prev.system}";
                     });
+                })
+                (final: prev: {
+                    devenv = devenv.packages."${prev.system}".devenv;
                 })
                 napalm.overlays.default
             ];

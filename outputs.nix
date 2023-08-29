@@ -10,7 +10,8 @@
     flake-utils,
 
     napalm,
-    lanzaboote
+    lanzaboote,
+    devenv,
    
 }: (
     flake-utils.lib.eachDefaultSystem (system: 
@@ -41,6 +42,7 @@
             home-manager
             sops-nix
             napalm
+            devenv
             lanzaboote
             ;
     };

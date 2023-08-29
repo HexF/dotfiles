@@ -8,6 +8,8 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    devenv.url = "github:cachix/devenv/latest";
+
     napalm.url = "github:nix-community/napalm";
     napalm.inputs.nixpkgs.follows = "nixpkgs";
 

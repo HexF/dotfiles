@@ -9,6 +9,12 @@
       package = pkgs.pulseaudioFull; 
   };
 
+  hardware.bluetooth.settings = {
+    General = {
+        Enable = "Source,Sink,Media,Socket";
+    };
+};
+
   # Pin this specific kernel version because it includes support for mSBC via alt1
   # https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/1366
   #boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_5_13.override {

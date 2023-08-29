@@ -67,7 +67,7 @@ in {
       ''
       [date]
       label= 
-      command=date "+%D %T"
+      command=date "+%d/%m/%y %T"
       interval=1
       '' 
     ];

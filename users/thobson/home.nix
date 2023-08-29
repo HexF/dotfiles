@@ -108,6 +108,7 @@ in
     lens
     kubernetes-helm
     kubectl
+    devenv
     unstable.rnote #TODO: pin rnote version
   ];
 

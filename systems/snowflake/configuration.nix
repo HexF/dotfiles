@@ -49,7 +49,7 @@ in {
   #   '';
   # };
 
-  services.udev.packages = [ pkgs.stlink pkgs.openocd ];
+  services.udev.packages = [ pkgs.stlink pkgs.openocd pkgs.segger-jlink ];
 
   services.ratbagd.enable = true; # Compliments Piper
 
@@ -121,6 +121,20 @@ in {
     piper
     glibc
     bpftrace
+    (segger-jlink.overrideAttrs (finalAttrs: previousAttrs: rec {
+      version = "788m";
+      src = fetchurl {
+        url = "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_x86_64.tgz";
+        sha256 = "sha256-WwUF/DZ+vECG30quvotMQFverTtj+pfQh2sEZl2mkPQ=";
+        curlOpts = "--data accept_license_agreement=accepted";
+      };
+      postInstall = ''
+#        mkdir -p $out/bin/ETC/JFlash
+        cp ETC -r $out/bin/
+      '';
+    }))
+
+    
   ];
 
   virtualisation.docker = {
@@ -130,6 +144,7 @@ in {
       dates = "hourly";
     };
     enableOnBoot = false;
+    extraOptions = "--insecure-registry 100.108.118.134:5000";
   };
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;

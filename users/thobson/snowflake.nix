@@ -19,6 +19,7 @@
     lutris
 
     (callPackage ../../packages/audio-reactive-led-strip {})
+    (callPackage ../../packages/binaryninja {})
     #unstable.factorio
     imhex
 
