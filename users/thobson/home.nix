@@ -88,7 +88,8 @@ in
 
   home.packages = with pkgs; [
     remmina
-    spotify
+    # spotify
+    tidal-hifi
     thunderbird
     discord
     master.neofetch
