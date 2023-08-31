@@ -8,7 +8,7 @@ let
 in {
   imports = [
     ../modules/base.nix
-    ../modules/efi.nix
+    # ../modules/efi.nix
     ../modules/desktop.nix
     ../modules/bluetooth.nix
     ../modules/backup.nix
@@ -29,6 +29,28 @@ in {
   ];
 
   #boot.kernelPackages = pkgs.linuxPackages_latest;
+
+  boot = {
+    lanzaboote = {
+      enable = false;
+      pkiBundle = "/persist/secureboot";
+    };
+    bootspec.enable = true;
+    initrd.systemd.enable = true;
+    plymouth = {
+      enable = true;
+    };
+    loader = {
+      efi.canTouchEfiVariables = true;
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 2;    
+        editor = false;
+        consoleMode = "max";
+      };
+      timeout = 0;
+    };
+  };
   
   # FIXME: Kernel 6.0 does not support Nvidia Drivers - https://github.com/NixOS/nixpkgs/issues/195654
   boot.kernelPackages = pkgs.linuxPackages_5_15;
@@ -85,6 +107,8 @@ in {
       "DVI-I-1"
     ];
   };
+
+  services.pcscd.enable = true;
 
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed

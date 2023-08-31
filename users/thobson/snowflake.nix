@@ -1,6 +1,7 @@
 {config, lib, pkgs, inputs, ...}:
 {
   imports = [
+    ./i3.nix
     ./ctf.nix
   ];
 
