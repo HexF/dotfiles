@@ -108,7 +108,7 @@ in {
     ];
   };
 
-  services.pcscd.enable = true;
+  # services.pcscd.enable = true;
 
   services.logind.extraConfig = ''
     # don’t shutdown when power button is short-pressed
