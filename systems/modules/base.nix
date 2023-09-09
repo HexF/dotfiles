@@ -43,6 +43,9 @@
   networking.firewall.checkReversePath = "loose";
   networking.firewall.trustedInterfaces = [ "tailscale0" ];
 
+  # Fixes tailscale stealing DNS
+  services.resolved.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.mutableUsers = true;
   users.users.thobson = {

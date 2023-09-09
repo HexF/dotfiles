@@ -5,6 +5,7 @@ keys:
   # Hosts
   - &snowflake age1fkfanvqqcss4smhwv848x6rhdee7jjcstqxkzznw4g4l0y7jgyzsy2uv9h
   - &slushy age1h3pk7z9602cgmw82fasumft2vt2pfxw8yn245r3ax627ug528vrs2llzac
+  - &permafrost age1wn4cpjhaat6l5u0vx3hyrf022twp7rqryzqmex8kfqktx7s5w3xsfskt59
 
 creation_rules:
   # All systems
@@ -15,6 +16,7 @@ creation_rules:
         age:
           - *snowflake
           - *slushy
+          - *permafrost
   
   # Just snowflake
   - path_regex: systems/snowflake/secrets/[^/]+\.yaml$
@@ -32,3 +34,11 @@ creation_rules:
         age:
         - *slushy
         
+
+  # Just slushy
+  - path_regex: systems/permafrost/secrets/[^/]+\.yaml$
+    key_groups:
+      - pgp:
+        - *thobson
+        age:
+        - *permafrost

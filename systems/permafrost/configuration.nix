@@ -19,6 +19,7 @@ in {
     nixpkgs.config.packageOverrides = pkgs: {
         vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
     };
+
     hardware.opengl = {
         enable = true;
         extraPackages = with pkgs; [
@@ -28,6 +29,58 @@ in {
         libvdpau-va-gl
         intel-compute-runtime
         ];
+    };
+
+    sops.secrets = {
+        nextcloud_restic_password = {
+            key = "nextcloud_restic_password";
+            mode = "0400";
+
+            owner = "nextcloud";
+
+            sopsFile = ./secrets/backup.yaml;
+        };
+
+        nextcloud_restic_env = {
+            key = "nextcloud_restic_env";
+            mode = "0400";
+
+            owner = "nextcloud";
+
+            sopsFile = ./secrets/backup.yaml;
+        };
+
+    };
+
+    services.restic.backups = {
+        nextcloud = {
+            paths = [
+                "/var/lib/nextcloud"
+            ];
+
+            initialize = true;
+
+            passwordFile = config.sops.secrets.nextcloud_restic_password.path;
+            environmentFile = config.sops.secrets.nextcloud_restic_env.path;
+
+            repository = "b2:hexf-b2-backups:nextcloud";
+
+            backupPrepareCommand = ''
+                ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --on
+                pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump-`date +"%Y%m%d%H"`.bak
+            '';
+
+            backupCleanupCommand = ''
+                ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --off
+            '';
+
+            user = "nextcloud";
+
+            timerConfig = {
+                OnCalendar = "0/4:00";
+                Persistent = true;
+            };
+        };
     };
 
     services.nextcloud = {
