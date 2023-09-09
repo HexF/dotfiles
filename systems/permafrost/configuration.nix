@@ -67,7 +67,7 @@ in {
 
             backupPrepareCommand = ''
                 ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --on
-                pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump-`date +"%Y%m%d%H"`.bak
+                ${config.services.postgresql.package}/bin/pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump-`date +"%Y%m%d%H"`.bak
             '';
 
             backupCleanupCommand = ''
