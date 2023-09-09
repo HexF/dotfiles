@@ -42,6 +42,10 @@ in {
     ./statusline.nix
   ];
 
+  home.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # chromium ozone wayland support - Discord, vscode & co.
+  };
+
   programs.rofi = {
     enable = true;
     package = rofiPackage;
