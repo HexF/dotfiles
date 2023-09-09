@@ -63,10 +63,7 @@ in {
         dataDir = "/persist/tailscale-expose";
         services = {
             nextcloud = {
-                httpsRoutes = {
-                    "/" = "http://localhost:8001";
-                };
-
+                httpsRoutes = {"/" = "http://localhost:8001";};
                 funnel = true;
             };
         };
