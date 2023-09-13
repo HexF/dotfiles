@@ -111,6 +111,21 @@ in
     kubectl
     devenv
     unstable.rnote #TODO: pin rnote version
+    (sage.override { extraPythonPackages = pypkgs: [ (
+      # we need to package this for python??
+      pypkgs.buildPythonPackage rec {
+        pname = "sagetex";
+        version = sagetex.version;
+        src = fetchPypi {
+          inherit pname version;
+          sha256 = "sha256-AxYuxiy4baE6dH+YIkGvPk9M3U0p/LqPu2xpgqnpBtk=";
+        };
+        doCheck = false;
+        propagatedBuildInputs = [
+          pypkgs.pyparsing
+        ];
+      }
+    ) ]; requireSageTests = false; } ) # math major vibes
   ];
 
   qt.style.name = "adwaita-dark";
@@ -226,8 +241,9 @@ in
   programs.texlive = {
     enable = true;
     extraPackages = tpkgs: {
-      inherit (tpkgs)
+      inherit (tpkgs) 
       scheme-full;
+      inherit (pkgs) sagetex;
     };
   }; 
 
