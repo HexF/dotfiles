@@ -10,7 +10,7 @@ in {
         ../modules/media-server.nix
         ../modules/tailscale-expose.nix
 
-        ../../norgb.nix
+        ../modules/norgb.nix
 
         ./hardware-configuration.nix
     ];
