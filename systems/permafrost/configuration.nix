@@ -54,7 +54,7 @@ in {
         
 
         firefly_appkey = {
-            key = "appkey";
+            key = "app_key";
             mode = "0400";
 
             owner = config.services.firefly-iii.user;
