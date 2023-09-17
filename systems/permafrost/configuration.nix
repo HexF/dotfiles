@@ -122,6 +122,11 @@ in {
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
+    # we need bleeding-edge tailscale for
+    # https://github.com/tailscale/tailscale/commit/dc1d8826a2a16deda51ce20ef12bb31e1421bb97
+    # so firefly wont commit CSP violation
+    services.tailscale.package = pkgs.unstable.tailscale;
+
     services.firefly-iii = {
         enable = true;
         appURL = "https://firefly.${tailnet}";
