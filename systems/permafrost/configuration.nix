@@ -137,6 +137,10 @@ in {
         };
         group = "nginx";
         database.createLocally = true;
+        config = {
+            USE_PROXIES = "127.0.0.1";
+            TRUSTED_PROXIES = "**";
+        };
     };
 
     services.tailscale.expose = {
