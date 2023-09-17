@@ -77,6 +77,9 @@ in {
         modules = defaultModules ++ [
             ./permafrost/configuration.nix
             firefly.nixosModules.firefly-iii
+            {
+                nixpkgs.overlays = [firefly.overlays.default];
+            }
         ] ++ (userModules "permafrost");
     };
 
