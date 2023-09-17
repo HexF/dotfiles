@@ -51,6 +51,16 @@ in {
 
             sopsFile = ./secrets/backup.yaml;
         };
+        
+
+        firefly_appkey = {
+            key = "appkey";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/firefly.yaml;
+        };
 
     };
 
@@ -79,7 +89,7 @@ in {
             user = "nextcloud";
 
             timerConfig = {
-                OnCalendar = "0/4:00";
+                OnCalendar = "05:00"; # every day at 5am
                 Persistent = true;
             };
         };
@@ -112,6 +122,18 @@ in {
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
+    services.firefly-iii = {
+        enable = true;
+        appURL = "https://firefly.${tailnet}";
+        appKeyFile = config.sops.secrets.firefly_appkey.path;
+        hostname = "firefly.${tailnet}";
+        nginx = {
+            listen = [{port = 8002; addr="127.0.0.1";}];
+        };
+        group = "nginx";
+        database.createLocally = true;
+    };
+
     services.tailscale.expose = {
         enable = true;
         authKey = "file:/persist/tailscale-authkey"; #TODO - put in secrets
@@ -120,6 +142,11 @@ in {
             nextcloud = {
                 httpsRoutes = {"/" = "http://localhost:8001";};
                 funnel = true;
+            };
+
+            firefly = {
+                httpsRoutes = {"/" = "http://localhost:8002";};
+                funnel = false; # dont expose externally
             };
         };
     };

@@ -1,5 +1,22 @@
 {
   "nodes": {
+    "composer2nix-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1646178110,
+        "narHash": "sha256-P3acfGwHYjjZQcviPiOT7T7qzzP/drc2mibzrsrNP18=",
+        "owner": "svanderburg",
+        "repo": "composer2nix",
+        "rev": "299caca4aac42d7639a42eb4dde951c010f6e91c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "svanderburg",
+        "ref": "v0.0.6",
+        "repo": "composer2nix",
+        "type": "github"
+      }
+    },
     "crane": {
       "inputs": {
         "flake-compat": [
@@ -52,6 +69,45 @@
         "owner": "cachix",
         "ref": "latest",
         "repo": "devenv",
+        "type": "github"
+      }
+    },
+    "firefly": {
+      "inputs": {
+        "composer2nix-src": "composer2nix-src",
+        "firefly-iii-src": "firefly-iii-src",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1689496855,
+        "narHash": "sha256-eLgJaeURjdKuBjyhS97texllfmtjCOhtPo1IOPvRCzI=",
+        "owner": "timhae",
+        "repo": "firefly",
+        "rev": "73aba7e1e9bd61bef0f8f54294beb3528e436806",
+        "type": "github"
+      },
+      "original": {
+        "owner": "timhae",
+        "repo": "firefly",
+        "type": "github"
+      }
+    },
+    "firefly-iii-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1681548383,
+        "narHash": "sha256-ymWotU5wM6nQhsfnyAt+unewJ5D0tJpNK+UedSyfITU=",
+        "owner": "firefly-iii",
+        "repo": "firefly-iii",
+        "rev": "f878af0d3bbfe7b1a51bef758d4e2e9a66118316",
+        "type": "github"
+      },
+      "original": {
+        "owner": "firefly-iii",
+        "ref": "v6.0.8",
+        "repo": "firefly-iii",
         "type": "github"
       }
     },
@@ -530,6 +586,7 @@
     "root": {
       "inputs": {
         "devenv": "devenv",
+        "firefly": "firefly",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
         "lanzaboote": "lanzaboote",

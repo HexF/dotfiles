@@ -7,7 +7,8 @@
     home-manager,
     napalm,
     lanzaboote,
-    devenv
+    devenv,
+    firefly
 } @ inputs:
 
 let
@@ -75,6 +76,7 @@ in {
         system = "x86_64-linux";
         modules = defaultModules ++ [
             ./permafrost/configuration.nix
+            firefly.nixosModules.firefly-iii
         ] ++ (userModules "permafrost");
     };
 
