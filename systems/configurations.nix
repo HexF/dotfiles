@@ -26,6 +26,7 @@ let
                 (final: prev: {
                     unstable = (import nixpkgs-unstable {
                         config.allowUnfree = true;
+                        config.nvidia.acceptLicense = true;
                         system = "${prev.system}";
                     });
                 })
