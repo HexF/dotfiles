@@ -1,5 +1,6 @@
 { config, pkgs, ... }: let
     tailnet = "fluffy-mercat.ts.net";
+    akahu-firefly = (callPackage ../../packages/akahu-firefly {});
 in {
 
     imports = [
@@ -52,7 +53,6 @@ in {
             sopsFile = ./secrets/backup.yaml;
         };
         
-
         firefly_appkey = {
             key = "app_key";
             mode = "0400";
@@ -62,6 +62,14 @@ in {
             sopsFile = ./secrets/firefly.yaml;
         };
 
+        "firefly_akahu_config.json" = {
+            key = "akahu_link_config";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/firefly.yaml;
+        };
     };
 
     services.restic.backups = {
@@ -140,6 +148,23 @@ in {
         config = {
             USE_PROXIES = "127.0.0.1";
             TRUSTED_PROXIES = "**";
+        };
+    };
+
+    # akahu-firefly link
+    systemd.services.akahu-firefly = {
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${nodejs}/bin/node ${akahu-firefly}/lib/node_modules/akahu-firefly ${config.sops.secrets."firefly_akahu_config.json".path}
+      '';
+    };
+
+    systemd.timers.akahu-firefly = {
+        wantedBy = ["timers.target"];
+        partOf = ["akahu-firefly.service"];
+        timerConfig = {
+            OnCalendar = "*:*:0";
+            Unit = "akahu-firefly.service";
         };
     };
 
