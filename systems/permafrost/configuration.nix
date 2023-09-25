@@ -52,6 +52,24 @@ in {
 
             sopsFile = ./secrets/backup.yaml;
         };
+
+        firefly_restic_password = {
+            key = "firefly_restic_password";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/backup.yaml;
+        };
+
+        firefly_restic_env = {
+            key = "firefly_restic_env";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/backup.yaml;
+        };
         
         firefly_appkey = {
             key = "app_key";
@@ -96,6 +114,30 @@ in {
 
             user = "nextcloud";
 
+            timerConfig = {
+                OnCalendar = "05:00"; # every day at 5am
+                Persistent = true;
+            };
+        };
+
+        firefly = {
+            paths = [
+                "/var/lib/firefly-iii"
+            ];
+
+            initialize = true;
+
+            passwordFile = config.sops.secrets.firefly_restic_password.path;
+            environmentFile = config.sops.secrets.firefly_restic_env.path;
+
+            repository = "b2:hexf-b2-backups:firefly";
+
+            backupPrepareCommand = ''
+                ${config.services.mysql.package}/bin/mysql_dump ${config.services.firefly-iii.db.name} > /var/lib/firefly-iii/firefly.sql
+            '';
+
+            user = config.services.firefly-iii.user;
+            
             timerConfig = {
                 OnCalendar = "05:00"; # every day at 5am
                 Persistent = true;
