@@ -1,6 +1,6 @@
 { config, pkgs, ... }: let
     tailnet = "fluffy-mercat.ts.net";
-    akahu-firefly = (callPackage ../../packages/akahu-firefly {});
+    akahu-firefly = (pkgs.callPackage ../../packages/akahu-firefly {});
 in {
 
     imports = [
