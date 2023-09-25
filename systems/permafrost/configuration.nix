@@ -133,7 +133,7 @@ in {
             repository = "b2:hexf-b2-backups:firefly";
 
             backupPrepareCommand = ''
-                ${config.services.mysql.package}/bin/mysql_dump ${config.services.firefly-iii.db.name} > /var/lib/firefly-iii/firefly.sql
+                ${config.services.mysql.package}/bin/mysql_dump ${config.services.firefly-iii.database.name} > /var/lib/firefly-iii/firefly.sql
             '';
 
             user = config.services.firefly-iii.user;
