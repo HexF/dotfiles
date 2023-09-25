@@ -155,7 +155,7 @@ in {
     systemd.services.akahu-firefly = {
       serviceConfig.Type = "oneshot";
       script = ''
-        ${nodejs}/bin/node ${akahu-firefly}/lib/node_modules/akahu-firefly ${config.sops.secrets."firefly_akahu_config.json".path}
+        ${pkgs.nodejs}/bin/node ${akahu-firefly}/lib/node_modules/akahu-firefly ${config.sops.secrets."firefly_akahu_config.json".path}
       '';
     };
 
