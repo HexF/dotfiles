@@ -110,7 +110,24 @@ in
     kubernetes-helm
     kubectl
     devenv
-    unstable.rnote #TODO: pin rnote version
+    unstable.rnote
+    # (rnote.overrideAttrs(old: rec {
+    #   version = "0.9.0";
+    #    src = fetchFromGitHub {
+    #     owner = "flxzt";
+    #     repo = "rnote";
+    #     rev = "v${version}";
+    #     hash = "sha256-fkJQfIp4Q5CpQUbBtiHA4SGQP/O6jiccfqrz4yiXpbk=";
+    #   };
+
+    #   cargoDeps = rustPlatform.importCargoLock {
+    #     lockFile = ./Cargo-rnote.lock;
+    #     outputHashes = {
+    #       "ink-stroke-modeler-rs-0.1.0" = "sha256-WfZwezohm8+ZXiKZlssTX+b/Izk1M4jFwxQejeTfc6M=";
+    #       "piet-0.6.2" = "sha256-WrQok0T7uVQEp8SvNWlgqwQHfS7q0510bnP1ecr+s1Q=";
+    #     };
+    #   };
+    # }))
     (sage.override { extraPythonPackages = pypkgs: [ (
       # we need to package this for python??
       pypkgs.buildPythonPackage rec {

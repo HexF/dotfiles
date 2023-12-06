@@ -29,7 +29,7 @@ in {
     ../modules/wireless.nix
     ../modules/bluetooth.nix
     ../modules/dm-sway.nix
-    
+    ../modules/acr122.nix    
 
     ./hardware-configuration.nix
   ];
@@ -46,6 +46,7 @@ in {
   # powerManagement.powertop.enable = true;
 
   programs.light.enable = true; # needed for udev rules
+  
   users.users.thobson.extraGroups = [ "docker" "video" ]; 
 
   services.fprintd = {
@@ -53,7 +54,25 @@ in {
     # package = pkgs.fprintd.override {libfprint = libfprint; };
   };
 
+  services.xserver = {
+    # enable = lib.mkForce false;
+    displayManager.lightdm.enable = lib.mkForce false;
+  };
+  services.getty.autologinUser = "thobson"; # autologin with my account - enough authentication is done unlocking drives at boot
   
+  environment.loginShellInit = ''
+    [[ "$(tty)" == /dev/tty1 ]] && sway
+  '';
+
+  hardware.opengl = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
+  };
+
 
   services.udev.packages = [ pkgs.stlink pkgs.openocd pkgs.pulseview ];
 

@@ -1,8 +1,10 @@
 { config, pkgs, ... }:
 {
+  networking.useNetworkd = true; # wifi roaming is shit without it
   
   networking.wireless = {
     enable = true;
+    scanOnLowSignal = false;
     environmentFile = config.sops.secrets.wifi_env.path;
     networks = rec {
       "Moon" = {
@@ -31,6 +33,11 @@
 
       "Unitedwifi.com" = {
 
+      };
+
+      "AirNZ In-Flight WiFi" = {
+        pskRaw = "@HOME_PSK@";
+        priority = 20;
       };
 
       # UCwireless = {

@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   services.xserver = {
@@ -51,6 +51,19 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     firefox
+
+    # gstreamer
+    gst_all_1.gstreamer
+    # Common plugins like "filesrc" to combine within e.g. gst-launch
+    gst_all_1.gst-plugins-base
+    # Specialized plugins separated by quality
+    gst_all_1.gst-plugins-good
+    gst_all_1.gst-plugins-bad
+    gst_all_1.gst-plugins-ugly
+    # Plugins to reuse ffmpeg to play almost every video format
+    gst_all_1.gst-libav
+    # Support the Video Audio (Hardware) Acceleration API
+    gst_all_1.gst-vaapi
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
