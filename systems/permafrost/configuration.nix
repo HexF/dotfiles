@@ -1,5 +1,6 @@
 { config, pkgs, ... }: let
     tailnet = "fluffy-mercat.ts.net";
+    akahu-firefly = (pkgs.callPackage ../../packages/akahu-firefly {});
 in {
 
     imports = [
@@ -52,6 +53,41 @@ in {
             sopsFile = ./secrets/backup.yaml;
         };
 
+        firefly_restic_password = {
+            key = "firefly_restic_password";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/backup.yaml;
+        };
+
+        firefly_restic_env = {
+            key = "firefly_restic_env";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/backup.yaml;
+        };
+        
+        firefly_appkey = {
+            key = "app_key";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/firefly.yaml;
+        };
+
+        "firefly_akahu_config.json" = {
+            key = "akahu_link_config";
+            mode = "0400";
+
+            owner = config.services.firefly-iii.user;
+
+            sopsFile = ./secrets/firefly.yaml;
+        };
     };
 
     services.restic.backups = {
@@ -79,7 +115,31 @@ in {
             user = "nextcloud";
 
             timerConfig = {
-                OnCalendar = "0/4:00";
+                OnCalendar = "05:00"; # every day at 5am
+                Persistent = true;
+            };
+        };
+
+        firefly = {
+            paths = [
+                "/var/lib/firefly-iii"
+            ];
+
+            initialize = true;
+
+            passwordFile = config.sops.secrets.firefly_restic_password.path;
+            environmentFile = config.sops.secrets.firefly_restic_env.path;
+
+            repository = "b2:hexf-b2-backups:firefly";
+
+            backupPrepareCommand = ''
+                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.database.name} > /var/lib/firefly-iii/firefly.sql
+            '';
+
+            user = config.services.firefly-iii.user;
+            
+            timerConfig = {
+                OnCalendar = "05:00"; # every day at 5am
                 Persistent = true;
             };
         };
@@ -112,6 +172,45 @@ in {
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
+    # we need bleeding-edge tailscale for
+    # https://github.com/tailscale/tailscale/commit/dc1d8826a2a16deda51ce20ef12bb31e1421bb97
+    # so firefly wont commit CSP violation
+    services.tailscale.package = pkgs.unstable.tailscale;
+
+    services.firefly-iii = {
+        enable = true;
+        appURL = "https://firefly.${tailnet}";
+        appKeyFile = config.sops.secrets.firefly_appkey.path;
+        hostname = "firefly.${tailnet}";
+        nginx = {
+            listen = [{port = 8002; addr="127.0.0.1";}];
+        };
+        group = "nginx";
+        database.createLocally = true;
+        config = {
+            USE_PROXIES = "127.0.0.1";
+            TRUSTED_PROXIES = "**";
+            TZ = "Pacific/Auckland";
+        };
+    };
+
+    # akahu-firefly link
+    systemd.services.akahu-firefly = {
+      serviceConfig.Type = "oneshot";
+      script = ''
+        ${pkgs.nodejs}/bin/node ${akahu-firefly}/lib/node_modules/akahu-firefly ${config.sops.secrets."firefly_akahu_config.json".path}
+      '';
+    };
+
+    systemd.timers.akahu-firefly = {
+        wantedBy = ["timers.target"];
+        partOf = ["akahu-firefly.service"];
+        timerConfig = {
+            OnCalendar = "*:*:0";
+            Unit = "akahu-firefly.service";
+        };
+    };
+
     services.tailscale.expose = {
         enable = true;
         authKey = "file:/persist/tailscale-authkey"; #TODO - put in secrets
@@ -120,6 +219,11 @@ in {
             nextcloud = {
                 httpsRoutes = {"/" = "http://localhost:8001";};
                 funnel = true;
+            };
+
+            firefly = {
+                httpsRoutes = {"/" = "http://localhost:8002";};
+                funnel = false; # dont expose externally
             };
         };
     };

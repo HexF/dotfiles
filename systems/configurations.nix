@@ -7,7 +7,8 @@
     home-manager,
     napalm,
     lanzaboote,
-    devenv
+    devenv,
+    firefly
 } @ inputs:
 
 let
@@ -25,6 +26,7 @@ let
                 (final: prev: {
                     unstable = (import nixpkgs-unstable {
                         config.allowUnfree = true;
+                        config.nvidia.acceptLicense = true;
                         system = "${prev.system}";
                     });
                 })
@@ -75,6 +77,10 @@ in {
         system = "x86_64-linux";
         modules = defaultModules ++ [
             ./permafrost/configuration.nix
+            firefly.nixosModules.firefly-iii
+            {
+                nixpkgs.overlays = [firefly.overlays.default];
+            }
         ] ++ (userModules "permafrost");
     };
 

@@ -64,6 +64,8 @@
     gst_all_1.gst-libav
     # Support the Video Audio (Hardware) Acceleration API
     gst_all_1.gst-vaapi
+    carla
+    calf
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

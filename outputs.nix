@@ -12,6 +12,8 @@
     napalm,
     lanzaboote,
     devenv,
+
+    firefly,
    
 }: (
     flake-utils.lib.eachDefaultSystem (system: 
@@ -44,6 +46,7 @@
             napalm
             devenv
             lanzaboote
+            firefly
             ;
     };
 

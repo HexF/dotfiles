@@ -100,7 +100,6 @@ in
     xfce.thunar
     xdotool
     cantata
-    carla
     libreoffice
     plantuml
     (nerdfonts.override {fonts = ["JetBrainsMono"];})

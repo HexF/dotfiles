@@ -53,7 +53,12 @@ in {
   };
   
   # FIXME: Kernel 6.0 does not support Nvidia Drivers - https://github.com/NixOS/nixpkgs/issues/195654
-  boot.kernelPackages = pkgs.linuxPackages_5_15;
+  boot.kernelPackages = pkgs.unstable.linuxPackages_5_15;
+
+  boot.kernelPatches = [{
+    name = "random usb webcam";
+    patch = ./quirk_usbwebcam.patch;
+  }];
 
   boot.blacklistedKernelModules = [
     "nvidia_uvm"
