@@ -227,7 +227,7 @@ in {
             };
 
             jellyfin = {
-                httpsRoutes = {"/" = "http://localhost:${config.services.jellyfin.port}"; };
+                httpsRoutes = {"/" = "http://localhost:8096"; };
                 funnel = true;
             };
 
