@@ -284,20 +284,5 @@ in {
     services.xserver.displayManager.autoLogin.user = "htpc";
     networking.networkmanager.enable = lib.mkForce false;
 
-    services.pipewire = {
-        enable = true;
-
-        alsa.enable = true;
-        alsa.support32Bit = true;
-
-        pulse.enable = true;
-        jack.enable = true;
-
-        # config.pipewire = {
-        #   "context.properties" = {
-        #     "log.level" = 3;
-        #   };
-        # };
-
-    };
+    
 }
