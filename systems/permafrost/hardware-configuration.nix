@@ -58,7 +58,10 @@
     fsType = "zfs";
   };
 
-  
+  fileSystems."/var/lib/media" = {
+    device = "spool/media";
+    fsType = "zfs";
+  };
 
 
   fileSystems."/boot" = {
