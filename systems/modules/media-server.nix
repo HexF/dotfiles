@@ -67,6 +67,12 @@ in {
                 };
             };
 
+            ombi = {
+                enable = mkOption {
+                    default = false;
+                };
+            };
+
             unmanic = {
                 enable = mkOption {
                     default = false;
@@ -119,6 +125,13 @@ in {
 
 
             openFirewall = true;   
+        };
+
+        services.ombi = {
+            enable = cfg.ombi.enable;            
+            user = cfg.user;
+            group = cfg.group;
+            openFirewall = true;
         };
 
         systemd.services.unmanic = mkIf cfg.unmanic.enable {

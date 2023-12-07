@@ -26,11 +26,11 @@ in {
     hardware.opengl = {
         enable = true;
         extraPackages = with pkgs; [
-        intel-media-driver
-        vaapiIntel
-        vaapiVdpau
-        libvdpau-va-gl
-        intel-compute-runtime
+            intel-media-driver
+            vaapiIntel
+            vaapiVdpau
+            libvdpau-va-gl
+            intel-compute-runtime
         ];
     };
 
@@ -225,6 +225,16 @@ in {
                 httpsRoutes = {"/" = "http://localhost:8002";};
                 funnel = false; # dont expose externally
             };
+
+            jellyfin = {
+                httpsRoutes = {"/" = "http://localhost:${config.services.jellyfin.port}"; };
+                funnel = true;
+            };
+
+            ombi = {
+                httpsRoutes = {"/" = "http://localhost:${config.services.ombi.port}"; };
+                funnel = true;
+            };
         };
     };
 
@@ -235,12 +245,25 @@ in {
         sonarr.enable = true;
         radarr.enable = true;
         jackett.enable = true;
+        ombi.enable = true;
         # lidarr.enable = true;
         # navidrome.enable = true;
         # unmanic.enable = true;
 
         vhostSuffix = ".pf.hexf.me";
     };    
+
+    services.deluge = {
+        enable = true;
+
+        user = config.media-server.user;
+        group = config.media-server.group;
+
+        web = {
+            enable = true;
+            openFirewall = true;
+        };
+    };
 
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
 }
