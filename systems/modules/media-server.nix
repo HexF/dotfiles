@@ -61,6 +61,12 @@ in {
                 };              
             }; 
 
+            prowlarr = {
+                enable = mkOption {
+                    default = false;
+                };              
+            }; 
+
             navidrome = {
                 enable = mkOption {
                     default = false;
@@ -100,6 +106,11 @@ in {
             openFirewall = true;
         };
 
+        services.prowlarr = {
+            enable = true;
+            openFirewall = true;
+            package = pkgs.unstable.prowlarr;
+        };
         
 
         services.sonarr = {

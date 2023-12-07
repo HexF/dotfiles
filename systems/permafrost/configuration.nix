@@ -244,7 +244,8 @@ in {
         jellyfin.enable = true;
         sonarr.enable = true;
         radarr.enable = true;
-        jackett.enable = true;
+        # jackett.enable = true;
+        prowlarr.enable = true;
         ombi.enable = true;
         # lidarr.enable = true;
         # navidrome.enable = true;
