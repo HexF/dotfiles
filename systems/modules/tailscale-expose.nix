@@ -76,15 +76,16 @@ in {
       serviceConfig.Type = "oneshot";
       script = ''
         ${tailscale} up --hostname "${name}" 
-        ${tailscale} serve reset
+        ${tailscale} serve --https=443 off
       '' + ((foldr (a: b: ''
       ${a}
       ${b}
-      '') "") (mapAttrsToList (path: target: ''
-        ${tailscale} serve --bg --set-path='${path}' '${target}'
-      '') cfg'.httpsRoutes)) + optionalString cfg'.funnel ''
-        ${tailscale} funnel 443 on
-      '';
+      '') "") (mapAttrsToList (path: target: let 
+        funnelStr = if cfg'.funnel then "funnel" else "serve";
+        in
+      ''
+        ${tailscale} ${funnelStr} --bg --set-path='${path}' '${target}'
+      '') cfg'.httpsRoutes));
     })) cfg.services);
   
   };
