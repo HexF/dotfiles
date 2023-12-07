@@ -31,7 +31,7 @@
     fsType = "zfs";
   };
 
-  boot.initrd.clevis.enable = true;
+  # boot.initrd.clevis.enable = true;
 
   fileSystems."/home" = {
     device = "rpool/home-enc";
