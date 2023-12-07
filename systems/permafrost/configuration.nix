@@ -274,4 +274,29 @@ in {
     services.xserver.enable = true;
     services.xserver.displayManager.gdm.enable = true;
     services.xserver.desktopManager.gnome.enable = true;
+
+    users.users.htpc = {
+        isNormalUser  = true;
+        description  = "HTPC user";
+        extraGroups  = [ ];
+    };
+
+    services.xserver.displayManager.autoLogin.user = true;
+
+    services.pipewire = {
+        enable = true;
+
+        alsa.enable = true;
+        alsa.support32Bit = true;
+
+        pulse.enable = true;
+        jack.enable = true;
+
+        # config.pipewire = {
+        #   "context.properties" = {
+        #     "log.level" = 3;
+        #   };
+        # };
+
+    };
 }
