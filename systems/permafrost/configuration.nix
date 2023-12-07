@@ -269,4 +269,9 @@ in {
     };
 
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
+
+    # make it more desktopy
+    services.xserver.enable = true;
+    services.xserver.displayManager.gdm.enable = true;
+    services.xserver.desktopManager.gnome.enable = true;
 }
