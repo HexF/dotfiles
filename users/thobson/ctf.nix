@@ -95,7 +95,7 @@ in
     binwalk
     file
     stegseek
-    swift
+    # swift
     yara
     z3
 
