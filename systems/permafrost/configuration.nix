@@ -282,6 +282,7 @@ in {
     };
 
     services.xserver.displayManager.autoLogin.user = true;
+    networking.networkmanager.enable = lib.mkForce false;
 
     services.pipewire = {
         enable = true;
