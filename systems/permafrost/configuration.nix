@@ -256,8 +256,8 @@ in {
     services.deluge = {
         enable = true;
 
-        user = config.media-server.user;
-        group = config.media-server.group;
+        user = config.services.media-server.user;
+        group = config.services.media-server.group;
 
         web = {
             enable = true;
