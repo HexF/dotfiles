@@ -123,6 +123,7 @@ in {
             user = cfg.user;
             group = cfg.group;
 
+            package = pkgs.unstable.jackett;
 
             openFirewall = true;   
         };
