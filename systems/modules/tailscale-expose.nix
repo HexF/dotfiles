@@ -81,7 +81,7 @@ in {
       ${a}
       ${b}
       '') "") (mapAttrsToList (path: target: ''
-        ${tailscale} serve https '${path}' '${target}'
+        ${tailscale} serve --bg --set-path='${path}' '${target}'
       '') cfg'.httpsRoutes)) + optionalString cfg'.funnel ''
         ${tailscale} funnel 443 on
       '';
