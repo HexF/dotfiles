@@ -281,7 +281,7 @@ in {
         extraGroups  = [ ];
     };
 
-    services.xserver.displayManager.autoLogin.user = true;
+    services.xserver.displayManager.autoLogin.user = "htpc";
     networking.networkmanager.enable = lib.mkForce false;
 
     services.pipewire = {
