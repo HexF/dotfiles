@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let
+{ config, pkgs, lib, ... }: let
     tailnet = "fluffy-mercat.ts.net";
     akahu-firefly = (pkgs.callPackage ../../packages/akahu-firefly {});
 in {
