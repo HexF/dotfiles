@@ -232,7 +232,7 @@ in {
             };
 
             ombi = {
-                httpsRoutes = {"/" = "http://localhost:${config.services.ombi.port}"; };
+                httpsRoutes = {"/" = "http://localhost:${toString config.services.ombi.port}"; };
                 funnel = true;
             };
         };
