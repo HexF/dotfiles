@@ -169,6 +169,8 @@ in {
         notify_push.enable = true;
         # enableBrokenCiphersForSSE = false;
     };
+
+    services.postgresql.package = pkgs.postgresql_16;
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
