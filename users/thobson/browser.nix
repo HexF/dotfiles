@@ -2,7 +2,7 @@
 with pkgs;
 let
     fetchFirefoxAddonNM = callPackage ../../modules/fetchFirefoxAddonNM {};
-    customFirefox = wrapFirefox firefox-esr-unwrapped {
+    customFirefox = wrapFirefox (pkgs.firefox-unwrapped // {requireSigning = false; allowAddonSideload=true; }) {
         nixExtensions = [
             (fetchFirefoxAddonNM {
                 name = "learn-pdf-auto-opener";

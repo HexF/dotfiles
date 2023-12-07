@@ -9,13 +9,7 @@
     jetbrains.datagrip
     jetbrains.idea-ultimate
 
-    (proxmark3-rrg.overrideAttrs( old : { 
-      installPhase = old.installPhase + ''
-        install -Dt $out/bin client/proxmark3
-        cp -r client/resources $out/bin/resources
-        install -Dt $out/firmware bootrom/obj/bootrom.elf armsrc/obj/fullimage.elf
-      '';
-    }))
+    proxmark3
   ];
 
   programs.i3blocks.blocksCenter = [

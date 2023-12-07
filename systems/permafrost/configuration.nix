@@ -167,7 +167,7 @@ in {
         configureRedis = true;
         database.createLocally = true;
         notify_push.enable = true;
-        enableBrokenCiphersForSSE = false;
+        # enableBrokenCiphersForSSE = false;
     };
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
