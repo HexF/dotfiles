@@ -13,7 +13,7 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.supportedFilesystems = [ "zfs" ];
 
-  boot.kernelPackages = pkgs.linuxPackages_6_1;
+  boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   # Fix ZFS scheduling
   services.udev.extraRules = ''
