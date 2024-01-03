@@ -88,7 +88,12 @@ in {
   
   boot.kernelParams = [
     "intel_pstate=active"
+    "i915.enable_ips=0"
   ];
+
+  boot.extraModprobeConfig = ''
+    options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100
+  '';
   
   boot.initrd.compressor = "cat";
   boot.initrd.kernelModules = config.boot.kernelModules;
@@ -101,16 +106,88 @@ in {
     swaylock = {};
   };
   
-
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    # drivers = lib.mkForce [
+    #   {
+    #     name = "nvidia-r1";
+    #     modules = [
+    #       config.hardware.nvidia.package.bin
+    #     ];
+    #     driverName = "nvidia";
+    #     display = true;
+    #     deviceSection = ''
+    #       VendorName     "NVIDIA Corporation"
+    #       BoardName      "NVIDIA GeForce GTX 750 Ti"
+    #       BusID          "PCI:1:0:0"
+    #     '';
+
+    #     screenSection = ''
+    #       Monitor "Monitor-R1"
+    #       Option "metamodes" "GPU-0.HDMI-0: nvidia-auto-select +0+0, GPU-0.DVI-I-1: nvidia-auto-select +1920+0, GPU-1.HDMI-0: nvidia-auto-select +1920+1080"
+    #       Option "SLI" "Off"
+    #       Option "MultiGPU" "Off"
+    #       Option "BaseMosaic" "Off"
+    #     '';
+
+    #   }
+
+    #   {
+    #     name = "nvidia-r2";
+    #     modules = [
+    #       config.hardware.nvidia.package.bin
+    #     ];
+    #     driverName = "nvidia";
+    #     display = true;
+        
+    #     deviceSection = ''
+    #       VendorName     "NVIDIA Corporation"
+    #       BoardName      "NVIDIA GeForce GTX 760"
+    #       BusID          "PCI:6:0:0"
+    #     '';
+
+    #     screenSection = ''
+    #       Monitor "Monitor-R2"
+    #       Option "metamodes" "nvidia-auto-select +1920+1080 {AllowGSYNC=Off}"
+    #       Option "SLI" "Off"
+    #       Option "MultiGPU" "Off"
+    #       Option "BaseMosaic" "off"
+    #     '';
+    #   }
+    # ];
+
     wacom.enable = true;
 
     xrandrHeads = [
-      "HDMI-0"
-      "DP-0"
-      "DVI-I-1"
+      {
+        output = "DVI-D-0";
+        primary = true;
+      }
+      {
+        output = "DP-0";
+        monitorConfig = ''
+          Option "RightOf" "DVI-D-0"
+        '';
+      }
+      {
+        output = "HDMI-0";
+        monitorConfig = ''
+          Option "RightOf" "DP-0"
+        '';
+      }
+      {
+        output = "DVI-I-1";
+        monitorConfig = ''
+          Option "RightOf" "HDMI-0"
+        '';
+      }     
     ];
+
+    serverLayoutSection = ''
+    Option "Xinerama" "0"
+    '';
+
+
   };
 
   # services.pcscd.enable = true;
@@ -177,6 +254,7 @@ in {
   };
 
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  hardware.nvidia.modesetting.enable = true;
   
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 443 80 ]; # React dev server
 

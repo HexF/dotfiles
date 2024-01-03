@@ -10,9 +10,12 @@
         };
     };
 
+    virtualisation.spiceUSBRedirection.enable = true;
+
     programs.dconf.enable = true;
     environment.systemPackages = with pkgs; [
         virt-manager
+        spice-gtk
         unstable.freerdp # Allow us to connect
     ];
 

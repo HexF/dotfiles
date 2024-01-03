@@ -203,6 +203,7 @@ in {
 
     extraConfig = ''
     exec_always ${pkgs.feh}/bin/feh --bg-fill $HOME/.background-image
+    
     '';
 
     config = {
@@ -292,8 +293,8 @@ in {
       ];
 
       gaps = {
-        inner = 25;
-        outer = 10;
+        inner = 0;
+        outer = 0;
       };
 
       window = {
