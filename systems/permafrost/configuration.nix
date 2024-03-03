@@ -321,7 +321,7 @@ in {
 	src = pkgs.fetchFromGitHub {
 	    owner = "thaytan";
 	    repo = "OpenHMD";
-	    rev = "rift-kalman-filter"; # controller-haptics-wip
+	    rev = "44e7f907d92933cea76f36d7b778d2ec34629133"; #rift-kalman-filter
 	    sha256 = "";
 	    fetchSubmodules = true;
         };
