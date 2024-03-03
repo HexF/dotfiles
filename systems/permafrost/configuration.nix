@@ -88,6 +88,15 @@ in {
 
             sopsFile = ./secrets/firefly.yaml;
         };
+
+        firefox-sync-environment-file = {
+            key = "environment_file";
+            mode = "0400";
+
+            owner = "root";
+
+            sopsFile = ./secrets/firefox-sync.yaml;
+        };
     };
 
     services.restic.backups = {
@@ -237,6 +246,26 @@ in {
                 httpsRoutes = {"/" = "http://localhost:${toString config.services.ombi.port}"; };
                 funnel = true;
             };
+
+            firefox-sync = {
+                httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
+                funnel = false; # require tailscale connection for sync
+            };
+        };
+    };
+
+    # firefox-syncserver
+    services.firefox-syncserver = {
+        enable = true;
+        logLevel = "info";
+        database.createLocally = true;
+        tokenserver.enabled = true;
+
+        singleNode = {
+            enable = true;
+            capacity = 1;
+            hostname = "firefox-sync";
+            url = "https://firefox-sync.fluffy-mercat.ts.net";
         };
     };
 
@@ -284,5 +313,6 @@ in {
     services.xserver.displayManager.autoLogin.user = "htpc";
     networking.networkmanager.enable = lib.mkForce false;
 
+    
     
 }

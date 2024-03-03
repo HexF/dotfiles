@@ -66,6 +66,24 @@
     gst_all_1.gst-vaapi
     carla
     calf
+
+    (keepassxc.overrideAttrs(old: {
+          version = "2.8.0-snapshot";
+
+          src = fetchFromGitHub {
+              owner = "keepassxreboot";
+              rev = "454dc7169da07793d9123f35a69e806e3073c9fd";
+              sha256 = "sha256-E+HVhf0O7MLBTvjBcUGxktppeno6AHIn5HEFnnPVkOE=";
+              repo = "keepassxc";
+              
+          };
+
+          cmakeFlags = old.cmakeFlags ++ [
+            "-DWITH_XC_ALL=ON"
+          ];
+
+          buildInputs = old.buildInputs ++ [keyutils];
+      })) # Remote sync to upload/download files to nextcloud
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

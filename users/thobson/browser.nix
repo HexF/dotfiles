@@ -28,12 +28,12 @@ let
                 sha256 = "sha256-ZJ14DRkgGyYHNHxPV7W1eyN2JLLA7TIq+Vdc95HM4yY=";
                 addonId = "extension@redux.devtools";
             })
-            (fetchFirefoxAddonNM {
-                name = "honey";
-                url = "https://addons.mozilla.org/firefox/downloads/file/3731265/honey-12.8.4-fx.xpi";
-                sha256 = "sha256-GrxBs9gYeehodpa7CE7M60Dt7JX/pbRRathhheExFMs=";
-                addonId = "jid1-93CWPmRbVPjRQA@jetpack";
-            })
+            # (fetchFirefoxAddonNM {
+            #     name = "honey";
+            #     url = "https://addons.mozilla.org/firefox/downloads/file/3731265/honey-12.8.4-fx.xpi";
+            #     sha256 = "sha256-GrxBs9gYeehodpa7CE7M60Dt7JX/pbRRathhheExFMs=";
+            #     addonId = "jid1-93CWPmRbVPjRQA@jetpack";
+            # })
             (fetchFirefoxAddonNM {
                 name = "cors-everywhere";
                 url = "https://addons.mozilla.org/firefox/downloads/file/1148493/cors_everywhere-18.11.13.2043-fx.xpi";
@@ -42,8 +42,8 @@ let
             })
             (fetchFirefoxAddonNM {
                 name = "keepassxc-browser";
-                url = "https://addons.mozilla.org/firefox/downloads/file/3758952/keepassxc_browser-1.7.8.1-fx.xpi";
-                sha256 = "sha256-wJEIS1rFrL9GUr1gAzpp4Q0bHj5f890faPxir+pjaz0=";
+                url = "https://addons.mozilla.org/firefox/downloads/file/4182106/keepassxc_browser-1.8.9.xpi";
+                sha256 = "sha256-tXMTyPaLtVYQt5p2HkKqejI1vMVC8QWn42JiWqAhoZc=";
                 addonId = "keepassxc-browser@keepassxc.org";
             })
 
