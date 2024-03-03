@@ -315,5 +315,5 @@ in {
     networking.networkmanager.enable = lib.mkForce false;
 
     # oculus rift cv1!
-    boot.kernelParams = [ "amd_iommu=on" ]; # iommu
+    boot.kernelParams = [ "intel_iommu=on" ]; # iommu
 }
