@@ -322,7 +322,7 @@ in {
 	    owner = "thaytan";
 	    repo = "OpenHMD";
 	    rev = "44e7f907d92933cea76f36d7b778d2ec34629133"; #rift-kalman-filter
-	    sha256 = "";
+	    sha256 = "sha256-Vh9Lvo5ZTETbFEJ7vBtS05+2Do6+tQDdwZnMr+0C0aE=";
 	    fetchSubmodules = true;
         };
       }))
