@@ -320,7 +320,7 @@ in {
         "vfio_pci"
         "vfio"
         "vfio_iommu_type1"
-        "vfio_virqfd"
+#        "vfio_virqfd"
       ];
 
     virtualisation.spiceUSBRedirection.enable = true;
