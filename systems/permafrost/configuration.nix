@@ -320,9 +320,9 @@ in {
 
 	src = pkgs.fetchFromGitHub {
 	    owner = "thaytan";
-	    repo = "SteamVR-OpenHMD";
-	    rev = "ac86fef924f854e169a6fce34f09d1eb63beaf23"; # controller-haptics-wip
-	    sha256 = "sha256-sRhVLDQYBgBJvQ/itVcVPFxahm8LCxzyeR66dGTeDQ4=";
+	    repo = "OpenHMD";
+	    rev = "rift-kalman-filter"; # controller-haptics-wip
+	    sha256 = "";
 	    fetchSubmodules = true;
         };
       }))
