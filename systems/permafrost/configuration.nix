@@ -315,29 +315,5 @@ in {
     networking.networkmanager.enable = lib.mkForce false;
 
     # oculus rift cv1!
-    environment.systemPackages = [
-      (pkgs.openhmd.overrideAttrs (old: rec { 
-	buildInputs = old.buildInputs ++ [pkgs.opencv pkgs.libusb1 pkgs.libjpeg ];
-
-	src = pkgs.fetchFromGitHub {
-	    owner = "thaytan";
-	    repo = "OpenHMD";
-	    rev = "44e7f907d92933cea76f36d7b778d2ec34629133"; #rift-kalman-filter
-	    sha256 = "sha256-Vh9Lvo5ZTETbFEJ7vBtS05+2Do6+tQDdwZnMr+0C0aE=";
-	    fetchSubmodules = true;
-        };
-      }))
-    ];
-
-    programs.steam = {
-  enable = true;
-  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  package = pkgs.steam.override {     extraPkgs = pkgs: [ pkgs.openvr pkgs.opencv pkgs.libjpeg ]; };
-};
-
- services.udev.extraRules = ''
-	 SUBSYSTEM=="usb", ATTR{idVendor}=="2833", MODE="0666", GROUP="plugdev"
-	 KERNEL=="hidraw*", ATTRS{busnum}=="1", ATTRS{idVendor}=="2833", MODE="0666", GROUP="plugdev"
-  '';
+    boot.kernelParams = [ "amd_iommu=on" ]; # iommu
 }
