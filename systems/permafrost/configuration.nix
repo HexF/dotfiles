@@ -256,10 +256,10 @@ in {
 
     # firefox-syncserver
     services.firefox-syncserver = {
-        enable = true;
+        enable = false;
         logLevel = "info";
         database.createLocally = true;
-        tokenserver.enabled = true;
+        settings.tokenserver.enabled = true;
 
         singleNode = {
             enable = true;
@@ -313,6 +313,19 @@ in {
     services.xserver.displayManager.autoLogin.user = "htpc";
     networking.networkmanager.enable = lib.mkForce false;
 
-    
+    # oculus rift cv1!
+    environment.systemPackages = [
+      (pkgs.openhmd.overrideAttrs (old: rec { 
+	buildInputs = old.buildInputs ++ [pkgs.opencv pkgs.libusb1 pkgs.libjpeg ];
+
+	src = pkgs.fetchFromGitHub {
+	    owner = "thaytan";
+	    repo = "SteamVR-OpenHMD";
+	    rev = "ac86fef924f854e169a6fce34f09d1eb63beaf23"; # controller-haptics-wip
+	    sha256 = "";
+        };
+      }))
+      pkgs.steam
+    ];
     
 }
