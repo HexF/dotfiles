@@ -326,8 +326,13 @@ in {
 	    fetchSubmodules = true;
         };
       }))
-      pkgs.steam
     ];
+
+    programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+};
 
  services.udev.extraRules = ''
 	 SUBSYSTEM=="usb", ATTR{idVendor}=="2833", MODE="0666", GROUP="plugdev"
