@@ -322,10 +322,14 @@ in {
 	    owner = "thaytan";
 	    repo = "SteamVR-OpenHMD";
 	    rev = "ac86fef924f854e169a6fce34f09d1eb63beaf23"; # controller-haptics-wip
-	    sha256 = "";
+	    sha256 = "sha256-sRhVLDQYBgBJvQ/itVcVPFxahm8LCxzyeR66dGTeDQ4=";
         };
       }))
       pkgs.steam
     ];
-    
+
+ services.udev.extraRules = ''
+	 SUBSYSTEM=="usb", ATTR{idVendor}=="2833", MODE="0666", GROUP="plugdev"
+	 KERNEL=="hidraw*", ATTRS{busnum}=="1", ATTRS{idVendor}=="2833", MODE="0666", GROUP="plugdev"
+  '';
 }
