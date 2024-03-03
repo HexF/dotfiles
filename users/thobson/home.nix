@@ -110,6 +110,7 @@ in
     kubectl
     devenv
     unstable.rnote
+    zotero
     # (rnote.overrideAttrs(old: rec {
     #   version = "0.9.0";
     #    src = fetchFromGitHub {
@@ -153,6 +154,11 @@ in
   };
 
   home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
+
+  programs.emacs = {
+	enable = true;
+	package = pkgs.emacs-gtk;
+  };
 
   programs.vscode = {
     enable = true;

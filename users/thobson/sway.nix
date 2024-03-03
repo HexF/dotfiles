@@ -153,11 +153,10 @@ in {
     };
   };
 
-  # TODO: enable again, fix touch input causing sleep/timeout
   services.swayidle = {
-    enable = false;
+    enable = true;
     events = [
-      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
+#      { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
       { event = "lock"; command = "${pkgs.swaylock}/bin/swaylock"; }
     ];
   };

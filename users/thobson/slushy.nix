@@ -10,6 +10,7 @@
     jetbrains.idea-ultimate
 
     proxmark3
+    kicad
   ];
 
   programs.i3blocks.blocksCenter = [
