@@ -315,12 +315,11 @@ in {
     networking.networkmanager.enable = lib.mkForce false;
 
     # oculus rift cv1!
-    boot.kernelParams = [ "intel_iommu=on" "vfio-pci.ids=8086:56a1,8086:4f90" ]; # iommu
+#    boot.kernelParams = [ "intel_iommu=on" "vfio-pci.ids=8086:56a1,8086:4f90,8086:7a60" ]; # iommu
     boot.initrd.kernelModules = [
         "vfio_pci"
         "vfio"
         "vfio_iommu_type1"
-#        "vfio_virqfd"
       ];
 
     virtualisation.spiceUSBRedirection.enable = true;
