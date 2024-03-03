@@ -332,7 +332,7 @@ in {
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  program = pkgs.steam.override {     extraPkgs = pkgs: [ pkgs.openvr ]; };
+  package = pkgs.steam.override {     extraPkgs = pkgs: [ pkgs.openvr ]; };
 };
 
  services.udev.extraRules = ''
