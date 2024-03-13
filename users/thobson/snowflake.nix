@@ -3,6 +3,7 @@
   imports = [
     ./i3.nix
     ./ctf.nix
+    ./binja.nix
   ];
 
   home.packages = with pkgs; builtins.filter (x: x != null) [
@@ -20,7 +21,6 @@
     lutris
 
     (callPackage ../../packages/audio-reactive-led-strip {})
-    (callPackage ../../packages/binaryninja {})
     #unstable.factorio
     imhex
 
