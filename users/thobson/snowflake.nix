@@ -14,39 +14,14 @@
     dotnet-sdk
     insomnia
     unstable.easyeffects
-    jetbrains.datagrip
-    jetbrains.idea-ultimate
 
-    teamspeak_client
     lutris
 
     (callPackage ../../packages/audio-reactive-led-strip {})
     #unstable.factorio
     imhex
 
-
-    (proxmark3.overrideAttrs (old: { 
-      src = fetchFromGitHub {
-        owner = "RfidResearchGroup";
-        repo = "proxmark3";
-        rev = "v4.16191";
-        sha256 = "sha256-l0aDp0s9ekUUHqkzGfVoSIf/4/GN2uiVGL/+QtKRCOs=";
-      };
-
-      nativeBuildInputs = old.nativeBuildInputs ++ [ libsForQt5.wrapQtAppsHook lua ];
-
-      postPatch = ''
-
-      '';
-
-      buildPhase = ''
-        make client
-      '';
-
-      installPhase = ''
-        install -Dt $out/bin client/proxmark3
-      '';
-    }))
+    proxmark3
   ];
 
 }

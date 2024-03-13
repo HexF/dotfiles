@@ -37,6 +37,7 @@
   ];
   nixpkgs.config.allowBroken = true;
   nixpkgs.config.segger-jlink.acceptLicense = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   # TAILSCALE EVERYWHERE!
   services.tailscale.enable = true;

@@ -53,12 +53,12 @@ in {
   };
   
   # FIXME: Kernel 6.0 does not support Nvidia Drivers - https://github.com/NixOS/nixpkgs/issues/195654
-  boot.kernelPackages = pkgs.unstable.linuxPackages_5_15;
+  # boot.kernelPackages = pkgs.unstable.linuxPackages_5_15;
 
-  boot.kernelPatches = [{
-    name = "random usb webcam";
-    patch = ./quirk_usbwebcam.patch;
-  }];
+  # boot.kernelPatches = [{
+  #   name = "random usb webcam";
+  #   patch = ./quirk_usbwebcam.patch;
+  # }];
 
   boot.blacklistedKernelModules = [
     "nvidia_uvm"
@@ -76,7 +76,7 @@ in {
   #   '';
   # };
 
-  services.udev.packages = [ pkgs.stlink pkgs.openocd pkgs.segger-jlink ];
+  services.udev.packages = [ pkgs.stlink pkgs.openocd ];
 
   services.ratbagd.enable = true; # Compliments Piper
 
@@ -95,7 +95,7 @@ in {
     options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100
   '';
   
-  boot.initrd.compressor = "cat";
+  # boot.initrd.compressor = "cat";
   boot.initrd.kernelModules = config.boot.kernelModules;
 
   security.pam.services = {
@@ -227,18 +227,18 @@ in {
     piper
     glibc
     bpftrace
-    (segger-jlink.overrideAttrs (finalAttrs: previousAttrs: rec {
-      version = "788m";
-      src = fetchurl {
-        url = "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_x86_64.tgz";
-        sha256 = "sha256-WwUF/DZ+vECG30quvotMQFverTtj+pfQh2sEZl2mkPQ=";
-        curlOpts = "--data accept_license_agreement=accepted";
-      };
-      postInstall = ''
-#        mkdir -p $out/bin/ETC/JFlash
-        cp ETC -r $out/bin/
-      '';
-    }))
+#     (segger-jlink.overrideAttrs (finalAttrs: previousAttrs: rec {
+#       version = "788m";
+#       src = fetchurl {
+#         url = "https://www.segger.com/downloads/jlink/JLink_Linux_V${version}_x86_64.tgz";
+#         sha256 = "sha256-WwUF/DZ+vECG30quvotMQFverTtj+pfQh2sEZl2mkPQ=";
+#         curlOpts = "--data accept_license_agreement=accepted";
+#       };
+#       postInstall = ''
+# #        mkdir -p $out/bin/ETC/JFlash
+#         cp ETC -r $out/bin/
+#       '';
+#     }))
 
     
   ];
@@ -258,7 +258,7 @@ in {
   
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 443 80 ]; # React dev server
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     fira
   ];
 

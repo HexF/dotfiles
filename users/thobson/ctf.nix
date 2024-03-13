@@ -101,18 +101,18 @@ in
 
     pulseview
 
-    (ghidra.overrideAttrs(old: {
-      nativeBuildInputs = old.nativeBuildInputs ++ [unzip];
+    # (ghidra.overrideAttrs(old: {
+    #   nativeBuildInputs = old.nativeBuildInputs ++ [unzip];
 
-      installPhase = old.installPhase + ''
-        # Install extensions
-        for ext in ${builtins.concatStringsSep " " ghidraExtensions}
-        do
-          echo "ext $ext"
-          unzip $ext -d $out/lib/ghidra/Ghidra/Extensions
-        done
-      '';
-    }))
+    #   installPhase = old.installPhase + ''
+    #     # Install extensions
+    #     for ext in ${builtins.concatStringsSep " " ghidraExtensions}
+    #     do
+    #       echo "ext $ext"
+    #       unzip $ext -d $out/lib/ghidra/Ghidra/Extensions
+    #     done
+    #   '';
+    # }))
 
   ];
 }
