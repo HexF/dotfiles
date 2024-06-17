@@ -200,6 +200,7 @@ in {
             TZ = "Pacific/Auckland";
             DB_CONNECTION = "mysql";  
             DB_DATABASE = "firefly";
+            DB_USERNAME = config.services.firefly-iii.user;
         };
 
         virtualHost = "firefly.${tailnet}";
