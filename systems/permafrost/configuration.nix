@@ -190,19 +190,33 @@ in {
 
     services.firefly-iii = {
         enable = true;
-        appURL = "https://firefly.${tailnet}";
-        appKeyFile = config.sops.secrets.firefly_appkey.path;
-        hostname = "firefly.${tailnet}";
-        nginx = {
-            listen = [{port = 8002; addr="127.0.0.1";}];
-        };
         group = "nginx";
-        database.createLocally = true;
-        config = {
+
+        settings = {
+            APP_URL = "https://firefly.${tailnet}";
+            APP_KEY_FILE = config.sops.secrets.firefly_appkey.path;
             USE_PROXIES = "127.0.0.1";
             TRUSTED_PROXIES = "**";
             TZ = "Pacific/Auckland";
+            DB_CONNECTION = "mysql";            
         };
+
+        virtualHost = "firefly.${tailnet}";
+        enableNginx = true;
+    };
+
+    services.nginx.virtualHosts.${config.services.firefly-iii.virtualHost}.listen = [{port = 8002; addr="127.0.0.1";}];
+
+    services.mysql = {
+      enable = true;
+      package = mkDefault pkgs.mariadb;
+      ensureDatabases = [ "firefly" ];
+      ensureUsers = [
+        {
+          name = config.services.firefly-iii.user;
+          ensurePermissions = { "firefly.*" = "ALL PRIVILEGES"; };
+        }
+      ];
     };
 
     # akahu-firefly link

@@ -15,6 +15,8 @@
     insomnia
     unstable.easyeffects
     unstable.anydesk
+    jetbrains.idea-ultimate
+
 
     lutris
 
