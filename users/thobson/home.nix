@@ -202,7 +202,7 @@ in
     enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-gtk2;
   };
 
   programs.ssh = {
@@ -244,7 +244,8 @@ in
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
   };
 
 
