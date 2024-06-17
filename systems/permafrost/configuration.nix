@@ -228,14 +228,14 @@ in {
       '';
     };
 
-    systemd.timers.akahu-firefly = {
-        wantedBy = ["timers.target"];
-        partOf = ["akahu-firefly.service"];
-        timerConfig = {
-            OnCalendar = "*:*:0";
-            Unit = "akahu-firefly.service";
-        };
-    };
+    # systemd.timers.akahu-firefly = {
+    #     wantedBy = ["timers.target"];
+    #     partOf = ["akahu-firefly.service"];
+    #     timerConfig = {
+    #         OnCalendar = "*:*:0";
+    #         Unit = "akahu-firefly.service";
+    #     };
+    # };
 
     services.tailscale.expose = {
         enable = true;
@@ -262,10 +262,10 @@ in {
                 funnel = true;
             };
 
-            firefox-sync = {
-                httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
-                funnel = false; # require tailscale connection for sync
-            };
+            # firefox-sync = {
+            #     httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
+            #     funnel = false; # require tailscale connection for sync
+            # };
         };
     };
 
