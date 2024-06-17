@@ -7,8 +7,7 @@
     home-manager,
     napalm,
     lanzaboote,
-    devenv,
-    firefly
+    devenv
 } @ inputs:
 
 let
