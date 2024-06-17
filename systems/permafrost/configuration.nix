@@ -209,7 +209,7 @@ in {
 
     services.mysql = {
       enable = true;
-      package = mkDefault pkgs.mariadb;
+      package = pkgs.mariadb;
       ensureDatabases = [ "firefly" ];
       ensureUsers = [
         {
