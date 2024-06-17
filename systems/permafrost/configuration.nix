@@ -142,7 +142,7 @@ in {
             repository = "b2:hexf-b2-backups:firefly";
 
             backupPrepareCommand = ''
-                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.database.name} > /var/lib/firefly-iii/firefly.sql
+                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.settings.DB_DATABASE} > /var/lib/firefly-iii/firefly.sql
             '';
 
             user = config.services.firefly-iii.user;
@@ -198,7 +198,8 @@ in {
             USE_PROXIES = "127.0.0.1";
             TRUSTED_PROXIES = "**";
             TZ = "Pacific/Auckland";
-            DB_CONNECTION = "mysql";            
+            DB_CONNECTION = "mysql";  
+            DB_DATABASE = "firefly";
         };
 
         virtualHost = "firefly.${tailnet}";
@@ -210,11 +211,11 @@ in {
     services.mysql = {
       enable = true;
       package = pkgs.mariadb;
-      ensureDatabases = [ "firefly" ];
+      ensureDatabases = [ "${config.services.firefly-iii.settings.DB_DATABASE}" ];
       ensureUsers = [
         {
           name = config.services.firefly-iii.user;
-          ensurePermissions = { "firefly.*" = "ALL PRIVILEGES"; };
+          ensurePermissions = { "${config.services.firefly-iii.settings.DB_DATABASE}.*" = "ALL PRIVILEGES"; };
         }
       ];
     };
