@@ -250,7 +250,7 @@ in {
 
             firefly = {
                 httpsRoutes = {"/" = "http://localhost:8002";};
-                funnel = false; # dont expose externally
+                funnel = true; # dont expose externally
             };
 
             jellyfin = {
