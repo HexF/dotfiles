@@ -8,12 +8,15 @@
 
   home.packages = with pkgs; builtins.filter (x: x != null) [
     #(multimc.override { msaClientID = "72638b48-de29-4187-980e-209e4747e099"; })
-    kicad
+    unstable.kicad
     prismlauncher
     jdk
     dotnet-sdk
     insomnia
     unstable.easyeffects
+    unstable.anydesk
+    jetbrains.idea-ultimate
+
 
     lutris
 

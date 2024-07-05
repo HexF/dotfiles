@@ -2,14 +2,11 @@
   description = "HexF's dotfiles";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-24.05";
     # nixpkgs.url = "github:HexF/nixpkgs?ref=nixos-23.11";
     #nixpkgs.url = "git+file:/home/thobson/Projects.local/nixpkgs";
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
-
-    firefly.url = "github:timhae/firefly";
-    firefly.inputs.nixpkgs.follows = "nixpkgs";
 
     devenv.url = "github:cachix/devenv/latest";
 
@@ -19,7 +16,7 @@
     lanzaboote.url = "github:nix-community/lanzaboote";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-23.11";
+      url = "github:nix-community/home-manager?ref=release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

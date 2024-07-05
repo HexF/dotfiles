@@ -106,5 +106,13 @@ in {
     i3lock.u2fAuth = true;
     swaylock = {};
   };
-  
+
+
+  # DUCTF
+  users.users.ductf = {
+    isNormalUser = true;
+    extraGroups = ["dialout"];
+    openssh.authorizedKeys.keys = ["ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBHxFQEHwK49D8BHVFFnQOPsdrL9vfmEzreUV+DXGh1XvwvPflyfmNYyuCNlUP65KFWYmLqawLwLgHgNIuTXQdKY= Secure@secretive.Jamie’s-MacBook-Pro.local"];
+  };
+  services.openssh.enable = true;
 }

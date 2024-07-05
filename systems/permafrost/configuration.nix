@@ -142,7 +142,7 @@ in {
             repository = "b2:hexf-b2-backups:firefly";
 
             backupPrepareCommand = ''
-                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.database.name} > /var/lib/firefly-iii/firefly.sql
+                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.settings.DB_DATABASE} > /var/lib/firefly-iii/firefly.sql
             '';
 
             user = config.services.firefly-iii.user;
@@ -190,19 +190,35 @@ in {
 
     services.firefly-iii = {
         enable = true;
-        appURL = "https://firefly.${tailnet}";
-        appKeyFile = config.sops.secrets.firefly_appkey.path;
-        hostname = "firefly.${tailnet}";
-        nginx = {
-            listen = [{port = 8002; addr="127.0.0.1";}];
-        };
         group = "nginx";
-        database.createLocally = true;
-        config = {
+
+        settings = {
+            APP_URL = "https://firefly.${tailnet}";
+            APP_KEY_FILE = config.sops.secrets.firefly_appkey.path;
             USE_PROXIES = "127.0.0.1";
             TRUSTED_PROXIES = "**";
             TZ = "Pacific/Auckland";
+            DB_CONNECTION = "mysql";  
+            DB_DATABASE = "firefly";
+            DB_USERNAME = config.services.firefly-iii.user;
         };
+
+        virtualHost = "firefly.${tailnet}";
+        enableNginx = true;
+    };
+
+    services.nginx.virtualHosts.${config.services.firefly-iii.virtualHost}.listen = [{port = 8002; addr="127.0.0.1";}];
+
+    services.mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+      ensureDatabases = [ "${config.services.firefly-iii.settings.DB_DATABASE}" ];
+      ensureUsers = [
+        {
+          name = config.services.firefly-iii.user;
+          ensurePermissions = { "${config.services.firefly-iii.settings.DB_DATABASE}.*" = "ALL PRIVILEGES"; };
+        }
+      ];
     };
 
     # akahu-firefly link
@@ -213,14 +229,14 @@ in {
       '';
     };
 
-    systemd.timers.akahu-firefly = {
-        wantedBy = ["timers.target"];
-        partOf = ["akahu-firefly.service"];
-        timerConfig = {
-            OnCalendar = "*:*:0";
-            Unit = "akahu-firefly.service";
-        };
-    };
+    # systemd.timers.akahu-firefly = {
+    #     wantedBy = ["timers.target"];
+    #     partOf = ["akahu-firefly.service"];
+    #     timerConfig = {
+    #         OnCalendar = "*:*:0";
+    #         Unit = "akahu-firefly.service";
+    #     };
+    # };
 
     services.tailscale.expose = {
         enable = true;
@@ -234,7 +250,7 @@ in {
 
             firefly = {
                 httpsRoutes = {"/" = "http://localhost:8002";};
-                funnel = false; # dont expose externally
+                funnel = true; # dont expose externally
             };
 
             jellyfin = {
@@ -247,10 +263,10 @@ in {
                 funnel = true;
             };
 
-            firefox-sync = {
-                httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
-                funnel = false; # require tailscale connection for sync
-            };
+            # firefox-sync = {
+            #     httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
+            #     funnel = false; # require tailscale connection for sync
+            # };
         };
     };
 

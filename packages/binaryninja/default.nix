@@ -3,7 +3,7 @@ stdenv.mkDerivation rec {
   name = "binary-ninja-personal";
   buildInputs = [ autoPatchelfHook makeWrapper unzip libGL stdenv.cc.cc.lib glib fontconfig xorg.libXi xorg.libXrender dbus qt6.full ];
   src = fetchurl {
-    url = "https://binaryninja.s3.amazonaws.com/installers/BinaryNinja-personal.zip";
+    url = "https://binaryninja.s3.amazonaws.com/installers/binaryninja_personal_linux.zip";
     sha256 = "sha256-3EjhZj4FZQxH2OTu9cKQOs+N9Pfwf+tfonRnCajgCMM=";
   };
 
