@@ -50,6 +50,12 @@
       #   phase2="auth=MSCHAPV2"
       #   '';
       # };
+      #
+
+      "TheDeltaQuadrant" = {
+        psk = "@RHYS_PSK@";
+        priority = 20;
+      };
 
 
       

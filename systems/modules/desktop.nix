@@ -72,8 +72,8 @@
 
           src = fetchFromGitHub {
               owner = "keepassxreboot";
-              rev = "454dc7169da07793d9123f35a69e806e3073c9fd";
-              sha256 = "sha256-E+HVhf0O7MLBTvjBcUGxktppeno6AHIn5HEFnnPVkOE=";
+              rev = "af2ba798a0f6ea760ee929b435a69293807cbb65";
+              sha256 = "sha256-qSzRk/I83YYCiVBlvZDq0k6/x0Nei2v/sUx/eoXRlw4=";
               repo = "keepassxc";
               
           };

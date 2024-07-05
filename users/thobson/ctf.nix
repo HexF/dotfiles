@@ -101,8 +101,9 @@ in
 
     pulseview
 
-    # (ghidra.overrideAttrs(old: {
-    #   nativeBuildInputs = old.nativeBuildInputs ++ [unzip];
+#    (callPackage ../../packages/binaryninja {})
+#    (ghidra.overrideAttrs(old: {
+#      nativeBuildInputs = old.nativeBuildInputs ++ [unzip];
 
     #   installPhase = old.installPhase + ''
     #     # Install extensions

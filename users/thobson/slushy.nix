@@ -3,14 +3,16 @@
   imports = [
     ./ctf.nix
     ./sway.nix
+    ./binja.nix
   ];
 
   home.packages = with pkgs; builtins.filter (x: x != null) [
     jetbrains.datagrip
     jetbrains.idea-ultimate
-
+    prismlauncher
     proxmark3
     kicad
+    steam
   ];
 
   programs.i3blocks.blocksCenter = [

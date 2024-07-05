@@ -97,7 +97,7 @@ in {
     # waydroid.enable = true;
     # lxd.enable = true;
   };
-
+	hardware.opengl.driSupport32Bit = true; 
 
   security.pam.services = {
     login.u2fAuth = true;

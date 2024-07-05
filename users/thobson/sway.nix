@@ -251,10 +251,10 @@ in {
         }
       ];
 
-      gaps = {
+      /*gaps = {
         inner = 25;
         outer = 10;
-      };
+      };*/
 
       window = {
         hideEdgeBorders = "vertical";
