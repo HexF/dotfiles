@@ -202,7 +202,8 @@ in
     enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    # pinentryPackage = pkgs.pinentry-gtk2;
+    pinentryFlavor = "gtk2";
   };
 
   programs.ssh = {
@@ -244,8 +245,8 @@ in
 
   programs.eza = {
     enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
+    # enableBashIntegration = true;
+    # enableZshIntegration = true;
   };
 
 

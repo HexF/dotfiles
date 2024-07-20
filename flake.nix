@@ -16,7 +16,7 @@
     lanzaboote.url = "github:nix-community/lanzaboote";
 
     home-manager = {
-      url = "github:nix-community/home-manager?ref=release-24.05";
+      url = "github:nix-community/home-manager?ref=release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
