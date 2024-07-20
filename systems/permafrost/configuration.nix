@@ -154,6 +154,10 @@ in {
         };
     };
 
+    nixpkgs.config.permittedInsecurePackages = [
+        "nextcloud-27.1.11"
+    ]; # can't be bothered to upgrade
+
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud27;
