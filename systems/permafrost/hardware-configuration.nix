@@ -53,6 +53,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/var/lib/seafile" = {
+    device = "spool/seafile";
+    fsType = "zfs";
+  };
+
   fileSystems."/var/lib/postgresql" = {
     device = "spool/postgres";
     fsType = "zfs";

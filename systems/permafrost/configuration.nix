@@ -100,34 +100,34 @@ in {
     };
 
     services.restic.backups = {
-        nextcloud = {
-            paths = [
-                "/var/lib/nextcloud"
-            ];
+        # nextcloud = {
+        #     paths = [
+        #         "/var/lib/nextcloud"
+        #     ];
 
-            initialize = true;
+        #     initialize = true;
 
-            passwordFile = config.sops.secrets.nextcloud_restic_password.path;
-            environmentFile = config.sops.secrets.nextcloud_restic_env.path;
+        #     passwordFile = config.sops.secrets.nextcloud_restic_password.path;
+        #     environmentFile = config.sops.secrets.nextcloud_restic_env.path;
 
-            repository = "b2:hexf-b2-backups:nextcloud";
+        #     repository = "b2:hexf-b2-backups:nextcloud";
 
-            backupPrepareCommand = ''
-                ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --on
-                ${config.services.postgresql.package}/bin/pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump.bak
-            '';
+        #     backupPrepareCommand = ''
+        #         ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --on
+        #         ${config.services.postgresql.package}/bin/pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump.bak
+        #     '';
 
-            backupCleanupCommand = ''
-                ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --off
-            '';
+        #     backupCleanupCommand = ''
+        #         ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --off
+        #     '';
 
-            user = "nextcloud";
+        #     user = "nextcloud";
 
-            timerConfig = {
-                OnCalendar = "05:00"; # every day at 5am
-                Persistent = true;
-            };
-        };
+        #     timerConfig = {
+        #         OnCalendar = "05:00"; # every day at 5am
+        #         Persistent = true;
+        #     };
+        # };
 
         firefly = {
             paths = [
@@ -181,6 +181,18 @@ in {
         database.createLocally = true;
         notify_push.enable = true;
         # enableBrokenCiphersForSSE = false;
+    };
+
+    services.seafile = {
+        enable = true;
+        seafileSettings = {
+            fileserver.host = "0.0.0.0";
+        };
+        adminEmail = "thomas@hexf.me";
+        initialAdminPassword = "hexf1234";
+        ccnetSettings = {
+            General.SERVICE_URL = "https://seafile.${tailnet}";
+        };
     };
 
     services.postgresql.package = pkgs.postgresql_16;
@@ -247,6 +259,11 @@ in {
         authKey = "file:/persist/tailscale-authkey"; #TODO - put in secrets
         dataDir = "/persist/tailscale-expose";
         services = {
+            seafile = {
+                httpsRoutes = {"/" = "http://localhost:8000";};
+                funnel = true;
+            };
+
             nextcloud = {
                 httpsRoutes = {"/" = "http://localhost:8001";};
                 funnel = true;
