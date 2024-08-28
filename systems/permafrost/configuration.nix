@@ -114,7 +114,7 @@ in {
 
             backupPrepareCommand = ''
                 ${config.services.nextcloud.occ}/bin/nextcloud-occ maintenance:mode --on
-                ${config.services.postgresql.package}/bin/pg_dump ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump.bak
+                ${config.services.postgresql.package}/bin/pg_dump -Fc ${config.services.nextcloud.config.dbname} > /var/lib/nextcloud/nextcloud-dbdump.bak
             '';
 
             backupCleanupCommand = ''
