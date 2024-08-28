@@ -239,7 +239,20 @@ in {
 #         cp ETC -r $out/bin/
 #       '';
 #     }))
+  _1password-gui
 
+  (stdenv.mkDerivation rec {
+    name = "onepassword-polkit";
+
+    src = ./onepwpolicy.xml;
+
+    unpackPhase = "true";
+
+    installPhase = ''
+      mkdir -p $out/share/polkit-1/actions/
+      cp $src $out/share/polkit-1/actions/com.1password.1Password.policy
+    '';
+  })
     
   ];
 
