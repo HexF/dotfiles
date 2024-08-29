@@ -16,6 +16,8 @@ in {
         ./hardware-configuration.nix
     ];
 
+    boot.loader.systemd-boot.memtest86.enable = true; # memtest86!
+
     networking.hostName = "permafrost";
     networking.hostId = "DEAD0001";
 
