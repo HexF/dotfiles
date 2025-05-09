@@ -76,7 +76,7 @@ in {
       serviceConfig.Type = "oneshot";
       script = ''
         ${tailscale} up --hostname "${name}" 
-        ${tailscale} serve --https=443 off
+        ${tailscale} serve reset
       '' + ((foldr (a: b: ''
       ${a}
       ${b}
