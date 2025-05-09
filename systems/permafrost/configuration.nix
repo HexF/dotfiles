@@ -388,7 +388,14 @@ in {
             "script ui" = "!include scripts.yaml";
         };
         lovelaceConfig = null;
-        extraComponents = [];
+        extraComponents = [
+            "analytics"
+            "google_translate"
+            "met"
+            "radio_browser"
+            "shopping_list"
+            "isal"
+        ];
     };
 
     services.postgresql = {
