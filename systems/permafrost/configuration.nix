@@ -365,4 +365,14 @@ in {
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
 
+
+    # Home Assistant
+    services.home-assistant = {
+        config = null;
+        lovelaceConfig = null;
+        configDir = "/etc/home-assistant";
+        extraComponents = [];
+    };
+
+
 }
