@@ -373,6 +373,7 @@ in {
 
     # Home Assistant
     services.home-assistant = {
+        enable = true;
         extraPackages = ps: with ps; [ psycopg2 ];
         config = {
             http = {
