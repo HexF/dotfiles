@@ -397,6 +397,7 @@ in {
             "met"
             "radio_browser"
             "shopping_list"
+            "default_config"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
