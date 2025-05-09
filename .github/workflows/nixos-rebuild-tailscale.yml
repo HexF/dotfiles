@@ -21,3 +21,4 @@ jobs:
         run: |
           tailscale ssh root@${{ matrix.tailscale_target }} nixos-rebuild switch --flake github:hexf/dotfiles/${{ github.sha }}#${{ matrix.tailscale_target }}
           
+          
