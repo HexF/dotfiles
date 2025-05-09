@@ -287,7 +287,7 @@ in {
             };
 
             hass = {
-                httpsRoutes = {"/" = "http://[::1]:${toString config.services.home-assistant.config.http.server_port}"; };
+                httpsRoutes = {"/" = "http://localhost:${toString config.services.home-assistant.config.http.server_port}"; };
                 funnel = true;
             };
 
@@ -378,7 +378,7 @@ in {
         config = {
             http = {
                 server_host = "localhost";
-                trusted_proxies = ["::1"];
+                trusted_proxies = ["127.0.0.1" "::1"];
                 use_x_forwarded_for = true;
             };
             recorder.db_url = "postgresql://@/hass";
