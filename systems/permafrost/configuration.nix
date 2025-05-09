@@ -383,6 +383,7 @@ in {
             };
             auth_header = {
                 username_header = "Tailscale-User-Login";
+                debug = true;
             };
             recorder.db_url = "postgresql://@/hass";
 
