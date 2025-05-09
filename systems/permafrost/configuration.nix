@@ -386,6 +386,7 @@ in {
                 debug = true;
             };
             recorder.db_url = "postgresql://@/hass";
+            mobile_app = {};
 
             "automation ui" = "!include automations.yaml";
             "scene ui" = "!include scenes.yaml";
