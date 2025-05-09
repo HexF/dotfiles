@@ -388,7 +388,6 @@ in {
             "script ui" = "!include scripts.yaml";
         };
         lovelaceConfig = null;
-        configDir = "/etc/home-assistant";
         extraComponents = [];
     };
 
