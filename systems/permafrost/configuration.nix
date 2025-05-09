@@ -381,6 +381,9 @@ in {
                 trusted_proxies = ["127.0.0.1" "::1"];
                 use_x_forwarded_for = true;
             };
+            auth_header = {
+                username_header = "Tailscale-User-Login";
+            };
             recorder.db_url = "postgresql://@/hass";
 
             "automation ui" = "!include automations.yaml";
@@ -395,6 +398,9 @@ in {
             "radio_browser"
             "shopping_list"
             "isal"
+        ];
+        customComponents = with pkgs.home-assistant-custom-components; [
+            auth-header
         ];
     };
 
