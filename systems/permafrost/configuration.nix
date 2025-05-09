@@ -286,6 +286,11 @@ in {
                 funnel = true;
             };
 
+            hass = {
+                httpsRoutes = {"/" = "http://[::1]:${toString config.services.home-assistant.config.http.server_port}"; };
+                funnel = true;
+            };
+
             # firefox-sync = {
             #     httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
             #     funnel = false; # require tailscale connection for sync
@@ -368,10 +373,31 @@ in {
 
     # Home Assistant
     services.home-assistant = {
-        config = null;
+        extraPackages = ps: with ps; [ psycopg2 ];
+        config = {
+            http = {
+                server_host = "localhost";
+                trusted_proxies = ["::1"];
+                use_x_forwarded_for = true;
+            };
+            recorder.db_url = "postgresql://@/hass";
+
+            "automation ui" = "!include automations.yaml";
+            "scene ui" = "!include scenes.yaml";
+            "script ui" = "!include scripts.yaml";
+        };
         lovelaceConfig = null;
         configDir = "/etc/home-assistant";
         extraComponents = [];
+    };
+
+    services.postgresql = {
+        enable = true;
+        ensureDatabases = ["hass"];
+        ensureUsers = [{
+            name = "hass";
+            ensureDBOwnership = true;
+        }];
     };
 
 
