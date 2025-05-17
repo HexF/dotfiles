@@ -411,21 +411,17 @@ in {
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
             (
-                buildHomeAssistantComponent rec {
+                pkgs.buildHomeAssistantComponent rec {
                     owner = "brunsy";
                     domain = "frank_energy";
                     version = "0.0.4";
 
-                    src = fetchFromGitHub {
+                    src = pkgs.fetchFromGitHub {
                         owner = "brunsy";
                         repo = "ha-frankenergy";
                         tag = "v${version}";
                         hash = "sha256-1veZkn4mQ9pIWx7GSleCCNCAHTADYTgMyGm2qSJkZP4=";
                     };
-
-                    dependencies = [
-                        aiohttp
-                    ];
                 }
             )
         ];
