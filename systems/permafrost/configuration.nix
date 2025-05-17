@@ -412,7 +412,7 @@ in {
             (
                 pkgs.buildHomeAssistantComponent rec {
                     owner = "brunsy";
-                    domain = "frank_energy";
+                    domain = "frankenergy";
                     version = "0.0.4";
 
                     src = pkgs.fetchFromGitHub {
