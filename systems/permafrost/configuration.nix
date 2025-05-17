@@ -403,6 +403,7 @@ in {
             "default_config"
             "tuya"
             "generic_thermostat"
+            "miktotik"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
