@@ -387,6 +387,7 @@ in {
             };
             recorder.db_url = "postgresql://@/hass";
             mobile_app = {};
+            history = {};
 
             "automation ui" = "!include automations.yaml";
             "scene ui" = "!include scenes.yaml";
@@ -400,6 +401,7 @@ in {
             "radio_browser"
             "shopping_list"
             "default_config"
+            "tuya"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
