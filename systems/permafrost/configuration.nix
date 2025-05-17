@@ -402,6 +402,7 @@ in {
             "shopping_list"
             "default_config"
             "tuya"
+            "generic_thermostat"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
