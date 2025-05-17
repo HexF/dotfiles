@@ -406,7 +406,6 @@ in {
             "tuya"
             "generic_thermostat"
             "mikrotik"
-            "frank_energy"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
