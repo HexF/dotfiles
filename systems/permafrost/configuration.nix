@@ -394,6 +394,7 @@ in {
             "automation ui" = "!include automations.yaml";
             "scene ui" = "!include scenes.yaml";
             "script ui" = "!include scripts.yaml";
+            "climate cfg" = "!include climate.yaml";
         };
         lovelaceConfig = null;
         extraComponents = [
