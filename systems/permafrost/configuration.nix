@@ -389,6 +389,8 @@ in {
             mobile_app = {};
             history = {};
 
+            default_config = {}; 
+
             "automation ui" = "!include automations.yaml";
             "scene ui" = "!include scenes.yaml";
             "script ui" = "!include scripts.yaml";
