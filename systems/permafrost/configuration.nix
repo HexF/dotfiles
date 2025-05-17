@@ -419,7 +419,7 @@ in {
                     src = pkgs.fetchFromGitHub {
                         owner = "brunsy";
                         repo = "ha-frankenergy";
-                        tag = "v${version}";
+                        rev = "a4b554b8ee5081f9477b77736ada0c8073e6d8c7";
                         hash = "sha256-1veZkn4mQ9pIWx7GSleCCNCAHTADYTgMyGm2qSJkZP4=";
                     };
                 }
