@@ -407,6 +407,8 @@ in {
             "tuya"
             "generic_thermostat"
             "mikrotik"
+            "tplink"
+            "tplink_tapo"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
             auth-header
