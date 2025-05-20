@@ -395,6 +395,7 @@ in {
             "scene ui" = "!include scenes.yaml";
             "script ui" = "!include scripts.yaml";
             "climate cfg" = "!include climate.yaml";
+            "zha" = {};
         };
         lovelaceConfig = null;
         extraComponents = [
