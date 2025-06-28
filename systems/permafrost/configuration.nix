@@ -33,6 +33,7 @@ in {
             vaapiVdpau
             libvdpau-va-gl
             intel-compute-runtime
+            onevpl-intel-gpu
         ];
     };
 
