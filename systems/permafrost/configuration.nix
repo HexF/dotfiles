@@ -428,6 +428,20 @@ in {
                     };
                 }
             )
+            (
+                pkgs.buildHomeAssistantComponent rec {
+                    owner = "domectrl";
+                    domain = "slow_pwm";
+                    version = "0.0.1";
+
+                    src = pkgs.fetchFromGitHub {
+                        owner = "domectrl";
+                        repo = "ha-slow_pwm";
+                        rev = "5608b515bf5c46ed1c6ca78dcf28bf14caa0d74b";
+                        hash = "sha256-OkTaKTd8OU99b7zWXV/cEWh8sjnDTVWP43dwg/0DBjc=";
+                    };
+                }
+            )
         ];
     };
 
