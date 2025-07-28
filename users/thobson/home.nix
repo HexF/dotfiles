@@ -58,10 +58,13 @@ in
     ./keepass.nix
     ./browser.nix
     ./display.nix
-    
+    ./mail.nix
 
     (./. + "/${systemName}.nix")
     ];
+
+  fonts.fontconfig.enable = true;
+
 
   services.mopidyCustom = {
     enable = true;
@@ -82,8 +85,6 @@ in
       "${secrets_path}/thobson_mopidy_config"
     ];
   };
-
-  fonts.fontconfig.enable = true;
 
 
   home.packages = with pkgs; [

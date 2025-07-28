@@ -82,7 +82,7 @@ in {
 
 
 
-  networking.interfaces.enp3s0.useDHCP = true;
+  networking.interfaces.enp31s0.useDHCP = true;
   networking.hostName = "snowflake";
   networking.hostId = "fdab470e";
   
@@ -108,6 +108,13 @@ in {
   
   services.xserver = {
     videoDrivers = [ "nvidia" ];
+    displayManager.setupCommands = ''
+      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 NVIDIA-0
+      ${pkgs.xorg.xrandr}/bin/xrandr --auto
+      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1 --pos 0x1080 \
+        --output HDMI-2 --pos 1920x1080 \
+        --output HDMI-0 --pos 3840x1080 
+    '';
     # drivers = lib.mkForce [
     #   {
     #     name = "nvidia-r1";
@@ -159,32 +166,51 @@ in {
     wacom.enable = true;
 
     xrandrHeads = [
-      {
-        output = "DVI-D-0";
-        primary = true;
-      }
-      {
-        output = "DP-0";
+      { # Top Left
+        output = "DVI-I-1-1";
         monitorConfig = ''
-          Option "RightOf" "DVI-D-0"
+          Option "Position" "0 0"
         '';
       }
-      {
+      { # Top Center
+        output = "HDMI-1-0";
+        monitorConfig = ''
+          Option "Position" "1920 0"
+        '';
+      }
+      { # Top Right
+        output = "DVI-D-1-0";
+        monitorConfig = ''
+          Option "Position" "3840 0"
+        '';
+      }     
+      { # Bottom Left
+        output = "HDMI-1";
+        monitorConfig = ''
+          Option "Position" "0 1080"
+        '';
+      }
+      { # Bottom Center
+        output = "HDMI-2";
+        primary = true;
+        monitorConfig = ''
+          Option "Position" "1920 1080"
+        '';
+      }
+      { # Bottom Right 
         output = "HDMI-0";
         monitorConfig = ''
-          Option "RightOf" "DP-0"
-        '';
-      }
-      {
-        output = "DVI-I-1";
-        monitorConfig = ''
-          Option "RightOf" "HDMI-0"
+          Option "Position" "3840 1080"
         '';
       }     
     ];
 
     serverLayoutSection = ''
     Option "Xinerama" "0"
+    '';
+
+    serverFlagsSection = ''    
+    Option "AutoBindGPU" "true"
     '';
 
 

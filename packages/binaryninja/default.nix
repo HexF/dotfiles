@@ -4,7 +4,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ autoPatchelfHook makeWrapper unzip libGL stdenv.cc.cc.lib glib fontconfig xorg.libXi xorg.libXrender dbus qt6.full ];
   src = fetchurl {
     url = "https://binaryninja.s3.amazonaws.com/installers/binaryninja_personal_linux.zip";
-    sha256 = "sha256-dwvp5+dvSwg6p2f48q1v3T3dviR2WKhJBaf2JUAvSb8=";
+    sha256 = "10klxvjbb4yr1yfccg77p3sbh5qwr1iq9qj4v2hazvh1zn355x3l";
   };
 
   buildPhase = ":";
