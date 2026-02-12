@@ -21,15 +21,11 @@ in {
     networking.hostName = "permafrost";
     networking.hostId = "DEAD0001";
 
-    nixpkgs.config.packageOverrides = pkgs: {
-        vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-    };
-
     hardware.opengl = {
         enable = true;
         extraPackages = with pkgs; [
             intel-media-driver
-            vaapiIntel
+            intel-vaapi-driver
             vaapiVdpau
             libvdpau-va-gl
             intel-compute-runtime
