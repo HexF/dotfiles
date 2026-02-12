@@ -163,7 +163,7 @@ in {
 
     services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud27;
+        package = pkgs.nextcloud32;
         hostName = "localhost";
         https = true;
         config = {

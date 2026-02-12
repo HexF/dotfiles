@@ -256,7 +256,7 @@ in {
         {
           position = "bottom";
           command = "${pkgs.i3}/bin/i3bar --transparency";
-          statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
+          statusCommand = "${pkgs.i3blocks}/bin/i3blocks -c ~/.config/i3blocks/bottom";
           trayOutput = "primary";
           colors = rec {
             background = "#00000000"; # Transparent
