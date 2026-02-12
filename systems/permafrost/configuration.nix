@@ -29,7 +29,7 @@ in {
             libva-vdpau-driver
             libvdpau-va-gl
             intel-compute-runtime
-            onevpl-intel-gpu
+            vpl-gpu-rt
         ];
     };
 
