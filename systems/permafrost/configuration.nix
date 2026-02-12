@@ -155,7 +155,7 @@ in {
 
     services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloudpkgs.nextcloud29;
+        package = pkgs.nextcloudpkgs.nextcloud30;
         phpPackage = pkgs.php82;
 
         hostName = "localhost";
@@ -176,7 +176,7 @@ in {
 
         configureRedis = true;
         database.createLocally = true;
-        notify_push.enable = true;
+        # notify_push.enable = true;
         # enableBrokenCiphersForSSE = false;
     };
 
