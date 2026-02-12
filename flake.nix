@@ -6,6 +6,8 @@
     nixpkgs-master.url = "github:NixOS/nixpkgs?ref=master";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs?ref=nixos-unstable";
 
+    nixpkgs-nextcloud.url = "github:NixOS/nixpkgs?ref=0479e6ee96243861e13bd9343e59feeb621dd3c9";
+
     devenv.url = "github:cachix/devenv/latest";
 
     napalm.url = "github:nix-community/napalm";

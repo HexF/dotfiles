@@ -4,6 +4,7 @@
     sops-nix,
     nixpkgs-master,
     nixpkgs-unstable,
+    nixpkgs-nextcloud,
     home-manager,
     napalm,
     lanzaboote,
@@ -18,6 +19,12 @@ let
             nixpkgs.overlays = [
                 (final: prev: {
                     master = (import nixpkgs-master {
+                        config.allowUnfree = true;
+                        system = "${prev.system}";
+                    });
+                })
+                (final: prev: {
+                    nextcloudpkgs = (import nixpkgs-nextcloud {
                         config.allowUnfree = true;
                         system = "${prev.system}";
                     });

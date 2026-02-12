@@ -4,6 +4,7 @@
     nixpkgs,
     nixpkgs-master,
     nixpkgs-unstable,
+    nixpkgs-nextcloud,
 
     home-manager,
     sops-nix,
@@ -40,6 +41,7 @@
             nixpkgs
             nixpkgs-master
             nixpkgs-unstable
+            nixpkgs-nextcloud
             home-manager
             sops-nix
             napalm

@@ -155,7 +155,7 @@ in {
 
     services.nextcloud = {
         enable = true;
-        package = pkgs.nextcloud32;
+        package = pkgs.nextcloudpkgs.nextcloud28;
         hostName = "localhost";
         https = true;
         config = {
