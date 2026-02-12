@@ -415,7 +415,7 @@ in {
                     domain = "auth_header";
                     version = "1.12";
 
-                    nativeBuildInputs = [ pkgs.isort pkgs.black pkgs.ruff ];
+                    nativeBuildInputs = [ pkgs.isort pkgs.black pkgs.ruff pkgs.pylint ];
 
                     postPatch = ''
                         sed -i 's/ruff/ruff check/g' Makefile
