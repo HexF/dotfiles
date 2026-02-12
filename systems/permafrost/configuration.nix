@@ -415,7 +415,7 @@ in {
                     domain = "auth_header";
                     version = "1.12";
 
-                    nativeBuildInputs = [ pkgs.isort pkgs.black ];
+                    nativeBuildInputs = [ pkgs.isort pkgs.black pkgs.ruff ];
 
                     src = pkgs.fetchFromGitHub {
                         owner = "BeryJu";
