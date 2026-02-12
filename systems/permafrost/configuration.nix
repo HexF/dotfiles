@@ -409,7 +409,20 @@ in {
             "tplink_tapo"
         ];
         customComponents = with pkgs.home-assistant-custom-components; [
-            auth-header
+            (
+                pkgs.buildHomeAssistantComponent rec {
+                    owner = "BeryJu";
+                    domain = "auth_header";
+                    version = "1.12";
+
+                    src = pkgs.fetchFromGitHub {
+                        owner = "BeryJu";
+                        repo = "hass-auth-header";
+                        rev = "v${version}";
+                        hash = "sha256-BPG/G6IM95g9ip2OsPmcAebi2ZvKHUpFzV4oquOFLPM=";
+                    };
+                }
+            )
             (
                 pkgs.buildHomeAssistantComponent rec {
                     owner = "brunsy";
