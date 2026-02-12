@@ -415,7 +415,7 @@ in {
                     domain = "auth_header";
                     version = "1.12";
 
-                    dependencies = [ pkgs.python3Packages.isort ];
+                    nativeBuildInputs = [ pkgs.isort ];
 
                     src = pkgs.fetchFromGitHub {
                         owner = "BeryJu";
