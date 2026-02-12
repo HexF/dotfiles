@@ -352,16 +352,32 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1770858459,
-        "narHash": "sha256-IJ7mposzL5FGN9AjWnT4Y+0VMfk+DYhu3NwOaqgMs84=",
+        "lastModified": 1770895527,
+        "narHash": "sha256-aawQB+5nPmJkdX4NfCYgNj708X8E/SsBG01kswFAcjA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "11e034054f72fbfb956a51f26dd9076d1a6e412c",
+        "rev": "50ff2bec71f3d4b24eb294aa09526fc65eb11a60",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-nextcloud": {
+      "locked": {
+        "lastModified": 1733748776,
+        "narHash": "sha256-/Pjt3Wsr5xwXDPqsZ+3g1iZAHheC+5kra/JgMok4US8=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "0479e6ee96243861e13bd9343e59feeb621dd3c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "0479e6ee96243861e13bd9343e59feeb621dd3c9",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -446,6 +462,7 @@
         "napalm": "napalm",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-master": "nixpkgs-master",
+        "nixpkgs-nextcloud": "nixpkgs-nextcloud",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix"
       }
