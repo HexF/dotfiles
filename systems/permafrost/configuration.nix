@@ -415,6 +415,8 @@ in {
                     domain = "auth_header";
                     version = "1.12";
 
+                    dependencies = [ pkgs.python3Packages.isort ];
+
                     src = pkgs.fetchFromGitHub {
                         owner = "BeryJu";
                         repo = "hass-auth-header";
