@@ -153,10 +153,6 @@ in {
         };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-        "nextcloud-27.1.11"
-    ]; # can't be bothered to upgrade
-
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloud32;
@@ -170,10 +166,10 @@ in {
             ];
         };
 
-        extraApps = with config.services.nextcloud.package.packages.apps; {
-            inherit news contacts calendar tasks;
-        };
-        extraAppsEnable = true;
+        # extraApps = with config.services.nextcloud.package.packages.apps; {
+        #     inherit news contacts calendar tasks;
+        # };
+        # extraAppsEnable = true;
 
 
         configureRedis = true;
