@@ -417,6 +417,10 @@ in {
 
                     nativeBuildInputs = [ pkgs.isort pkgs.black pkgs.ruff ];
 
+                    postPatch = ''
+                        sed -i 's/ruff/ruff check/g' Makefile
+                    '';
+
                     src = pkgs.fetchFromGitHub {
                         owner = "BeryJu";
                         repo = "hass-auth-header";
