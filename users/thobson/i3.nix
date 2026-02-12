@@ -10,7 +10,7 @@ in {
 
   imports = [
     ./statusline.nix
-    ../modules/i3blocks.nix
+    # ../modules/i3blocks.nix
   ];
 
   systemd.user.services.i3-polkit-authentication-agent = {
@@ -199,7 +199,7 @@ in {
   xsession.enable = true;
   xsession.windowManager.i3 = {
     enable = true;
-    package = pkgs.i3-gaps;
+    package = pkgs.i3;
 
     extraConfig = ''
     exec_always ${pkgs.feh}/bin/feh --bg-fill $HOME/.background-image
@@ -255,7 +255,7 @@ in {
       bars = [
         {
           position = "bottom";
-          command = "${pkgs.i3-gaps}/bin/i3bar --transparency";
+          command = "${pkgs.i3}/bin/i3bar --transparency";
           statusCommand = "${pkgs.i3blocks}/bin/i3blocks";
           trayOutput = "primary";
           colors = rec {

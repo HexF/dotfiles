@@ -1,44 +1,7 @@
 { systemName, config, pkgs, nixpkgs, ... }:
 let
-  discord-latest = pkgs.discord.overrideAttrs (old: {
-    version = "0.0.21";
-    src = pkgs.fetchurl {
-      url = "https://dl.discordapp.net/apps/linux/0.0.21/discord-0.0.21.tar.gz";
-      sha256 = "sha256-KDKUssPRrs/D10s5GhJ23hctatQmyqd27xS9nU7iNaM=";
-    };
-  });
   theme = import ./theme.nix;
   secrets_path = "/run/secrets/";
-
-  tidalapi = pkgs.python3Packages.buildPythonPackage rec {
-    pname = "tidalapi";
-    version = "0.6.8";
-    src = pkgs.python3Packages.fetchPypi {
-      inherit pname version;
-      sha256 = "sha256-/kce4n8uhpm8hncPY3/iodwWShbkcuWODuwgHoTvfz0=";
-    };
-    propagatedBuildInputs = [
-      pkgs.python3Packages.requests
-    ];
-  };
-
-  mopidy-tidal = pkgs.python3Packages.buildPythonApplication rec {
-    pname = "mopidy-tidal";
-    version = "0.2.6";
-    src = pkgs.fetchFromGitHub {
-      owner = "tehkillerbee";
-      repo = "mopidy-tidal";
-      rev = "83ad5c4363c3c578dc7c67a9ff8ac49bec212443";
-      sha256 = "sha256-PFmGdpN7s1d4TpwFxgsZDetFlL09boXA3c/GNiLkDc4=";
-    };
-
-    propagatedBuildInputs = [
-      pkgs.mopidy
-      pkgs.python3Packages.pykka
-      tidalapi
-      pkgs.python3Packages.requests
-    ];
-  };
 in
 {
   # Let Home Manager install and manage itself.
@@ -66,84 +29,20 @@ in
   fonts.fontconfig.enable = true;
 
 
-  services.mopidyCustom = {
-    enable = true;
-    extensionPackages = with pkgs;[
-      mopidy-mpd
-      mopidy-subidy
-      mopidy-scrobbler
-      mopidy-tidal
-    ];
-    configuration = ''
-    [file]
-    enabled=false
-    [mpd]
-    hostname=127.0.0.1
-    command_blacklist=
-    '';
-    extraConfigFiles = [
-      "${secrets_path}/thobson_mopidy_config"
-    ];
-  };
-
-
   home.packages = with pkgs; [
     remmina
-    # spotify
     unstable.tidal-hifi
     thunderbird
     discord
     master.neofetch
-    texstudio
-    languagetool
     pavucontrol
     nmap
     xfce.thunar
     xdotool
-    cantata
-    libreoffice
-    plantuml
-    (nerdfonts.override {fonts = ["JetBrainsMono"];})
+    # (nerdfonts.override {fonts = ["JetBrainsMono"];})
     aileron
-    oci-cli
-    lens
-    kubernetes-helm
-    kubectl
     devenv
-    unstable.rnote
     zotero
-    # (rnote.overrideAttrs(old: rec {
-    #   version = "0.9.0";
-    #    src = fetchFromGitHub {
-    #     owner = "flxzt";
-    #     repo = "rnote";
-    #     rev = "v${version}";
-    #     hash = "sha256-fkJQfIp4Q5CpQUbBtiHA4SGQP/O6jiccfqrz4yiXpbk=";
-    #   };
-
-    #   cargoDeps = rustPlatform.importCargoLock {
-    #     lockFile = ./Cargo-rnote.lock;
-    #     outputHashes = {
-    #       "ink-stroke-modeler-rs-0.1.0" = "sha256-WfZwezohm8+ZXiKZlssTX+b/Izk1M4jFwxQejeTfc6M=";
-    #       "piet-0.6.2" = "sha256-WrQok0T7uVQEp8SvNWlgqwQHfS7q0510bnP1ecr+s1Q=";
-    #     };
-    #   };
-    # }))
-    (sage.override { extraPythonPackages = pypkgs: [ (
-      # we need to package this for python??
-      pypkgs.buildPythonPackage rec {
-        pname = "sagetex";
-        version = sagetex.version;
-        src = fetchPypi {
-          inherit pname version;
-          sha256 = "sha256-AxYuxiy4baE6dH+YIkGvPk9M3U0p/LqPu2xpgqnpBtk=";
-        };
-        doCheck = false;
-        propagatedBuildInputs = [
-          pypkgs.pyparsing
-        ];
-      }
-    ) ]; requireSageTests = false; } ) # math major vibes
   ];
 
   qt.style.name = "adwaita-dark";
@@ -156,10 +55,10 @@ in
 
   home.sessionVariables.NIX_PATH = "nixpkgs=${nixpkgs.outPath}";
 
-  programs.emacs = {
-	enable = true;
-	package = pkgs.emacs-gtk;
-  };
+  # programs.emacs = {
+	# enable = true;
+	# package = pkgs.emacs-gtk;
+  # };
 
   programs.vscode = {
     enable = true;
@@ -203,8 +102,8 @@ in
     enable = true;
     defaultCacheTtl = 1800;
     enableSshSupport = true;
-    # pinentryPackage = pkgs.pinentry-gtk2;
-    pinentryFlavor = "gtk2";
+    pinentryPackage = pkgs.pinentry-gtk2;
+    # pinentryFlavor = "gtk2";
   };
 
   programs.ssh = {
@@ -264,7 +163,7 @@ in
 
 
   programs.texlive = {
-    enable = true;
+    # enable = true;
     extraPackages = tpkgs: {
       inherit (tpkgs) 
       scheme-full;

@@ -48,9 +48,6 @@ let
                     };
 
                     users.thobson = ../users/thobson/home.nix;
-                    sharedModules = [
-                        ../users/modules/mopidy.nix
-                    ];
                 };
             }
         ]

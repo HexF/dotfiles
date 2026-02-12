@@ -72,7 +72,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    (callPackage ../../packages/binaryninja {})
+    # (callPackage ../../packages/binaryninja {})
     (python3.withPackages (python-pkgs: [
       binsync
       pp.remote-pdb

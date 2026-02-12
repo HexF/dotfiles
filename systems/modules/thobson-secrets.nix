@@ -11,14 +11,6 @@
           sopsFile = ../secrets/thobson.yaml;
       };
 
-      thobson_mopidy_config = {
-          key = "mopidy_config";
-          mode = "0400";
-
-          owner = config.users.users.thobson.name;
-
-          sopsFile = ../secrets/thobson.yaml;
-      };
 
       thobson_rclone_config = {
           key = "rclone_config";

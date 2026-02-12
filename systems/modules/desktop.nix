@@ -21,7 +21,7 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  sound.enable = true;
+  # sound.enable = true;
   
   services.pipewire = {
     enable = true;
@@ -67,23 +67,7 @@
     carla
     calf
 
-    (keepassxc.overrideAttrs(old: {
-          version = "2.8.0-snapshot";
-
-          src = fetchFromGitHub {
-              owner = "keepassxreboot";
-              rev = "af2ba798a0f6ea760ee929b435a69293807cbb65";
-              sha256 = "sha256-qSzRk/I83YYCiVBlvZDq0k6/x0Nei2v/sUx/eoXRlw4=";
-              repo = "keepassxc";
-              
-          };
-
-          cmakeFlags = old.cmakeFlags ++ [
-            "-DWITH_XC_ALL=ON"
-          ];
-
-          buildInputs = old.buildInputs ++ [keyutils];
-      })) # Remote sync to upload/download files to nextcloud
+    keepassxc
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

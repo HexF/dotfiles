@@ -14,8 +14,6 @@ in {
     ../modules/backup.nix
     ../modules/uptime-webhook.nix
     ../modules/thobson-nextcloud.nix
-    ../modules/acr122.nix
-    ../modules/waydroid.nix
 
     # ../modules/htb-vpn.nix
 
@@ -109,101 +107,13 @@ in {
   services.xserver = {
     videoDrivers = [ "nvidia" ];
     displayManager.setupCommands = ''
-      ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 NVIDIA-0
-      ${pkgs.xorg.xrandr}/bin/xrandr --auto
-      ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1 --pos 0x1080 \
-        --output HDMI-2 --pos 1920x1080 \
-        --output HDMI-0 --pos 3840x1080 
+    ${pkgs.xorg.xrandr}/bin/xrandr \
+        --output HDMI-1 --pos 0x1080 --mode 1920x1080 \
+        --output HDMI-2 --pos 1920x1080 --mode 1920x1080 \
+        --output HDMI-0 --pos 3840x1080 --mode 1920x1080 \
+        --output DP-1 --pos 3840x0 --mode 1920x1080
     '';
-    # drivers = lib.mkForce [
-    #   {
-    #     name = "nvidia-r1";
-    #     modules = [
-    #       config.hardware.nvidia.package.bin
-    #     ];
-    #     driverName = "nvidia";
-    #     display = true;
-    #     deviceSection = ''
-    #       VendorName     "NVIDIA Corporation"
-    #       BoardName      "NVIDIA GeForce GTX 750 Ti"
-    #       BusID          "PCI:1:0:0"
-    #     '';
-
-    #     screenSection = ''
-    #       Monitor "Monitor-R1"
-    #       Option "metamodes" "GPU-0.HDMI-0: nvidia-auto-select +0+0, GPU-0.DVI-I-1: nvidia-auto-select +1920+0, GPU-1.HDMI-0: nvidia-auto-select +1920+1080"
-    #       Option "SLI" "Off"
-    #       Option "MultiGPU" "Off"
-    #       Option "BaseMosaic" "Off"
-    #     '';
-
-    #   }
-
-    #   {
-    #     name = "nvidia-r2";
-    #     modules = [
-    #       config.hardware.nvidia.package.bin
-    #     ];
-    #     driverName = "nvidia";
-    #     display = true;
-        
-    #     deviceSection = ''
-    #       VendorName     "NVIDIA Corporation"
-    #       BoardName      "NVIDIA GeForce GTX 760"
-    #       BusID          "PCI:6:0:0"
-    #     '';
-
-    #     screenSection = ''
-    #       Monitor "Monitor-R2"
-    #       Option "metamodes" "nvidia-auto-select +1920+1080 {AllowGSYNC=Off}"
-    #       Option "SLI" "Off"
-    #       Option "MultiGPU" "Off"
-    #       Option "BaseMosaic" "off"
-    #     '';
-    #   }
-    # ];
-
     wacom.enable = true;
-
-    xrandrHeads = [
-      { # Top Left
-        output = "DVI-I-1-1";
-        monitorConfig = ''
-          Option "Position" "0 0"
-        '';
-      }
-      { # Top Center
-        output = "HDMI-1-0";
-        monitorConfig = ''
-          Option "Position" "1920 0"
-        '';
-      }
-      { # Top Right
-        output = "DVI-D-1-0";
-        monitorConfig = ''
-          Option "Position" "3840 0"
-        '';
-      }     
-      { # Bottom Left
-        output = "HDMI-1";
-        monitorConfig = ''
-          Option "Position" "0 1080"
-        '';
-      }
-      { # Bottom Center
-        output = "HDMI-2";
-        primary = true;
-        monitorConfig = ''
-          Option "Position" "1920 1080"
-        '';
-      }
-      { # Bottom Right 
-        output = "HDMI-0";
-        monitorConfig = ''
-          Option "Position" "3840 1080"
-        '';
-      }     
-    ];
 
     serverLayoutSection = ''
     Option "Xinerama" "0"
@@ -217,11 +127,6 @@ in {
   };
 
   # services.pcscd.enable = true;
-
-  services.logind.extraConfig = ''
-    # don’t shutdown when power button is short-pressed
-    HandlePowerKey=suspend-then-hibernate
-  '';
 
   systemd.sleep.extraConfig = ''
     HibernateDelaySec=30m
@@ -248,7 +153,6 @@ in {
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     wget
-    texlive.combined.scheme-full
     docker-compose
     piper
     glibc
@@ -264,22 +168,7 @@ in {
 # #        mkdir -p $out/bin/ETC/JFlash
 #         cp ETC -r $out/bin/
 #       '';
-#     }))
-  _1password-gui
-
-  (stdenv.mkDerivation rec {
-    name = "onepassword-polkit";
-
-    src = ./onepwpolicy.xml;
-
-    unpackPhase = "true";
-
-    installPhase = ''
-      mkdir -p $out/share/polkit-1/actions/
-      cp $src $out/share/polkit-1/actions/com.1password.1Password.policy
-    '';
-  })
-    
+#     }))  
   ];
 
   virtualisation.docker = {
@@ -292,7 +181,8 @@ in {
     extraOptions = "--insecure-registry 100.108.118.134:5000";
   };
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  hardware.nvidia.open = true;
   hardware.nvidia.modesetting.enable = true;
   
   networking.firewall.allowedTCPPorts = [ 3000 3001 2759 443 80 ]; # React dev server
@@ -324,4 +214,5 @@ in {
   # };
 
 }
+
 

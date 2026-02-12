@@ -11,7 +11,7 @@
   boot.initrd.availableKernelModules = [ "xhci_pci" "ehci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.supportedFilesystems = [ "zfs" ];
   
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-amd" ];
   #boot.extraModulePackages = [ pkgs.linuxPackages.v4l2loopback ];
   boot.supportedFilesystems = [ "zfs" ];
 
@@ -23,7 +23,7 @@
   boot.kernelParams = [ "nohibernate" ]; # ZFS doesn't support hibernation - can lead to FS corruption
   # https://github.com/openzfs/zfs/issues/260
 
-  hardware.cpu.intel.updateMicrocode = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   fileSystems."/" = {
     device = "rpool/root/nixos";

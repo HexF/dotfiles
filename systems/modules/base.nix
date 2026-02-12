@@ -12,7 +12,7 @@
   };
 
   nix = { 
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     settings = {
       trusted-public-keys = [
         "binarycache.hexf.me:q/9RfEEQCO+/cbCNZ47hcAwoHyZ14v0N6FFwN5UZFzk="
