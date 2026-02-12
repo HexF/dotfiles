@@ -419,6 +419,7 @@ in {
 
                     postPatch = ''
                         sed -i 's/ruff/ruff check/g' Makefile
+                        sed -i '/pylint/d' Makefile
                     '';
 
                     src = pkgs.fetchFromGitHub {
