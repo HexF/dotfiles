@@ -156,6 +156,8 @@ in {
     services.nextcloud = {
         enable = true;
         package = pkgs.nextcloudpkgs.nextcloud28;
+        phpPackage = pkgs.php82;
+
         hostName = "localhost";
         https = true;
         config = {
