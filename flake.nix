@@ -27,7 +27,10 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
   outputs = { ... } @ args: import ./outputs.nix args;
 }
