@@ -4,7 +4,7 @@
 let 
   atm10_serverfiles = pkgs.fetchzip {
     url = "https://mediafilez.forgecdn.net/files/7558/613/ServerFiles-5.5.zip";
-    sha512 = "sha512-BwnDRyiCEskca9GEq+loVqaN1R42upVrcket+jQE+DLj8ybTwmSoHi50tCG9hnlW06cGiL1VAM+HfrhGRsuP7Q==";
+    sha512 = "sha512-j8Ai5mdQk6BQumpfhPKcVmk3sTg3dvcRM7K9ck5oIbMRymyo+JeZZ0qnagr4nuy/ILW4PEU7TGEqCaoZWs7u8w==";
     stripRoot = false;
   };
 in
