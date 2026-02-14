@@ -2,7 +2,7 @@
 
 
 let 
-  atm10_serverfiles = pkgs.fetchurl {
+  atm10_serverfiles = pkgs.fetchzip {
     url = "https://mediafilez.forgecdn.net/files/7558/613/ServerFiles-5.5.zip";
     sha512 = "sha512-BwnDRyiCEskca9GEq+loVqaN1R42upVrcket+jQE+DLj8ybTwmSoHi50tCG9hnlW06cGiL1VAM+HfrhGRsuP7Q==";
   };
