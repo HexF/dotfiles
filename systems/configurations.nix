@@ -8,7 +8,8 @@
     home-manager,
     napalm,
     lanzaboote,
-    devenv
+    devenv,
+    nix-minecraft
 } @ inputs:
 
 let
@@ -40,8 +41,10 @@ let
                     devenv = devenv.packages."${prev.system}".devenv;
                 })
                 napalm.overlays.default
+                nix-minecraft.overlay
             ];
         }
+        nix-minecraft.nixosModules.minecraft-servers
     ];
     
     userModules = (systemName: [

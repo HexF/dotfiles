@@ -14,6 +14,8 @@
     lanzaboote,
     devenv,
 
+    nix-minecraft
+
    
 }: (
     flake-utils.lib.eachDefaultSystem (system: 
@@ -47,6 +49,7 @@
             napalm
             devenv
             lanzaboote
+            nix-minecraft
             ;
     };
 

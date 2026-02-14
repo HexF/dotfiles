@@ -26,6 +26,8 @@
     };
 
     flake-utils.url = "github:numtide/flake-utils";
+
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
   outputs = { ... } @ args: import ./outputs.nix args;
 }

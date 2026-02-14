@@ -12,6 +12,7 @@ in {
         ../modules/tailscale-expose.nix
 
         ../modules/norgb.nix
+        ../modules/mc-server.nix
 
         ./hardware-configuration.nix
     ];
