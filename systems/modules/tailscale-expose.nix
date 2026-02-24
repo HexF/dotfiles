@@ -67,6 +67,7 @@ in {
       ];
 
       serviceConfig.ExecStart = "${pcfg.package}/bin/tailscaled --tun userspace-networking --statedir '${cfg.dataDir}/${name}' --socket '${cfg.dataDir}/${name}/tailscale.sock'";
+      serviceConfig.Restart = "always";
     })) cfg.services) // (mapAttrs' (name: cfg': nameValuePair ("tailscale_expose_setup@${name}") (let
       tailscale = "${pcfg.package}/bin/tailscale --socket '${cfg.dataDir}/${name}/tailscale.sock'";
     in {
