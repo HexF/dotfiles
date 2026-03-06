@@ -287,7 +287,7 @@ in {
             };
 
             kimai = {
-                httpsRoutes = {"/" = "http://kimai.localhost:90123"; };
+                httpsRoutes = {"/" = "http://kimai.localhost:9123"; };
             };
         };
     };
@@ -447,7 +447,7 @@ in {
         settings = {};
     };
 
-    services.nginx.virtualHosts."kimai.localhost".listen = [{port = 90123; addr="127.0.0.1";}];
+    services.nginx.virtualHosts."kimai.localhost".listen = [{port = 9123; addr="127.0.0.1";}];
 
     services.postgresql = {
         enable = true;
