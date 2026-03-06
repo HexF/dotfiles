@@ -286,28 +286,11 @@ in {
                 funnel = true;
             };
 
-            # firefox-sync = {
-            #     httpsRoutes = {"/" = "http://localhost:${toString config.services.firefox-syncserver.settings.port}"; };
-            #     funnel = false; # require tailscale connection for sync
-            # };
+            kimai = {
+                httpsRoutes = {"/" = "http://kimai.localhost"; };
+            };
         };
     };
-
-    # firefox-syncserver
-    services.firefox-syncserver = {
-        enable = false;
-        logLevel = "info";
-        database.createLocally = true;
-        settings.tokenserver.enabled = true;
-
-        singleNode = {
-            enable = true;
-            capacity = 1;
-            hostname = "firefox-sync";
-            url = "https://firefox-sync.fluffy-mercat.ts.net";
-        };
-    };
-
 
     services.media-server = {
         enable = true;
@@ -457,6 +440,11 @@ in {
                 }
             )
         ];
+    };
+
+    # Kimai
+    services.kimai.sites."kimai.localhost" = {
+        settings = {};
     };
 
     services.postgresql = {
