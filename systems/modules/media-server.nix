@@ -320,7 +320,7 @@ in {
             serviceConfig = {
                 Type = "oneshot";
                 User = cfg.user;
-                ExecStart = "${pkgs.rclone}/bin/rclone --config /var/lib/media/rclone.conf copy 'ftp1:/torrents' /var/lib/media/remote/torrents/ -v -P --transfers 8";
+                ExecStart = "${pkgs.rclone}/bin/rclone --config /var/lib/media/rclone.conf sync 'ftp1:/torrents' /var/lib/media/remote/torrents/ -v -P --transfers 8";
             };
         };
 
