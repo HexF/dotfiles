@@ -186,7 +186,7 @@ in {
             # };
 
             qui = {
-                httpsroutes = {"/" = "http://localhost:7476"; };
+                httpsRoutes = {"/" = "http://localhost:7476"; };
             };
         };
     };
