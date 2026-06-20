@@ -184,6 +184,10 @@ in {
             # seafile = {
             #     httpsRoutes = {"/" = "http://seafile.localhost:8353"; };
             # };
+
+            qui = {
+                httpsroutes = {"/" = "http://localhost:7476"; };
+            };
         };
     };
 

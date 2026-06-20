@@ -333,6 +333,23 @@ in {
                 Unit = "rclone-seedbox-sync.service";
             };
         };
+
+
+        # qui - qBitTorrent web ui
+        services.qui = {
+            enable = true;
+            user = cfg.user;
+            group = cfg.group;
+
+            secretFile = "/var/lib/media/qui-session.secret";
+
+            # We should already be authed over tailscale
+            settings = {
+                dataDir = "/var/lib/media/qui/";
+                authDisabled = true;
+                I_ACKNOWLEDGE_THIS_IS_A_BAD_IDEA = true;
+            };
+        };
     };
 
 
