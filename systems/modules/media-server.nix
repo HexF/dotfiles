@@ -312,6 +312,27 @@ in {
         users.groups = mkIf (cfg.group == "media") {
             media = {};
         };
+
+
+        # rclone sync with seedbox
+        systemd.services.rclone-seedbox-sync = {
+            description = "Sync torrent files to seedbox using rclone";
+            serviceConfig = {
+                Type = "oneshot";
+                User = cfg.user;
+                ExecStart = "${pkgs.rclone}/bin/rclone --config /var/lib/media/rclone.conf copy 'ftp1:/torrents' /var/lib/media/remote/torrents/ -v -P --transfers 8";
+            };
+        };
+
+        systemd.timers.rclone-seedbox-sync = {
+            description = "Run Rclone sync every 5 minutes";
+            wantedBy = [ "timers.target" ];
+            timerConfig = {
+                OnBootSec = "5m";
+                OnUnitActiveSec = "5m";
+                Unit = "rclone-seedbox-sync.service";
+            };
+        };
     };
 
 
