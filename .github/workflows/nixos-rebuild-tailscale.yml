@@ -19,6 +19,6 @@ jobs:
 
       - name: NixOS Rebuild
         run: |
-          tailscale ssh root@${{ matrix.tailscale_target }} nixos-rebuild switch --flake github:hexf/dotfiles/${{ github.sha }}#${{ matrix.tailscale_target }}
+          tailscale ssh root@${{ matrix.tailscale_target }} nixos-rebuild switch --flake github:hexf/dotfiles/${{ github.sha }}#${{ matrix.tailscale_target }} --no-write-lock-file
           
           
