@@ -456,6 +456,16 @@ in {
             name = "hass";
             ensureDBOwnership = true;
         }];
+
+        settings = {
+            shared_buffers = "8GB";
+            effective_cache_size = "24GB";
+            work_mem = "64MB";
+            maintenance_work_mem = "1GB";
+            checkpoint_completion_target = "0.9";
+            max_wal_size = "8GB";
+            min_wal_size = "2GB";
+        };
     };
 
 
