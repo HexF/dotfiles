@@ -34,7 +34,6 @@ in
     unstable.tidal-hifi
     thunderbird
     discord
-    master.neofetch
     pavucontrol
     nmap
     xfce.thunar
