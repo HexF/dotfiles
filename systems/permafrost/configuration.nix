@@ -1,6 +1,5 @@
 { config, pkgs, lib, ... }: let
     tailnet = "fluffy-mercat.ts.net";
-    akahu-firefly = (pkgs.callPackage ../../packages/akahu-firefly {});
 in {
 
     imports = [
@@ -53,42 +52,6 @@ in {
             sopsFile = ./secrets/backup.yaml;
         };
 
-        firefly_restic_password = {
-            key = "firefly_restic_password";
-            mode = "0400";
-
-            owner = config.services.firefly-iii.user;
-
-            sopsFile = ./secrets/backup.yaml;
-        };
-
-        firefly_restic_env = {
-            key = "firefly_restic_env";
-            mode = "0400";
-
-            owner = config.services.firefly-iii.user;
-
-            sopsFile = ./secrets/backup.yaml;
-        };
-        
-        firefly_appkey = {
-            key = "app_key";
-            mode = "0400";
-
-            owner = config.services.firefly-iii.user;
-
-            sopsFile = ./secrets/firefly.yaml;
-        };
-
-        "firefly_akahu_config.json" = {
-            key = "akahu_link_config";
-            mode = "0400";
-
-            owner = config.services.firefly-iii.user;
-
-            sopsFile = ./secrets/firefly.yaml;
-        };
-
         firefox-sync-environment-file = {
             key = "environment_file";
             mode = "0400";
@@ -128,30 +91,6 @@ in {
                 Persistent = true;
             };
         };
-
-        firefly = {
-            paths = [
-                "/var/lib/firefly-iii"
-            ];
-
-            initialize = true;
-
-            passwordFile = config.sops.secrets.firefly_restic_password.path;
-            environmentFile = config.sops.secrets.firefly_restic_env.path;
-
-            repository = "b2:hexf-b2-backups:firefly";
-
-            backupPrepareCommand = ''
-                ${config.services.mysql.package}/bin/mysqldump ${config.services.firefly-iii.settings.DB_DATABASE} > /var/lib/firefly-iii/firefly.sql
-            '';
-
-            user = config.services.firefly-iii.user;
-            
-            timerConfig = {
-                OnCalendar = "05:00"; # every day at 5am
-                Persistent = true;
-            };
-        };
     };
 
     services.nextcloud = {
@@ -182,13 +121,16 @@ in {
 
     # services.seafile = {
     #     enable = true;
-    #     seafileSettings = {
-    #         fileserver.host = "0.0.0.0";
-    #     };
+        
+        
     #     adminEmail = "thomas@hexf.me";
     #     initialAdminPassword = "hexf1234";
+
     #     ccnetSettings = {
     #         General.SERVICE_URL = "https://seafile.${tailnet}";
+    #     };
+    #     seafileSettings = {
+    #         fileserver.host = "127.0.0.1:8353";
     #     };
     # };
 
@@ -196,60 +138,7 @@ in {
     # accept to nextcloud on 8001
     services.nginx.virtualHosts.${config.services.nextcloud.hostName}.listen = [{port = 8001; addr="127.0.0.1";}];
 
-    # we need bleeding-edge tailscale for
-    # https://github.com/tailscale/tailscale/commit/dc1d8826a2a16deda51ce20ef12bb31e1421bb97
-    # so firefly wont commit CSP violation
-    services.tailscale.package = pkgs.unstable.tailscale;
 
-    services.firefly-iii = {
-        enable = true;
-        group = "nginx";
-
-        settings = {
-            APP_URL = "https://firefly.${tailnet}";
-            APP_KEY_FILE = config.sops.secrets.firefly_appkey.path;
-            USE_PROXIES = "127.0.0.1";
-            TRUSTED_PROXIES = "**";
-            TZ = "Pacific/Auckland";
-            DB_CONNECTION = "mysql";  
-            DB_DATABASE = "firefly";
-            DB_USERNAME = config.services.firefly-iii.user;
-        };
-
-        virtualHost = "firefly.${tailnet}";
-        enableNginx = true;
-    };
-
-    services.nginx.virtualHosts.${config.services.firefly-iii.virtualHost}.listen = [{port = 8002; addr="127.0.0.1";}];
-
-    services.mysql = {
-      enable = true;
-      package = pkgs.mariadb;
-      ensureDatabases = [ "${config.services.firefly-iii.settings.DB_DATABASE}" ];
-      ensureUsers = [
-        {
-          name = config.services.firefly-iii.user;
-          ensurePermissions = { "${config.services.firefly-iii.settings.DB_DATABASE}.*" = "ALL PRIVILEGES"; };
-        }
-      ];
-    };
-
-    # akahu-firefly link
-    systemd.services.akahu-firefly = {
-      serviceConfig.Type = "oneshot";
-      script = ''
-        ${pkgs.nodejs}/bin/node ${akahu-firefly}/lib/node_modules/akahu-firefly ${config.sops.secrets."firefly_akahu_config.json".path}
-      '';
-    };
-
-    # systemd.timers.akahu-firefly = {
-    #     wantedBy = ["timers.target"];
-    #     partOf = ["akahu-firefly.service"];
-    #     timerConfig = {
-    #         OnCalendar = "*:*:0";
-    #         Unit = "akahu-firefly.service";
-    #     };
-    # };
 
     services.tailscale.expose = {
         enable = true;
@@ -289,6 +178,10 @@ in {
             kimai = {
                 httpsRoutes = {"/" = "http://kimai.localhost:9123"; };
             };
+
+            # seafile = {
+            #     httpsRoutes = {"/" = "http://seafile.localhost:8353"; };
+            # };
         };
     };
 
