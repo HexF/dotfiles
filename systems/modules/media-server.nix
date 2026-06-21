@@ -368,6 +368,7 @@ in {
 
         # tdarr!
         services.tdarr = {
+            package = pkgs.unstable.tdarr;
             user = cfg.user;
             group = cfg.group;
             dataDir = "/var/lib/media/tdarr";
