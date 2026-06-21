@@ -191,6 +191,8 @@ in {
         };
     };
 
+    services.tailscale.package = pkgs.unstable.tailscale;
+    
     services.media-server = {
         enable = true;
         jellyfin.enable = true;
