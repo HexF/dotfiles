@@ -350,6 +350,14 @@ in {
                 I_ACKNOWLEDGE_THIS_IS_A_BAD_IDEA = true;
             };
         };
+
+
+        services.qbittorrent = {
+            enable = true;
+            user = cfg.user;
+            group = cfg.group;
+            webuiPort = 9346;
+        };
     };
 
 

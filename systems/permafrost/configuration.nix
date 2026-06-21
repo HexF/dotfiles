@@ -206,18 +206,6 @@ in {
         vhostSuffix = ".pf.hexf.me";
     };    
 
-    services.deluge = {
-        enable = true;
-
-        user = config.services.media-server.user;
-        group = config.services.media-server.group;
-
-        web = {
-            enable = true;
-            openFirewall = true;
-        };
-    };
-
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
 
     # make it more desktopy
