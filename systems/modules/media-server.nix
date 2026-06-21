@@ -8,6 +8,9 @@ let
         auth_pam_service_name "nginx_media";
     '';
 in {
+    imports =  [
+        ./tdarr # stolen from 26.05 upstream
+    ];
     options = {
         services.media-server = {
             enable = mkOption {
