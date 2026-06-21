@@ -338,6 +338,7 @@ in {
         # qui - qBitTorrent web ui
         services.qui = {
             enable = true;
+            package = pkgs.unstable.qui;
             user = cfg.user;
             group = cfg.group;
 
