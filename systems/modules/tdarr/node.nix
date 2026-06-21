@@ -220,20 +220,20 @@ in
           WorkingDirectory = toString nodeCfg.dataDir;
 
           # Hardening
-          NoNewPrivileges = true;
-          PrivateTmp = true;
-          ProtectSystem = "strict";
-          ProtectHome = true;
-          StateDirectory = lib.mkIf (lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) (
-            let
-              rel = lib.removePrefix "/var/lib/" (toString nodeCfg.dataDir);
-            in
-            "${rel} ${rel}/configs ${rel}/logs"
-          );
-          StateDirectoryMode = lib.mkIf (lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) "0750";
-          ReadWritePaths = lib.optionals (!lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) [
-            (toString nodeCfg.dataDir)
-          ];
+          # NoNewPrivileges = true;
+          # PrivateTmp = true;
+          # ProtectSystem = "strict";
+          # ProtectHome = true;
+          # StateDirectory = lib.mkIf (lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) (
+          #   let
+          #     rel = lib.removePrefix "/var/lib/" (toString nodeCfg.dataDir);
+          #   in
+          #   "${rel} ${rel}/configs ${rel}/logs"
+          # );
+          # StateDirectoryMode = lib.mkIf (lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) "0750";
+          # ReadWritePaths = lib.optionals (!lib.hasPrefix "/var/lib/" (toString nodeCfg.dataDir)) [
+          #   (toString nodeCfg.dataDir)
+          # ];
         }
         // lib.optionalAttrs (nodeCfg.environmentFile != null) {
           EnvironmentFile = nodeCfg.environmentFile;
