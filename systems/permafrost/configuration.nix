@@ -190,7 +190,7 @@ in {
             };
 
             tdarr = {
-                httpsRoutes = {"/" = "http://localhost:7476"; };
+                httpsRoutes = {"/" = "http://localhost:${toString config.services.tdarr.server.webUIPort}"; };
             };
         };
     };
