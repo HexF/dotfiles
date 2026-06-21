@@ -60,6 +60,5 @@ in
 
   meta = {
     maintainers = with lib.maintainers; [ mistyttm ];
-    doc = ./tdarr.md;
   };
 }
