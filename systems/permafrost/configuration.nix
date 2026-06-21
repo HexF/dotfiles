@@ -188,11 +188,15 @@ in {
             qui = {
                 httpsRoutes = {"/" = "http://localhost:7476"; };
             };
+
+            tdarr = {
+                httpsRoutes = {"/" = "http://localhost:7476"; };
+            };
         };
     };
 
     services.tailscale.package = pkgs.unstable.tailscale;
-    
+
     services.media-server = {
         enable = true;
         jellyfin.enable = true;

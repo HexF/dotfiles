@@ -362,6 +362,25 @@ in {
             group = cfg.group;
             webuiPort = 9346;
         };
+
+        # tdarr!
+        services.tdarr = {
+            user = cfg.user;
+            group = cfg.group;
+            dataDir = "/var/lib/media/tdarr";
+            
+            server = {
+                enable = true;
+                webUIPort = 8265;
+            };
+
+            nodes = {
+                gpu1 = {
+                    workers.transcodeCPU = 0;
+                    workers.transcodeGPU = 2;
+                };
+            };
+        };
     };
 
 
