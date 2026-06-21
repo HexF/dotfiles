@@ -373,13 +373,6 @@ in {
                 enable = true;
                 webUIPort = 8265;
             };
-
-            nodes = {
-                gpu1 = {
-                    workers.transcodeCPU = 0;
-                    workers.transcodeGPU = 2;
-                };
-            };
         };
     };
 

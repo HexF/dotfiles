@@ -212,6 +212,11 @@ in {
         vhostSuffix = ".pf.hexf.me";
     };    
 
+    services.tdarr.nodes.gpu1 = {
+        workers.transcodeCPU = 0;
+        workers.transcodeGPU = 2;
+    };
+
     networking.firewall.allowedTCPPorts = [ 3000 80 ];
 
     # make it more desktopy
