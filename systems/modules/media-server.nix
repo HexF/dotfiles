@@ -349,6 +349,9 @@ in {
                 dataDir = "/var/lib/media/qui/";
                 authDisabled = true;
                 I_ACKNOWLEDGE_THIS_IS_A_BAD_IDEA = true;
+                authDisabledAllowedCIDRs = [
+                    "0.0.0.0/0"
+                ];
             };
         };
 
