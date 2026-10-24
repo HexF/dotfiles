@@ -7,7 +7,7 @@
   ];
 
   home.packages = with pkgs; builtins.filter (x: x != null) [
-    unstable.kicad
+    # unstable.kicad
     prismlauncher
     jdk
     imhex

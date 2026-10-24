@@ -127,10 +127,9 @@ in {
 
   # services.pcscd.enable = true;
 
-  systemd.sleep.extraConfig = ''
-    HibernateDelaySec=30m
-  '';
-
+  systemd.sleep.settings.Sleep = {
+    HibernateDelaySec = "30m";
+  };
 
   services.borgbackup.jobs = {
     snowflake-home-thobson = mkBackup "snowflake-home-thobson" "/home/thobson" [
@@ -143,8 +142,6 @@ in {
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.plugdev = {};
   users.users.thobson.extraGroups = [ "docker" "plugdev" "dialout" "adbusers" ]; 
-
-  programs.adb.enable = true;
 
   programs.steam.enable = true;
 
