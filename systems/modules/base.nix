@@ -51,7 +51,7 @@
   users.mutableUsers = true;
   users.users.thobson = {
     isNormalUser = true;
-    extraGroups = [ "sudoers" "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "sudoers" "wheel" "render" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.zsh;
   };
 
