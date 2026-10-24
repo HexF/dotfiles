@@ -85,8 +85,7 @@ in {
   networking.hostId = "fdab470e";
   
   boot.kernelParams = [
-    "intel_pstate=active"
-    "i915.enable_ips=0"
+    "amd_pstate=guided"
   ];
 
   boot.extraModprobeConfig = ''
