@@ -364,17 +364,17 @@ in {
         };
 
         # tdarr!
-        services.tdarr = {
-            package = pkgs.tdarr;
-            user = cfg.user;
-            group = cfg.group;
-            dataDir = "/var/lib/media/tdarr";
+        # services.tdarr = {
+        #     package = pkgs.tdarr;
+        #     user = cfg.user;
+        #     group = cfg.group;
+        #     dataDir = "/var/lib/media/tdarr";
             
-            server = {
-                enable = true;
-                webUIPort = 8265;
-            };
-        };
+        #     server = {
+        #         enable = true;
+        #         webUIPort = 8265;
+        #     };
+        # };
     };
 
 
