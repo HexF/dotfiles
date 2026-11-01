@@ -367,4 +367,43 @@ in {
     };
 
 
+    users.groups.timemachine = {};
+    users.users.timemachine.group = "timemachine";
+    users.users.timemachine.isSystemUser = true;
+
+    services.samba = {
+        enable = true;
+        enableNmbd = false;
+        settings.global = {
+                "valid users" = "timemachine";
+
+                "fruit:aapl" = "yes";
+                "fruit:model" = "MacSamba";
+                "fruit:copyfile" = "yes";
+        };
+        shares = {
+            "Time Machine" = {
+                path = "/var/lib/timemachine";
+
+                "valid users" = "@timemachine";
+                "guest ok" = "no";
+
+                writeable = "yes";
+                browsable = "yes";
+
+                "fruit:veto_appledouble" = "no";
+                "fruit:posix_rename" = "yes";
+                "fruit:zero_file_id" = "yes";
+                "fruit:wipe_intentionally_left_blank_rfork" = "yes";
+                "fruit:delete_empty_adfiles" = "yes";
+
+                "fruit:time machine" = "yes";
+                "fruit:time machine max size" = "3T";
+
+                "vfs objects" = "catia fruit streams_xattr";
+            };
+        };
+    };
+
+
 }
