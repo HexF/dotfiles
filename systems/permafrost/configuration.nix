@@ -386,7 +386,7 @@ in {
             "Time Machine" = {
                 path = "/var/lib/timemachine";
 
-                "valid users" = "@timemachine";
+                "valid users" = "timemachine";
                 "guest ok" = "no";
 
                 writeable = "yes";
