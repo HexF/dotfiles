@@ -381,11 +381,13 @@ in {
                 "fruit:aapl" = "yes";
                 "fruit:model" = "MacSamba";
                 "fruit:copyfile" = "yes";
+
+                "log level" = "3 auth:5";
         };
         shares = {
             "TimeMachine" = {
                 path = "/var/lib/timemachine";
-
+        
                 "valid users" = "timemachine";
                 "guest ok" = "no";
 
