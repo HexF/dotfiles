@@ -383,7 +383,7 @@ in {
                 "fruit:copyfile" = "yes";
         };
         shares = {
-            "Time Machine" = {
+            "TimeMachine" = {
                 path = "/var/lib/timemachine";
 
                 "valid users" = "timemachine";
@@ -435,10 +435,7 @@ in {
                 </service>
                 <service>
                 <type>_adisk._tcp</type>
-                <!-- 
-                    change tm_share to share name, if you changed it. 
-                --> 
-                <txt-record>dk0=adVN=Time Machine,adVF=0x82</txt-record>
+                <txt-record>dk0=adVN=TimeMachine,adVF=0x82</txt-record>
                 <txt-record>sys=waMa=0,adVF=0x100</txt-record>
                 </service>
             </service-group>
