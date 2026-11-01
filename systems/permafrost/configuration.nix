@@ -378,11 +378,12 @@ in {
         settings.global = {
                 "min protocol" = "SMB2_10";
                 "max protocol" = "SMB3";
-                
+
                 "valid users" = "timemachine";
 
                 "fruit:aapl" = "yes";
                 "fruit:model" = "MacSamba";
+                "fruit:metadata" = "stream";
                 "fruit:copyfile" = "yes";
 
                 "log level" = "10";
