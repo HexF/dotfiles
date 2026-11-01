@@ -376,6 +376,9 @@ in {
         openFirewall = true;
         enableNmbd = false;
         settings.global = {
+                "min protocol" = "SMB2_10";
+                "max protocol" = "SMB3";
+                
                 "valid users" = "timemachine";
 
                 "fruit:aapl" = "yes";
@@ -389,6 +392,7 @@ in {
                 path = "/var/lib/timemachine";
         
                 "valid users" = "timemachine";
+                "force user" = "timemachine";
                 "guest ok" = "no";
 
                 writeable = "yes";
