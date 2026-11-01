@@ -382,7 +382,7 @@ in {
                 "fruit:model" = "MacSamba";
                 "fruit:copyfile" = "yes";
 
-                "log level" = "3 auth:5";
+                "log level" = "10";
         };
         shares = {
             "TimeMachine" = {
