@@ -68,6 +68,11 @@
     fsType = "zfs";
   };
 
+  fileSystems."/var/lib/timemachine" = {
+    device = "spool/timemachine";
+    fsType = "zfs";
+  };
+
 
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/F43C-5B13";

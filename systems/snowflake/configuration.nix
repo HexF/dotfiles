@@ -86,11 +86,14 @@ in {
   
   boot.kernelParams = [
     "amd_pstate=guided"
+    "nvidia-drm.modeset=1"
   ];
 
   boot.extraModprobeConfig = ''
     options nvidia NVreg_RegistryDwords=RMUseSwI2c=0x01;RMI2cSpeed=100
   '';
+
+  nixpkgs.config.cudaSupport = true;
   
   # boot.initrd.compressor = "cat";
   boot.initrd.kernelModules = config.boot.kernelModules;
